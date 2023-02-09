@@ -1,13 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignInPage from "./Pages/Authentication/SignIn/SignIn";
-import RegisterPage from "./Pages/Authentication/Register/Register";
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import SignInPage from "./Pages/Authentication/SignInPage/SignInPage";
+import RegisterPage from "./Pages/Authentication/RegisterPage/RegisterPage";
+import "./GlobalStyling/main.css";
 
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import HomePage from "./Pages/Authentication/HomePage/HomePage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -25,6 +27,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
@@ -32,3 +37,13 @@ function App() {
   );
 }
 export default App;
+
+function RequireAuth() {
+  const auth = getAuth();
+  let location = useLocation();
+
+  if (!auth.currentUser) {
+    return <Navigate to="/signIn" state={{ from: location }} />;
+  }
+  return <Outlet />;
+}

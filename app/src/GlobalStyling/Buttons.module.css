@@ -1,0 +1,12 @@
+
+
+.mainButton {
+    background-color: var(--yellow);
+    border: none;
+    padding: 20px 30px;
+    cursor: pointer;
+}
+
+.mainButton:hover {
+    background-color: var(--orange);
+}
