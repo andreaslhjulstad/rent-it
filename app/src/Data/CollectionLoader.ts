@@ -1,5 +1,6 @@
-import firebase from "firebase/compat/app";
-import { FirebaseData, FirebaseRealtimeLister } from "./FirebaseData";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../App";
+import { FirebaseData } from "./FirebaseData";
 
 interface NoParamConstructor<T extends FirebaseData> {
   new (id: string, collection: string, parent: FirebaseData | undefined): T;
@@ -31,33 +32,18 @@ export default class CollectionLoader<T extends FirebaseData> {
     this.parent = parent;
   }
 
-  load(): Promise<T[]> {
-    const path = "path"; // TODO
-
-    this.loading = true;
-    return firebase
-      .firestore()
-      .collection(path)
-      .get()
-      .then((snapshot) => {
-        this.documents = [];
-        return this.documents;
-      })
-      .catch((error) => {
-        console.log("Error loading documents from " + path);
-        console.log(error.message);
-        throw error;
-      })
-      .finally(() => {
-        this.loaded = true;
-        this.loading = false;
-
-        for (const listener of this.loadedListeners) {
-          listener.callback(this.documents);
-        }
-
-        this.loadedListeners = [];
-        return this.documents;
-      });
+  createNewDocument(id: string, value: object) {
+    return new Promise<undefined>((resolve, reject) => {
+      // Add a new document in collection "cities"
+      console.log(this.collection);
+      console.log(id);
+      setDoc(doc(db, this.collection, id), value)
+        .then(() => {
+          resolve(undefined);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 }
