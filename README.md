@@ -1,92 +1,32 @@
-# Utlån av verktøy og redskaper
+# Format for issues, commits, branches og merge requests
 
+### Issues
 
+Hver issue som er knyttet til en brukerhistorie skal være på formatet "[Overskrift] ([brukerhistorie-id], [antall forventede timer])".  
+Dersom brukerhistorien ikke enda har fått tilordnet et forventet antall timer kan dette sløyfes og legges på senere.    
+Hver issue skal være tilordnet en prioritets-label som forteller om den er kritisk, høy, middels eller lav prioritet.  
+I tillegg skal hver issue ha en tilordnet status-label som forteller om statusen er åpen, påbegynt, på vent, trenger gjennomgang ("needs review") eller lukket.  
+Hver issue skal også ha en type-label som forteller om den omhandler dokumentasjon eller testing, eller om den er en feature eller en bug.  
 
-## Getting started
+Dersom det trengs kan en brukerhistorie også ha en beskrivelse som gir mer utdypende informasjon om hva issuen innebærer,  
+som f.eks. hvilke oppgaver som må gjøres før issuen regnes som ferdigstilt.  
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Commits
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Hver commit skal ha en tittel som beskriver hva som er gjort på imperativ form, eks. "Fix UI bug", "Add documentation for user story 1" eller "Update README.md".  
+Hvis det trengs kan man også velge å legge inn en mer utfyllende beskrivelse som forteller hva som har blitt gjort i commiten i nærmere detalj.  
+Dersom en commit omhandler en issue skal den ha et felt i footeren hvor det står "Relates: #[nummer på issue].  
+Dersom en commit fikser en bug skal den ha et felt i footeren hvor det står "Fixes: #[nummer på bug-issue].  
+Hvis commiten er gjort med par-programmering skal den ha et felt for å referere til den andre personen som har deltatt i commiten,  
+på formatet "Co-Authored-By: [fullt navn] <[e-post-adresse]>"  
 
-## Add your files
+### Branches
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Dersom en branch omhandler en issue skal den ha navn på formen "[nummer på issue]-[branchnavn]".  
+Navnet på branchen skal være så beskrivende som mulig, men kortfattet. Dersom branchnavnet består av flere ord, skal space byttes ut med bindestrek.  
 
-```
-cd existing_repo
-git remote add origin https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-3/gruppe-54/utlan-av-verktoy-og-redskaper.git
-git branch -M main
-git push -uf origin main
-```
+### Merge requests
 
-## Integrate with your tools
+Vi bruker automatiserte merge requests fra GitLab, som opprettes ved å bruke "New Merge Request"-funksjonen.  
 
-- [ ] [Set up project integrations](https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-3/gruppe-54/utlan-av-verktoy-og-redskaper/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+**NB! Ingenting av dette er endelig, og kan endres ila. utviklingsperioden dersom det blir behov.**  
