@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../App";
 import { FirebaseData } from "./FirebaseData";
 
@@ -34,7 +34,6 @@ export default class CollectionLoader<T extends FirebaseData> {
 
   createNewDocument(id: string, value: object) {
     return new Promise<undefined>((resolve, reject) => {
-      // Add a new document in collection "cities"
       console.log(this.collection);
       console.log(id);
       setDoc(doc(db, this.collection, id), value)
