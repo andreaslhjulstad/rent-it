@@ -45,4 +45,17 @@ export default class CollectionLoader<T extends FirebaseData> {
         });
     });
   }
+
+  createNewDocumentWithoutId(value: object) {
+    return new Promise<undefined>((resolve, reject) => {
+      console.log(this.collection);
+      addDoc(collection(db, this.collection), value)
+        .then(() => {
+          resolve(undefined);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 }
