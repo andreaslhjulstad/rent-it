@@ -1,0 +1,39 @@
+#createAdPage {
+  background-color: var(--yellow);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.required {
+  color: red;
+}
+
+.createAdContent {
+  width: 600px;
+  max-width: 100%;
+  padding: 40px;
+  margin: 4vh auto;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.createAdForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.createAdForm>* {
+  margin-top: 10px;
+}
+
+.createAdForm button {
+  margin-top: 40px;
+}
+
+.createAdForm textarea {
+  resize: none;
+  height: 105px;
+}
