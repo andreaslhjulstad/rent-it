@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import "./App.css";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import SignInPage from "./Pages/Authentication/SignInPage/SignInPage";
@@ -9,7 +10,9 @@ import "./GlobalStyling/main.css";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import HomePage from "./Pages/Authentication/HomePage/HomePage";
+import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -29,6 +32,7 @@ function App() {
       <Routes>
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/createAd" element={<CreateAdPage /> } />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />

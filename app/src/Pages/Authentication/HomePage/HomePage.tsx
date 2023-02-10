@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
-  return <div>Du er logget inn:)</div>;
+  return (
+    <div>
+      <p>Du er logget inn:)</p>
+      <Link to="/createAd">Opprett annonse</Link>
+    </div>
+  )
 };
 
 export default HomePage;
