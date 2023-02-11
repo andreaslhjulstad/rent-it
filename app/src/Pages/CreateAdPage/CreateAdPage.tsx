@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CreateAdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytes} from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
+import { updateDoc } from "firebase/firestore";
 
 export const CreateAdPage = () => {
   const navigate = useNavigate();
@@ -35,33 +36,45 @@ export const CreateAdPage = () => {
 
     // Opprett annonse
 
-    const storage = getStorage();
-
-    const imageReferences: string[] = [];
-    // Last opp bilder til storage
-    for (let i = 0; i < images.length; i++) {
-      const path = "images/ads/" + images[i].name;
-      const storageRef = ref(storage, path);
-      uploadBytes(storageRef, images[i])
-        .catch((error) => {
-          alert(error.message);
-        });
-      imageReferences.push(path); // Legg til referanse til bilde i array
-    }
+    // Opprett annonse-objekt
+    const ad = {
+      title: title,
+      description: description,
+      price: price,
+      area: area,
+      userId: getAuth().currentUser!.uid,
+    };
 
     // Opprett annonse-dokument i firebase med automatisk generert id
     LocalData.ads
-      .createNewDocumentWithoutId({
-        title: title,
-        description: description,
-        price: price,
-        imageReferences: imageReferences,
-        area: area,
-        userId: getAuth().currentUser!.uid, // Ettersom bruker må være logget inn for å komme hit, så er det trygt å bruke ! her
-      })
-      .then(() => {
+      .createNewDocumentWithoutId(ad)
+      .then(docRef => {
+        const adRef = docRef;
+        const adId = adRef.id;
+        const storage = getStorage();
+        const imageReferences: string[] = [];
+
+        // Last opp bilder til storage
+        for (let i = 0; i < images.length; i++) {
+          const path = `images/ads/${adId}/${images[i].name}`;
+          const storageRef = ref(storage, path);
+          uploadBytes(storageRef, images[i])
+          .catch((error) => {
+            alert(error.message);
+          });
+
+          // OBS! Skulle gjerne hatt denne i en .then() for uploadBytes, slik at bildet bare
+          // legges til dersom opplastingen er en suksess, men har prøvd flere forskjellige måter,
+          // og har ikke klart å få det til å fungere. Derfor legges bildet til i arrayet uansett.
+          imageReferences.push(path);
+        }
+
+        // Oppdater annonse-dokumentet med bilde-referanser
+        updateDoc(adRef, {
+          images: imageReferences,
+        });
         alert("Annonse opprettet");
-        navigate("/"); // TODO: legg inn redirect til den opprettede annonsen
+        navigate("/"); // TODO: naviger til annonsen som ble opprettet
       })
       .catch((error) => {
         alert(error.message);
