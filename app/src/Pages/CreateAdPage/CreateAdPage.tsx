@@ -52,7 +52,7 @@ export const CreateAdPage = () => {
         const adRef = docRef;
         const adId = adRef.id;
         const storage = getStorage();
-        const imageReferences: string[] = [];
+        const imagePaths: string[] = [];
 
         // Last opp bilder til storage
         for (let i = 0; i < images.length; i++) {
@@ -66,13 +66,15 @@ export const CreateAdPage = () => {
           // OBS! Skulle gjerne hatt denne i en .then() for uploadBytes, slik at bildet bare
           // legges til dersom opplastingen er en suksess, men har prøvd flere forskjellige måter,
           // og har ikke klart å få det til å fungere. Derfor legges bildet til i arrayet uansett.
-          imageReferences.push(path);
+          imagePaths.push(path);
         }
 
-        // Oppdater annonse-dokumentet med bilde-referanser
-        updateDoc(adRef, {
-          images: imageReferences,
-        });
+        // Oppdater annonse-dokumentet med pathene til bildene dersom brukeren har lagt ved bilder
+        if (imagePaths.length > 0) {
+          updateDoc(adRef, {
+            images: imagePaths,
+          });
+        }
         alert("Annonse opprettet");
         navigate("/"); // TODO: naviger til annonsen som ble opprettet
       })
