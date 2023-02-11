@@ -18,8 +18,10 @@ export const CreateAdPage = () => {
   const createAd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (title === "" || description === "" || price === 0) {
-      alert("Alle feltene må fylles ut");
+    // Validering
+
+    if (title === "" || description === "" || price === 0 || area === "") {
+      alert("Alle de obligatoriske feltene må fylles ut");
       return;
     }
     if (price < 0) {
@@ -38,17 +40,13 @@ export const CreateAdPage = () => {
     const imageReferences: string[] = [];
     // Last opp bilder til storage
     for (let i = 0; i < images.length; i++) {
-      const path = "ads/" + images[i].name;
+      const path = "images/ads/" + images[i].name;
       const storageRef = ref(storage, path);
-      uploadBytes(ref(storageRef), images[i])
-        .then(() => {
-          console.log("Uploaded image!");
-        })
+      uploadBytes(storageRef, images[i])
         .catch((error) => {
-          console.log(error.message);
-          return;
+          alert(error.message);
         });
-      imageReferences.push(ref(storage, path).fullPath);
+      imageReferences.push(path); // Legg til referanse til bilde i array
     }
 
     // Opprett annonse-dokument i firebase med automatisk generert id
@@ -63,11 +61,10 @@ export const CreateAdPage = () => {
       })
       .then(() => {
         alert("Annonse opprettet");
-        navigate("/"); // TODO: legg inn link til den opprettede annonsen
+        navigate("/"); // TODO: legg inn redirect til den opprettede annonsen
       })
       .catch((error) => {
         alert(error.message);
-        return;
       });
   };
 
