@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./CreateAdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
@@ -23,13 +22,13 @@ export const CreateAdPage = () => {
       description: description,
       price: price,
       area: area,
-      userId: getAuth().currentUser!.uid,
+      userId: (getAuth().currentUser) ? getAuth().currentUser!.uid : "", // Lagrer bruker-id hvis brukeren er logget inn, ellers tom streng (for testing)
     };
 
     // Opprett annonse-dokument i firebase med automatisk generert id
     LocalData.ads
       .createNewDocumentWithoutId(ad)
-      .then(docRef => {
+      .then((docRef) => {
         const adRef = docRef;
         const adId = adRef.id;
         const storage = getStorage();
@@ -39,8 +38,7 @@ export const CreateAdPage = () => {
         for (let i = 0; i < images.length; i++) {
           const path = `images/ads/${adId}/${images[i].name}`;
           const storageRef = ref(storage, path);
-          uploadBytes(storageRef, images[i])
-          .catch((error) => {
+          uploadBytes(storageRef, images[i]).catch((error) => {
             alert(error.message);
           });
 
