@@ -8,8 +8,6 @@ import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
 
 export const CreateAdPage = () => {
-  const navigate = useNavigate();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -76,7 +74,6 @@ export const CreateAdPage = () => {
           });
         }
         alert("Annonse opprettet");
-        navigate("/"); // TODO: naviger til annonsen som ble opprettet
       })
       .catch((error) => {
         alert(error.message);
