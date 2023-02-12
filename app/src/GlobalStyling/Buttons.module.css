@@ -7,6 +7,6 @@
     cursor: pointer;
 }
 
-.mainButton:hover {
+.mainButton:hover:enabled {
     background-color: var(--orange);
 }

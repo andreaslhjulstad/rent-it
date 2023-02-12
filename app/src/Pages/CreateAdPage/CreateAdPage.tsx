@@ -17,23 +17,6 @@ export const CreateAdPage = () => {
   const createAd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validering
-
-    if (title === "" || description === "" || price === 0 || area === "") {
-      alert("Alle de obligatoriske feltene må fylles ut");
-      return;
-    }
-    if (price < 0) {
-      alert("Prisen kan ikke være negativ");
-      return;
-    }
-    if (isNaN(price)) {
-      alert("Prisen må være et tall");
-      return;
-    }
-
-    // Opprett annonse
-
     // Opprett annonse-objekt
     const ad = {
       title: title,
@@ -136,7 +119,19 @@ export const CreateAdPage = () => {
             placeholder="Fyll inn område"
             onChange={(e) => setArea(e.target.value)}
           />
-          <button className={buttonStyles.mainButton} type="submit">
+          <button
+            className={buttonStyles.mainButton}
+            type="submit"
+            disabled={
+              // Deaktiverer (gråer ut) knappen dersom noen av feltene er tomme eller har ugylidge verdier
+              title === "" ||
+              description === "" ||
+              isNaN(price) ||
+              price === 0 ||
+              price < 0 ||
+              area === ""
+            }
+          >
             Opprett annonse
           </button>
         </form>
