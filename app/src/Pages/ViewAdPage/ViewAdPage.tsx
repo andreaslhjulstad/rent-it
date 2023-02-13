@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+//import styled from "styled-components";
 
 // //toDoo
 // //legge inn area og description
