@@ -12,6 +12,7 @@ import { getFirestore } from "firebase/firestore";
 import HomePage from "./Pages/Authentication/HomePage/HomePage";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
+import AdPage from "./Pages/ViewAdPage/AdPage";
 
 
 const firebaseConfig = {
@@ -33,6 +34,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/createAd" element={<CreateAdPage /> } />
+          <Route path="/AdPage" element={<AdPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />

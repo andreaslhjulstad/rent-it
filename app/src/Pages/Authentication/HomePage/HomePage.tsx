@@ -5,6 +5,7 @@ export const HomePage = () => {
     <div>
       <p>Du er logget inn:)</p>
       <Link to="/createAd">Opprett annonse</Link>
+      <Link to="/AdPage">Se annonse</Link>
     </div>
   )
 };
