@@ -2,7 +2,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import CreateAdPage from "./CreateAdPage";
 
 test("elements are rendered", () => {
-  render(<CreateAdPage />);
+  render(<CreateAdPage />); // Laster inn siden
+
+  // Henter elementene fra siden
   const titleInput = screen.getByRole("textbox", {
     name: /Tittel på annonse:/i,
   });
@@ -15,7 +17,7 @@ test("elements are rendered", () => {
   const priceInput = screen.getByRole("textbox", { name: /Pris på annonse:/i });
   const submitButton = screen.getByRole("button", { name: /Opprett annonse/i });
 
-  // Check that all elements are rendered
+  // Sjekker at elementene er på siden
   expect(titleInput).toBeInTheDocument();
   expect(submitButton).toBeInTheDocument();
   expect(descriptionInput).toBeInTheDocument();
@@ -38,28 +40,29 @@ test("empty input values", async () => {
     name: /Hvilket område befinner du deg i?/i,
   });
 
-  // Test with all empty values
+  // Test med tomme verdier
   expect(submitButton).toBeDisabled();
 
-  // Test with only title filled in
+  // Test med tittel fylt inn
   fireEvent.change(titleInput, { target: { value: "Test" } });
   expect(submitButton).toBeDisabled();
 
-  // Test with title and description filled in
+  // Test med tittel og beskrivelse fylt inn
   fireEvent.change(descriptionInput, { target: { value: "Test" } });
   expect(submitButton).toBeDisabled();
 
-  // Test with title, description and price filled in
+  // Test med tittel, beskrivelse og pris fylt inn
   fireEvent.change(priceInput, { target: { value: "1" } });
   expect(submitButton).toBeDisabled();
 
-  // Test with all fields filled in
+  // Test med alle obligatoriske felter (tittel, beskrivelse, pris og område) fylt inn
   fireEvent.change(areaInput, { target: { value: "Test" } });
   expect(submitButton).toBeEnabled();
 });
 
 test("price input values", async () => {
   render(<CreateAdPage />);
+
   const titleInput = screen.getByRole("textbox", {
     name: /Tittel på annonse:/i,
   });
@@ -72,35 +75,36 @@ test("price input values", async () => {
   const priceInput = screen.getByRole("textbox", { name: /Pris på annonse:/i });
   const submitButton = screen.getByRole("button", { name: /Opprett annonse/i });
 
-  // Fill in dummy values for other inputs to enable submit button
+  // Fyll in "dummy"-verdier i de andre feltene
   fireEvent.change(titleInput, { target: { value: "Test" } });
   fireEvent.change(descriptionInput, { target: { value: "Test" } });
   fireEvent.change(areaInput, { target: { value: "Test" } });
 
-  // Test with valid input
+  // Test med gyldig input
   fireEvent.change(priceInput, { target: { value: "1" } });
   expect(submitButton).toBeEnabled();
 
-  // Test with invalid input (non-numeric)
+  // Test med ugyldig input (ikke-numerisk)
   fireEvent.change(priceInput, { target: { value: "Test" } });
   expect(submitButton).toBeDisabled();
+  const priceNotANumberError = screen.getByText(/Pris må være et tall!/i);
+  expect(priceNotANumberError).toBeInTheDocument();
 
-  // Test with invalid input (negative number)
+  // Test med ugyldig input (negativt tall)
   fireEvent.change(priceInput, { target: { value: "-1" } });
   expect(submitButton).toBeDisabled();
-  const priceGreaterThanZeroError = screen.getByText(/Pris må være større enn 0!/i);
+  const priceGreaterThanZeroError = screen.getByText(
+    /Pris må være større enn 0!/i
+  );
   expect(priceGreaterThanZeroError).toBeInTheDocument();
 
-  // Test with invalid input (zero)
+  // Test med ugyldig input (0)
   fireEvent.change(priceInput, { target: { value: "0" } });
   expect(submitButton).toBeDisabled();
   expect(priceGreaterThanZeroError).toBeInTheDocument();
 
-  // Test with invalid input (empty)
+  // Test med ugyldig input (tom verdi)
   fireEvent.change(priceInput, { target: { value: "" } });
-  const priceNotANumberError = screen.getByText(/Pris må være et tall!/i);
   expect(submitButton).toBeDisabled();
   expect(priceNotANumberError).toBeInTheDocument();
 });
-
-

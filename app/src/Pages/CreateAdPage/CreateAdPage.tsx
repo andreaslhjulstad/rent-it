@@ -6,7 +6,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
 
-export const CreateAdPage = () => {
+const CreateAdPage = () => {
   const firstRender = useRef(true); // Brukes for å hindre at useEffect-metoden for feilmelding kjører på første render
 
   const [title, setTitle] = useState("");
@@ -17,44 +17,44 @@ export const CreateAdPage = () => {
   const [disabled, setDisabled] = useState(true);
   const [priceError, setPriceError] = useState("");
 
-  // Metode som kjøres når tilstanden til et av de obligatoriske feltene (title, description, price eller area) endres,
-  // sjekker om alle obligatoriske felt er fylt ut og setter disabled-tilstanden til knappen
-    useEffect(() => {
-      setDisabled(formValidation());
-    }, [title, description, price, area]);
-
-  // Metode som kjøres når tilstanden til prisen endres, 
-  // setter feilmeldingen til prisen dersom feltet har en ugyldig verdi
-    useEffect(() => {
-      if (firstRender.current) { // Ikke vis feilmelding på første render (Obs! pga <React.StrictMode> i index.tsx vil ikke denne fungere i dev-modus)
-        firstRender.current = false;
-        return;
-      }
-      setPriceError(getPriceError());
-    }, [price]);
-
-  const getPriceError = () => {
-    if (isNaN(price)) {
-      return "Pris må være et tall!";
-    } else if (price <= 0) {
-      return "Pris må være større enn 0!";
-    } else {
-      return "";
-    }
-  };
-
-  const formValidation = () => {
-    return (
+  /* 
+  Metode som kjøres når tilstanden til et av de obligatoriske feltene
+  (title, description, price eller area) endres, setter disabled-tilstanden
+  til submit-knappen basert på om alle obligatoriske felt er fylt ut og har gyldige verdier 
+  */
+  useEffect(() => {
+    setDisabled(
       title.trim() === "" ||
-      description.trim() === "" ||
-      isNaN(price) ||
-      price <= 0 ||
-      area.trim() === ""
+        description.trim() === "" ||
+        isNaN(price) ||
+        price <= 0 ||
+        area.trim() === ""
     );
-  };
+  }, [title, description, price, area]);
+
+  /*
+  Metode som kjøres når tilstanden til prisen endres,
+  viser feilmelding i UI dersom prisen har en ugyldig verdi
+  */
+  useEffect(() => {
+    if (firstRender.current) {
+      // Ikke vis ev. feilmelding på første render (Obs! pga <React.StrictMode> i index.tsx vil ikke dette fungere i dev-modus)
+      firstRender.current = false;
+      return;
+    }
+    setPriceError(() => {
+      if (isNaN(price)) {
+        return "Pris må være et tall!";
+      } else if (price <= 0) {
+        return "Pris må være større enn 0!";
+      } else {
+        return "";
+      }
+    });
+  }, [price]);
 
   const createAd = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // Forhindrer at siden lastes på nytt når metoden kalles
 
     // Opprett annonse-objekt
     const ad = {
@@ -82,9 +82,11 @@ export const CreateAdPage = () => {
             alert(error.message);
           });
 
-          // OBS! Skulle gjerne hatt denne i en .then() for uploadBytes, slik at bildet bare
-          // legges til dersom opplastingen er en suksess, men har prøvd flere forskjellige måter,
-          // og har ikke klart å få det til å fungere. Derfor legges bildet til i arrayet uansett
+          /*
+          OBS! Skulle gjerne hatt denne i en .then() for uploadBytes, slik at bildet bare
+          legges til dersom opplastingen er en suksess, men har prøvd flere forskjellige måter,
+          og har ikke klart å få det til å fungere. Derfor legges bildet til i arrayet uansett
+          */
           imagePaths.push(path);
         }
 
@@ -149,7 +151,7 @@ export const CreateAdPage = () => {
           <button
             className={buttonStyles.mainButton}
             type="submit"
-            disabled={disabled} // Deaktiverer knappen dersom noen av feltene er tomme/har ugyldige verdier, bestemmes av formValidation()
+            disabled={disabled} // Deaktiverer knappen dersom noen av feltene er tomme/har ugyldige verdier
           >
             Opprett annonse
           </button>
