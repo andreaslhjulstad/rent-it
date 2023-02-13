@@ -88,14 +88,19 @@ test("price input values", async () => {
   // Test with invalid input (negative number)
   fireEvent.change(priceInput, { target: { value: "-1" } });
   expect(submitButton).toBeDisabled();
+  const priceGreaterThanZeroError = screen.getByText(/Pris må være større enn 0!/i);
+  expect(priceGreaterThanZeroError).toBeInTheDocument();
 
   // Test with invalid input (zero)
   fireEvent.change(priceInput, { target: { value: "0" } });
   expect(submitButton).toBeDisabled();
+  expect(priceGreaterThanZeroError).toBeInTheDocument();
 
   // Test with invalid input (empty)
   fireEvent.change(priceInput, { target: { value: "" } });
+  const priceNotANumberError = screen.getByText(/Pris må være et tall!/i);
   expect(submitButton).toBeDisabled();
+  expect(priceNotANumberError).toBeInTheDocument();
 });
 
 

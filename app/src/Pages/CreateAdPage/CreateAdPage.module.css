@@ -37,3 +37,9 @@
   resize: none;
   height: 105px;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 2;
+}
