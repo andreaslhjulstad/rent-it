@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import SignInPage from "./Pages/Authentication/SignInPage/SignInPage";
 import RegisterPage from "./Pages/Authentication/RegisterPage/RegisterPage";
 import "./GlobalStyling/main.css";
@@ -8,8 +8,8 @@ import "./GlobalStyling/main.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import HomePage from "./Pages/Authentication/HomePage/HomePage";
 import { getAuth } from "firebase/auth";
+import HomePage from "./Pages/HomePage/HomePage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",

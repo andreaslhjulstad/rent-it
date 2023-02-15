@@ -12,9 +12,12 @@ export const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayErrorMessage, setDisplayErrorMessage] = useState("");
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const registerUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitDisabled(true);
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -32,9 +35,8 @@ export const RegisterPage = () => {
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        setDisplayErrorMessage(error.message);
+        setSubmitDisabled(false);
       });
   };
 
@@ -49,7 +51,8 @@ export const RegisterPage = () => {
           <input type="text" id="email" placeholder="Fyll inn e-postadressen din" onChange={(e) => setEmail(e.target.value)} />
           <label htmlFor="password">Ditt passord</label>
           <input type="password" id="password" placeholder="Fyll inn passordet ditt" onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit" className={buttonStyles.mainButton}>
+          <p>{displayErrorMessage}</p>
+          <button type="submit" disabled={submitDisabled} className={buttonStyles.mainButton}>
             Opprett bruker
           </button>
         </form>
