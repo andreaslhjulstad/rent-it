@@ -54,9 +54,9 @@ export const LoanAgreementPage = () => {
                     </div>
                     
                     <div id={styles.dates}>
-                        <input type="date" id="dateFrom" onChange={(e) => setDateFrom(e.target.value)}/>
+                        <input type="date" id={styles.dateFrom} onChange={(e) => setDateFrom(e.target.value)}/>
                         <br></br>
-                        <input type="date" id="dateTo"onChange={(e) => setDateTo(e.target.value)}/>
+                        <input type="date" id={styles.dateTo} onChange={(e) => setDateTo(e.target.value)}/>
                         <br></br>
                     </div>
                     <br></br><br></br><br></br><br></br><br></br>
