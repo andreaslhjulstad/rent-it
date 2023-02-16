@@ -9,10 +9,10 @@ import "./GlobalStyling/main.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import HomePage from "./Pages/Authentication/HomePage/HomePage";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
-
+import HomePage from "./Pages/HomePage/HomePage";
+import { useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/createAd" element={<CreateAdPage /> } />
+          <Route path="/createAd" element={<CreateAdPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -42,12 +42,13 @@ function App() {
 }
 export default App;
 
-function RequireAuth() {
-  const auth = getAuth();
+const RequireAuth = () => {
+  const [page, setPage] = useState(<Outlet />);
   let location = useLocation();
-
-  if (!auth.currentUser) {
-    return <Navigate to="/signIn" state={{ from: location }} />;
-  }
-  return <Outlet />;
-}
+  getAuth().onAuthStateChanged((user) => {
+    if (!user || !user.email) {
+      setPage(<Navigate to="/signIn" state={{ from: location }} />);
+    }
+  });
+  return page;
+};
