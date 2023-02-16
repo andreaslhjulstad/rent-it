@@ -1,0 +1,15 @@
+#addBox {
+    background-color: rgb(202, 206, 233);
+    max-width: 400px;
+    min-height: 200px;
+    text-align: center;
+    border-radius: 5%;
+}
+
+#addBox h2 {
+    margin-bottom: 0px;
+}
+
+#addBox p {
+    margin-top: 5px;
+}

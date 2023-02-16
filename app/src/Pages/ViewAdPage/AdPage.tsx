@@ -9,7 +9,7 @@ import { AdsData } from "../../Data/Ads/AdsData";
 export const AdPage = () => {
     let id = "n8V2nOv66r7dj4sxFvLe";
     let doc = new AdsData(id)
-    doc.load().then(() => {
+    doc.loadOne().then(() => {
         
     })
     return (
