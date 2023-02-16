@@ -19,6 +19,11 @@ export const RegisterPage = () => {
     e.preventDefault();
     setSubmitDisabled(true);
     const auth = getAuth();
+    if (name === "") {
+      setDisplayErrorMessage("Du må fylle inn navnet ditt");
+      setSubmitDisabled(false);
+      return;
+    }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -42,7 +47,7 @@ export const RegisterPage = () => {
 
   return (
     <div id={styles.registerPage}>
-      <div className={styles.registerContent}>
+      <div id="registerContent" className={styles.registerContent}>
         <h1>Opprett ny bruker</h1>
         <form className={styles.registerForm} onSubmit={registerUser}>
           <label htmlFor="name">Ditt navn</label>
