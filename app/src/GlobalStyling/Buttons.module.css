@@ -7,6 +7,11 @@
     cursor: pointer;
 }
 
-.mainButton:hover {
+.mainButton:disabled {
+    background-color: #d6d6a9; /* grayed out yellow */
+    cursor: not-allowed;
+}
+
+.mainButton:hover:enabled {
     background-color: var(--orange);
 }
