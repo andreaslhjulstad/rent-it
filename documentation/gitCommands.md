@@ -2,7 +2,7 @@
 
 Ny grein: git checkout -b "navn på grein"
 
-For å sjekke hvilke greiner du har tilgjengelig: git Branch
+For å sjekke hvilke greiner du har tilgjengelig: git branch
 
 Hente en grein fra GitLab: 
 - git fetch 
