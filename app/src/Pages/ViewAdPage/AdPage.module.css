@@ -1,0 +1,88 @@
+#adPage {
+    background-color: lightskyblue;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.frameRoot {
+    background: rgb(19,22,139);
+    background: linear-gradient(90deg, rgba(19,22,139,0.7077424719887955) 0%, rgba(32,57,204,0.7665660014005602) 63%, rgba(0,123,255,1) 100%);
+    width: 360px;
+    height: 621px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding-left: 31px;
+    border-radius: 20px;
+    margin: 4vh auto;
+}
+
+.frameRoot button {
+    margin-top: 40px;
+}
+
+.text1 {
+    color: #ffffff;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    margin-top: 5px;
+}
+
+.text2 {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    margin-top: 10px;
+}
+
+.text3 {
+    color: rgb(193, 193, 193);
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    position: fixed;
+    bottom: 240px;
+}
+
+.image1 {
+    width: 350px;
+    height: 450px;
+    justify-content: center;
+}
+
+.descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.infoContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    align-items: flex-start;
+}
+
+.userAndTitle {
+    align-self: stretch;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.currentPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+

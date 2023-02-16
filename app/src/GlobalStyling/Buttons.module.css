@@ -10,3 +10,25 @@
 .mainButton:hover {
     background-color: var(--orange);
 }
+
+.rentItButton {
+    border: none;
+    padding: 50px 40px;
+    cursor: pointer;
+    color: #ffffff;
+    display: flex;
+    font-family: Poppins;
+    font-weight: 500;
+    background-color: rgb(53, 27, 71);
+    width: 337px;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.rentItButton:hover {
+    background-color: var(--purple);
+}
