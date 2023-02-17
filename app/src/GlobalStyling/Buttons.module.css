@@ -1,17 +1,17 @@
-
-
 .mainButton {
-    background-color: var(--yellow);
+    background-color: var(--buttonOrange);
     border: none;
     padding: 20px 30px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .mainButton:disabled {
-    background-color: #d6d6a9; /* grayed out yellow */
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
 .mainButton:hover:enabled {
-    background-color: var(--orange);
+    background-color: var(--buttonHoverOrange);
 }
+

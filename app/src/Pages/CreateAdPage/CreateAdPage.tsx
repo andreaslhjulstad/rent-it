@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./CreateAdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
+import globalStyles from "../../GlobalStyling/main.module.css";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
@@ -108,21 +109,22 @@ const CreateAdPage = () => {
       <div className={styles.createAdContent}>
         <h1>Opprett en annonse</h1>
         <form className={styles.createAdForm} onSubmit={createAd}>
-          <label htmlFor="title">Tittel på annonse:</label>
+          <label htmlFor="title">Tittel på annonse</label>
           <input
             type="text"
             id="title"
             placeholder="Fyll inn tittel "
             onChange={(e) => setTitle(e.target.value)}
           />
-          <label htmlFor="description">Beskrivelse av annonse:</label>
+          <label htmlFor="description">Beskrivelse av annonse</label>
           <textarea
             id="description"
             placeholder="Fyll inn beskrivelse"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <label htmlFor="price">Pris på annonse:</label>
+          <label htmlFor="price">Pris på annonse</label>
           <input
+            className={priceError ? styles.textFieldWithError : ""} // Viser rød ramme rundt input-feltet dersom prisen har en ugyldig verdi
             type="text"
             id="price"
             placeholder="Fyll inn pris"
@@ -130,7 +132,7 @@ const CreateAdPage = () => {
           />
           {priceError && <p className={styles.error}>{priceError}</p>}
           <label htmlFor="image">
-            Legg ved bilde(r) til annonsen (valgfritt):
+            Legg ved bilde(r) til annonsen (valgfritt)
           </label>
           <input
             type="file"

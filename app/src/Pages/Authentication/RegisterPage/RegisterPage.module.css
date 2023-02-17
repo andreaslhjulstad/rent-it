@@ -1,30 +1,46 @@
-#registerPage{
-    background-color: var(--green);
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+#registerPage {
+  background-color: var(--backgroundBlue);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .registerContent {
-    width: 600px;
-    max-width: 100%;
-    padding: 40px;
-    margin: 4vh auto;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+  width: 600px;
+  max-width: 100%;
+  padding: 40px;
+  margin: 4vh auto;
+  background-color: var(--lightBlue);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .registerForm {
-    display: flex;
-    flex-direction: column;
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .registerForm>* {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-.registerForm button {
-    margin-top: 40px;
+.registerForm>label {
+  font-size: 14px;
+  color: var(--headerBlue);
+  font-weight: 600;
+}
+
+.registerForm>input {
+  font-size: 14px;
+}
+
+.registerForm>button {
+  width: 200px;
+  font-weight: 600;
+  font-size: 16px;
+  align-self: center;
+  margin-top: 15px;
 }
