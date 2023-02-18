@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LocalData } from "../../../Data/LocalData";
 
 import styles from "./RegisterPage.module.css";
@@ -23,6 +23,14 @@ export const RegisterPage = () => {
       setDisplayErrorMessage("Du må fylle inn navnet ditt");
       setSubmitDisabled(false);
       return;
+    } else if (email === "") {
+      setDisplayErrorMessage("Du må fylle inn e-postadressen din");
+      setSubmitDisabled(false);
+      return;
+    } else if (password === "") {
+      setDisplayErrorMessage("Du må fylle inn passordet ditt");
+      setSubmitDisabled(false);
+      return;
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -36,13 +44,25 @@ export const RegisterPage = () => {
             navigate("/");
           })
           .catch((error) => {
-            alert(error.message);
+            setDisplayErrorMessage(error.message);
+            emptyErrorMessageOnDelay(5000);
           });
       })
       .catch((error) => {
-        setDisplayErrorMessage(error.message);
+        if (error.code === "auth/email-already-in-use") {
+          setDisplayErrorMessage("Det finnes allerede en bruker med denne e-postadressen.");
+        } else {
+          setDisplayErrorMessage(error.message);
+        }
         setSubmitDisabled(false);
+        emptyErrorMessageOnDelay(5000);
       });
+  };
+
+  const emptyErrorMessageOnDelay = (delay: number) => {
+    setTimeout(() => {
+      setDisplayErrorMessage("");
+    }, delay);
   };
 
   return (
@@ -56,10 +76,11 @@ export const RegisterPage = () => {
           <input type="text" id="email" placeholder="Fyll inn e-postadressen din" onChange={(e) => setEmail(e.target.value)} />
           <label htmlFor="password">Ditt passord</label>
           <input type="password" id="password" placeholder="Fyll inn passordet ditt" onChange={(e) => setPassword(e.target.value)} />
-          <p>{displayErrorMessage}</p>
+          <p id={styles.errorMessage}>{displayErrorMessage}</p>
           <button type="submit" disabled={submitDisabled} className={buttonStyles.mainButton}>
             Opprett bruker
           </button>
+          <Link to="/signIn">Har du allerede en bruker? Logg inn her</Link>
         </form>
       </div>
     </div>

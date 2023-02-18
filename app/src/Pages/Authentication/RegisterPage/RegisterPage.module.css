@@ -25,6 +25,13 @@
     margin-top: 10px;
 }
 
+#errorMessage {
+    color: var(--red);
+    font-weight: 600;
+    margin-top: 20px;
+    height: 15px;
+}
+
 .registerForm button {
-    margin-top: 40px;
+    margin-top: 20px;
 }

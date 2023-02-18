@@ -5,8 +5,16 @@
     border: none;
     padding: 20px 30px;
     cursor: pointer;
+        font-weight: 600;
 }
 
 .mainButton:hover {
     background-color: var(--orange);
+}
+
+.smallTextButton {
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
 }
