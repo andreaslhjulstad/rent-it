@@ -1,5 +1,13 @@
 #homePage {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+#homePageGrid {
+    margin: auto;
     display: grid;
     gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+/* Not responsive yet*/

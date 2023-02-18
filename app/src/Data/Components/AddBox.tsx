@@ -1,18 +1,33 @@
-import { useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./AddBox.module.css";
 import buttonStyles from "../../../GlobalStyling/Buttons.module.css";
 
 
 
-export const AddBox = () => {
+export const AddBox = (props: any) => {
+    let ids = props.item.id;
+
+    const getId = (event: { currentTarget: { id: any; }; }) => {
+        console.log(event.currentTarget.id);
+    };
+
     return (
-        <div id={styles.addBox}>
-        <img src="" alt="" />
-        <h2>Title</h2>
-        <p>Prize</p>
-        <Link to="/AdPage">Gå til anonse</Link>
-      </div>
+        <div id={ids} onClick={getId}>
+            <Link style={{ textDecoration: 'none' }} to="/AdPage">
+                <div id={styles.addBox}>
+                    <img src={props.item.image} alt="" />
+                    <div id={styles.priceDiv}>
+                        <p id={styles.price}>{props.item.price} kr</p>
+                    </div>
+                    <hr />
+                    <div id={styles.text}>
+                        <p id={styles.area}>{props.item.area}</p>
+                        <h2>{props.item.title}</h2>
+                    </div>
+                </div>
+            </Link>
+        </div>
     )
   };
   
