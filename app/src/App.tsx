@@ -9,10 +9,12 @@ import "./GlobalStyling/main.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { useState } from "react";
+import HomePage from "./Pages/HomePage/HomePage";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
-import HomePage from "./Pages/HomePage/HomePage";
-import { useState } from "react";
+import AdPage from "./Pages/ViewAdPage/AdPage";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -32,7 +34,8 @@ function App() {
       <Routes>
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/createAd" element={<CreateAdPage />} />
+          <Route path="/createAd" element={<CreateAdPage /> } />
+          <Route path="/AdPage" element={<AdPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />

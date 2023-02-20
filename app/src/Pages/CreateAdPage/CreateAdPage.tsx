@@ -162,3 +162,15 @@ const CreateAdPage = () => {
 };
 
 export default CreateAdPage;
+
+//Hva Synne har lagt til
+//litt usikker på om dette skal gjøres i app eller her 
+
+// import { ViewAdPage } from "../ViewAdPage/ViewAdPage";
+
+// export default function CreateAdPage() {
+//     document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+//     return <ViewAdPage title = {setTitle} description = {setDescription} 
+//     price = {setPrice} images = {setImages} area = {setArea} />;
+// }
+
