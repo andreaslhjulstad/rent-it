@@ -49,7 +49,7 @@
     font-weight: 700;
     gap: 80px;
     position: fixed;
-    bottom: 240px;
+    margin-bottom: 10px;
 }
 
 .image1 {
