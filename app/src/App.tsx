@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import "./App.css";
-import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import SignInPage from "./Pages/Authentication/SignInPage/SignInPage";
 import RegisterPage from "./Pages/Authentication/RegisterPage/RegisterPage";
 import "./GlobalStyling/main.css";

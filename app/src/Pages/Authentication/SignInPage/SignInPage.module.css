@@ -25,6 +25,18 @@
     margin-top: 10px;
 }
 
-.signInForm button {
-    margin-top: 40px;
+#errorMessage {
+    color: var(--red);
+    font-weight: 600;
+    margin-top: 20px;
+    height: 15px;
 }
+
+.signInForm button {
+    margin-top: 20px;
+}
+
+#forgottenPassword {
+    text-align: left;
+}
+
