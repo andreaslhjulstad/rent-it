@@ -1,15 +1,14 @@
 #adPage {
-    background-color: lightskyblue;
+    background-color: #a8dadc;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
 
 .frameRoot {
-    background: rgb(19,22,139);
-    background: linear-gradient(90deg, rgba(19,22,139,0.7077424719887955) 0%, rgba(32,57,204,0.7665660014005602) 63%, rgba(0,123,255,1) 100%);
+    background: #f1faee;
     width: 360px;
-    height: 621px;
+    height: 650px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -25,7 +24,7 @@
 }
 
 .text1 {
-    color: #ffffff;
+    color: #1d3557;
     font-size: 15px;
     font-family: Poppins;
     font-weight: 700;
@@ -34,7 +33,7 @@
 }
 
 .text2 {
-    color: #ffffff;
+    color: #1d3557;
     font-size: 20px;
     font-family: Poppins;
     font-weight: 700;
@@ -43,7 +42,7 @@
 }
 
 .text3 {
-    color: rgb(193, 193, 193);
+    color: #1d3557;
     font-size: 20px;
     font-family: Poppins;
     font-weight: 700;
@@ -52,10 +51,12 @@
     margin-bottom: 10px;
 }
 
-.image1 {
-    width: 350px;
-    height: 450px;
-    justify-content: center;
+.toolImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    top: 10px;
 }
 
 .descriptionContainer {

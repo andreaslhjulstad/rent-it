@@ -1,0 +1,53 @@
+#userPage {
+    background-color: #a8dadc;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.userContent {
+    width: 500px;
+    max-width: 100%;
+    padding: 40px;
+    margin: 4vh auto;
+    background-color: #f1faee;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userPageForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.userImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.userPageInfo {
+    display: flex;
+    flex-direction: column;
+    margin: 4vh auto;
+    
+    
+}
+
+.text {
+    margin-bottom: 10px;
+    color: #1d3557;
+
+}
+
+
+
+/* .signInForm>* {
+    margin-top: 10px;
+}
+
+.signInForm button {
+    margin-top: 40px;
+} */

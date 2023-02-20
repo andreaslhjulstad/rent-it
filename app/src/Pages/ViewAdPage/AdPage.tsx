@@ -6,6 +6,7 @@ import { LocalData } from "../../Data/LocalData";
 import { AdsData } from "../../Data/Ads/AdsData";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import hammer from "./hammer.png"
 
 export const AdPage = () => {
   const navigate = useNavigate();
@@ -31,7 +32,13 @@ export const AdPage = () => {
       <div id={styles.adPage}>
           <div className={styles.frameRoot}>
               <form className={styles.rentItButton} onSubmit={rentIt}>
-                <img className={styles.image1} src="Hammer.jpg" alt="Hammer"></img>
+              <img className={styles.toolImage}
+                    src= {hammer} alt={"Hammer"}
+                    // onError={({ currentTarget }) => {
+                    //     currentTarget.onerror = null; // prevents looping
+                    //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
+                    // }}
+                    />
                 <div className={styles.descriptionContainer}>
                   <div className={styles.text2}> Hammer </div>
                   <div className={styles.text1}> -Besrkivelse </div>
@@ -50,11 +57,10 @@ export const AdPage = () => {
                     Rent it
                 </button>
                 <div className={styles.text3}> Kontaktinformasjon 
-                  <div className={styles.text1}> Navn:  </div>
+                  <div className={styles.text1}>Gå til bruker: <Link to="/UserPage">Navn</Link>  </div> 
                   <div className={styles.text1}> tlf:  </div>
                   <div className={styles.text1}> e-mail: </div>
                 </div>
-
               </form>
 
           </div>
