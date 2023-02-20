@@ -9,12 +9,12 @@ import "./GlobalStyling/main.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { useState } from "react";
+import HomePage from "./Pages/HomePage/HomePage";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
 import AdPage from "./Pages/ViewAdPage/AdPage";
 import UserPage from "./Pages/ViewUserPage/UserPage";
-import HomePage from "./Pages/HomePage/HomePage";
-import { useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
