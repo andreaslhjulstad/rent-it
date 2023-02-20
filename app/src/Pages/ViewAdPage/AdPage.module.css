@@ -1,0 +1,89 @@
+#adPage {
+    background-color: #a8dadc;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.frameRoot {
+    background: #f1faee;
+    width: 360px;
+    height: 650px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding-left: 31px;
+    border-radius: 20px;
+    margin: 4vh auto;
+}
+
+.frameRoot button {
+    margin-top: 40px;
+}
+
+.text1 {
+    color: #1d3557;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    margin-top: 5px;
+}
+
+.text2 {
+    color: #1d3557;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    margin-top: 10px;
+}
+
+.text3 {
+    color: #1d3557;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 700;
+    gap: 80px;
+    position: fixed;
+    margin-bottom: 10px;
+}
+
+.toolImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    top: 10px;
+}
+
+.descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.infoContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    align-items: flex-start;
+}
+
+.userAndTitle {
+    align-self: stretch;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.currentPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+

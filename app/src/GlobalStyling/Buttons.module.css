@@ -1,7 +1,7 @@
 
 
 .mainButton {
-    background-color: var(--yellow);
+    background-color: #fed9b7;
     border: none;
     padding: 20px 30px;
     cursor: pointer;
@@ -22,4 +22,26 @@
     border: none;
     padding: 10px 0;
     cursor: pointer;
+}
+
+.rentItButton {
+    border: none;
+    padding: 50px 40px;
+    cursor: pointer;
+    color: #1d3557;
+    display: flex;
+    font-family: Poppins;
+    font-weight: 500;
+    background-color: #fed9b7;
+    width: 337px;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.rentItButton:hover {
+    background-color: #f07167;
 }

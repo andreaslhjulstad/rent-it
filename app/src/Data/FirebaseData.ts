@@ -1,4 +1,6 @@
 import firebase from "firebase/compat/app";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../App";
 
 export class DocumentLoadedListener {
   id = "todo";
@@ -41,6 +43,20 @@ export class FirebaseData {
   }
 
   load(): Promise<this> {
-    return new Promise<this>((resolve, reject) => {});
-  }
+    return new Promise<this>((resolve, reject) => {
+    
+
+    const docRef = doc(db, this.collectionName, this.id);
+    
+    getDoc(doc(db, this.collectionName, this.id))
+        .then((data) => {
+          console.log(data)
+          this.setup(data);
+          resolve(this);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+  });
+}
 }

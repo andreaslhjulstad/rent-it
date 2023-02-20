@@ -11,6 +11,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
+import AdPage from "./Pages/ViewAdPage/AdPage";
+import UserPage from "./Pages/ViewUserPage/UserPage";
 import HomePage from "./Pages/HomePage/HomePage";
 import { useState } from "react";
 
@@ -33,6 +35,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/createAd" element={<CreateAdPage />} />
+          <Route path="/AdPage" element={<AdPage />} />
+          <Route path="/UserPage" element={<UserPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
