@@ -2,6 +2,7 @@ import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useSta
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./AddBox.module.css";
 import buttonStyles from "../../../GlobalStyling/Buttons.module.css";
+import { getDownloadURL, getStorage } from "@firebase/storage";
 
 
 
@@ -12,9 +13,11 @@ export const AddBox = (props: any) => {
         console.log(event.currentTarget.id);
     };
 
+    const adLink = "/ad?=" + ids;
+
     return (
         <div id={ids} onClick={getId}>
-            <Link style={{ textDecoration: 'none' }} to="/AdPage">
+            <Link style={{ textDecoration: 'none' }} to={adLink}>
                 <div id={styles.addBox}>
                     <img src={props.item.image} alt="" />
                     <div id={styles.priceDiv}>

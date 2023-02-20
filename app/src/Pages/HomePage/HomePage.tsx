@@ -2,9 +2,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../../../App";
-import { AllAdsData } from "../../../Data/Ads/AllAdsData";
-import AddBox from "../../../Data/Components/AddBox";
+import { db } from "../../App";
+import { AllAdsData } from "../../Data/Ads/AllAdsData";
+import AddBox from "../../Data/Components/AddBox";
 import styles from "./HomePage.module.css";
 
 
@@ -30,7 +30,8 @@ export const HomePage = () => {
           imageURL = url;
         }
         else {
-          imageURL = "";
+          const placeholder = await getDownloadURL(ref(storage, "images/ads/placeholder-image (1).png")) 
+          imageURL = placeholder;
         }
 
         const ad = {

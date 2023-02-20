@@ -9,7 +9,7 @@ import "./GlobalStyling/main.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import HomePage from "./Pages/Authentication/HomePage/HomePage";
+import HomePage from "./Pages/HomePage/HomePage";
 import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
 import AdPage from "./Pages/ViewAdPage/AdPage";
