@@ -7,19 +7,32 @@ import { AdData } from "../../Data/Ads/AdData";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import hammer from "./hammer.png";
+import { UserData } from "../../Data/Users/UserData";
 
 export const AdPage = () => {
   const navigate = useNavigate();
   const [ad, setAd] = useState<AdData | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
-    let id = "X80qADiJlaafmtICWA14";
-    let doc = new AdData(id);
+    let adId = "X80qADiJlaafmtICWA14";
+    let userId = "Ci12RGyrRdg2lvH1kqwUXQZ6q1q1";
+    let doc = new AdData(adId);
+    let doc2 = new UserData(userId);
     doc
       .load()
       .then(() => {
         console.log(doc);
         setAd(doc);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    doc2
+      .load()
+      .then(() => {
+        console.log(doc2);
+        setUser(doc2);
       })
       .catch((error) => {
         console.log(error);
@@ -55,7 +68,7 @@ export const AdPage = () => {
             </div>
             <div className={styles.CurrentPrice}>
               <div className={styles.text1}> Pris: </div>
-              <div className={styles.text2}> 20 kr </div>
+              <div className={styles.text2}> {ad?.price} </div>
             </div>
           </div>
           <button type="submit" className={buttonStyles.rentItButton}>
@@ -65,10 +78,10 @@ export const AdPage = () => {
             {" "}
             Kontaktinformasjon
             <div className={styles.text1}>
-              Gå til bruker: <Link to="/UserPage">Navn</Link>{" "}
+              Gå til bruker: <Link to="/UserPage"> {user?.name} </Link>{" "}
             </div>
-            <div className={styles.text1}> tlf: </div>
-            <div className={styles.text1}> e-mail: </div>
+            <div className={styles.text1}> tlf: {user?.phoneNumber}  </div>
+            <div className={styles.text1}> e-mail: {user?.email} </div>
           </div>
         </form>
       </div>
