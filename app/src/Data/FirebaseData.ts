@@ -45,26 +45,24 @@ export class FirebaseData {
   }
 
   async loadAll() {
-
     const querySnapshot = await getDocs(collection(db, this.collectionName));
 
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data().title);
-        
-      }); 
-}
-
-loadOne(): Promise<this> {
-  return new Promise<this>(async (resolve, reject) => {
-  const docRef = doc(db, this.collectionName, this.id);
-  
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    console.log("No such document!");
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data().title);
+    });
   }
-});
-}
+
+  load(): Promise<this> {
+    return new Promise<this>(async (resolve, reject) => {
+      const docRef = doc(db, this.collectionName, this.id);
+
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    });
+  }
 }
