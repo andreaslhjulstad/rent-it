@@ -90,18 +90,19 @@ body{
     text-align: left;
     float: left;
   }
+
   #dates{
-    height: 50px;
+    height: 140px;
     width: 200px;  
     float: left;
   }
 
-  #dateFrom{
+  #startDate{
     width: 150px;
     height: 25px;
   }
 
-  #dateTo{
+  #endDate{
     width: 150px;
     height: 25px;
   }

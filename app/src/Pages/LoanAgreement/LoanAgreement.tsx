@@ -5,26 +5,38 @@ import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const LoanAgreementPage = () => {
     const navigate = useNavigate();
+    
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
+    const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-    const [dateFrom, setDateFrom] = useState("");
-    const [dateTo, setDateTo] = useState("");
+   
     
     const loanAgreement = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         //Validering 
-        if (dateFrom === "" || dateTo === "") {
-            alert("Alle de obligatoriske feltene må fylles ut");
+       /*  if (Date.parse(dateFrom) > new Date().getTime()  || Date.parse(dateTo) > new Date().getTime()) {
+            alert("Du kan ikke velge en dato som allerede har vært.");
+            console.log("Du kan ikke velge en dato som allerede har vært.");
             return;
+            
         }
+        else if(Date.parse(dateFrom) > Date.parse(dateTo)){
+            alert("Dato fra kan ikke være etter dato til");
+            console.log("Dato fra kan ikke være etter dato til");
+            return;
+            
+        } */
 
         //Opprett låneavtale-objekt
         const loanAgreement = {
-            dateFrom: dateFrom,
-            dateTo: dateTo,
+            dateFrom: startDate,
+            dateTo: endDate,
             userId: getAuth().currentUser?.uid,
         };
         //Opprett låneavtale dokument i firebase med automatisk generert id
@@ -49,14 +61,14 @@ export const LoanAgreementPage = () => {
                     <br></br><br></br>
 
                     <div id={styles.labels}>
-                        <label className={styles.label} htmlFor="dateFrom">Dato fra: <span className={styles.required}>&nbsp;*</span></label><br></br><br></br>
-                        <label className={styles.label} htmlFor="dateTo">Dato til: <span className={styles.required}>&nbsp;*</span></label><br></br>
+                        <label className={styles.label} htmlFor="startDate">Dato fra: <span className={styles.required}>&nbsp;*</span></label><br></br><br></br>
+                        <label className={styles.label} htmlFor="endDate">Dato til: <span className={styles.required}>&nbsp;*</span></label><br></br>
                     </div>
                     
-                    <div id={styles.dates}>
-                        <input type="date" id={styles.dateFrom} onChange={(e) => setDateFrom(e.target.value)}/>
+                    <div id={styles.dates}>   
+                        <DatePicker id={styles.startDate} selected={startDate} onChange={(date) => setStartDate(date)} selectsStart startDate={startDate} endDate={endDate} minDate={new Date()}/>
                         <br></br>
-                        <input type="date" id={styles.dateTo} onChange={(e) => setDateTo(e.target.value)}/>
+                        <DatePicker id={styles.endDate} selected={endDate} onChange={(date) => setEndDate(date)} selectsEnd startDate={startDate} endDate={endDate} minDate={startDate}/>
                         <br></br>
                     </div>
                     <br></br><br></br><br></br><br></br><br></br>
