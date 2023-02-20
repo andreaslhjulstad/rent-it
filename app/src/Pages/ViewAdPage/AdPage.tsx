@@ -1,25 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./AdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { LocalData } from "../../Data/LocalData";
-import { AdsData } from "../../Data/Ads/AdsData";
+import { AdData } from "../../Data/Ads/AdData";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import hammer from "./hammer.png";
 
 export const AdPage = () => {
   const navigate = useNavigate();
+  const [ad, setAd] = useState<AdData | null>(null);
 
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState(0);
-  // const [images, setImages] = useState<File[]>([]);
-  // const [area, setArea] = useState("");
-
-  let id = "n8V2nOv66r7dj4sxFvLe";
-  let doc = new AdsData(id);
-  doc.load().then(() => {});
+  useEffect(() => {
+    let id = "X80qADiJlaafmtICWA14";
+    let doc = new AdData(id);
+    doc
+      .load()
+      .then(() => {
+        console.log(doc);
+        setAd(doc);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const rentIt = () => {};
 
@@ -40,13 +45,13 @@ export const AdPage = () => {
             // }}
           />
           <div className={styles.descriptionContainer}>
-            <div className={styles.text2}> Hammer </div>
-            <div className={styles.text1}> -Besrkivelse </div>
+            <div className={styles.text2}>{ad?.title}</div>
+            <div className={styles.text1}>{ad?.description}</div>
           </div>
           <div className={styles.infoContainer}>
             <div className={styles.userAndTitle}>
               <div className={styles.text1}> Område: </div>
-              <div className={styles.text2}> Sted </div>
+              <div className={styles.text2}>{ad?.area}</div>
             </div>
             <div className={styles.CurrentPrice}>
               <div className={styles.text1}> Pris: </div>

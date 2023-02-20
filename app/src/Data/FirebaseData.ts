@@ -55,14 +55,18 @@ export class FirebaseData {
   load(): Promise<this> {
     return new Promise<this>(async (resolve, reject) => {
       const docRef = doc(db, this.collectionName, this.id);
-
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
+      getDoc(docRef)
+        .then((doc) => {
+          if (doc.data()) {
+            this.setup(doc.data());
+            resolve(this);
+          } else {
+            reject(undefined);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 }
