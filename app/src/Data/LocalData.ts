@@ -1,11 +1,11 @@
-import { UsersCollection } from "./Users/UsersCollection";
-import { AdsCollection } from "./Ads/AdsCollection";
 import { UserData } from "./Users/UserData";
 import { getAuth } from "firebase/auth";
+import CollectionLoader from "./CollectionLoader";
+import { AdData } from "./Ads/AdData";
 
 export class LocalData {
-  static users = new UsersCollection();
-  static ads = new AdsCollection();
+  static users = new CollectionLoader("users", undefined, UserData);
+  static ads = new CollectionLoader("ads", undefined, AdData);
 
   static currentUser: UserData;
 

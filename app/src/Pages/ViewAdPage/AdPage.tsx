@@ -1,35 +1,30 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./AdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
-import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
 import hammer from "./hammer.png";
 
 export const AdPage = () => {
-  const navigate = useNavigate();
+  const params = useParams();
   const [ad, setAd] = useState<AdData | null>(null);
 
   useEffect(() => {
-    let id = "X80qADiJlaafmtICWA14";
-    let doc = new AdData(id);
-    doc
-      .load()
-      .then(() => {
-        console.log(doc);
-        setAd(doc);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    // Velger standard eiendom om pId er i URL
+    if (params.adID && params.adID !== ad?.id) {
+      const adData = LocalData.ads.addData(params.adID);
+      if (!adData.loaded) {
+        adData.load().then(() => {
+          setAd(adData);
+        });
+      } else {
+        setAd(adData);
+      }
+    }
+  }, [params, ad?.id]);
 
   const rentIt = () => {};
-
-  const [searchparams] = useSearchParams();
-  console.log(searchparams.get("state"));
 
   return (
     <div id={styles.adPage}>

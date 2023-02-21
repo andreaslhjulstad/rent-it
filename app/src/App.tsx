@@ -35,7 +35,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/createAd" element={<CreateAdPage />} />
-          <Route path="/AdPage" element={<AdPage />} />
+          <Route path="/ad/:adID" element={<AdPage />} />
           <Route path="/UserPage" element={<UserPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
