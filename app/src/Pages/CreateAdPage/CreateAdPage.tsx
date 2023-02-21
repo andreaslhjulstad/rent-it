@@ -76,7 +76,7 @@ export const CreateAdPage = () => {
           });
         }
         alert("Annonse opprettet");
-        navigate("/"); // TODO: naviger til annonsen som ble opprettet
+        navigate("/loanAgreement/?id=" + adId); // TODO: naviger til annonsen som ble opprettet
       })
       .catch((error) => {
         alert(error.message);
