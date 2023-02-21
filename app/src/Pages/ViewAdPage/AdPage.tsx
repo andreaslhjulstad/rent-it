@@ -16,21 +16,35 @@ export const AdPage = () => {
     // Velger standard eiendom om pId er i URL
     if (params.adID && params.adID !== ad?.id) {
       const adData = LocalData.ads.addData(params.adID);
+      const loadUserAndImages = () => {
+        adData
+          .loadImages()
+          .then(() => {
+            setAd(adData);
+          })
+          .catch((error) => {
+            setAd(adData);
+          });
+
+        if (!adData.user?.loaded) {
+          adData.user
+            ?.load()
+            .then(() => {
+              if (adData.user) setUser(adData.user);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          setUser(adData.user);
+        }
+      };
       if (!adData.loaded) {
-        adData.load().then(() => {
-          setAd(adData);
-          if (!adData.user?.loaded)
-            adData.user
-              ?.load()
-              .then(() => {
-                if (adData.user) setUser(adData.user);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+        adData.load().then(async () => {
+          loadUserAndImages();
         });
       } else {
-        setAd(adData);
+        loadUserAndImages();
       }
     }
   }, [params, ad?.id]);
@@ -43,7 +57,7 @@ export const AdPage = () => {
         <form className={styles.rentItButton} onSubmit={rentIt}>
           <img
             className={styles.toolImage}
-            src={hammer}
+            src={ad?.loadedImages[0]}
             alt={"Hammer"}
             // onError={({ currentTarget }) => {
             //     currentTarget.onerror = null; // prevents looping

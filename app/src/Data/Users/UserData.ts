@@ -22,7 +22,6 @@ export class UserData extends FirebaseData {
       if (typeof data.name === "string") {
         this.name = data.name;
       }
-
     }
   }
 }

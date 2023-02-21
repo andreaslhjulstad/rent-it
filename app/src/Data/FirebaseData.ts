@@ -1,22 +1,5 @@
-import firebase from "firebase/compat/app";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../App";
-import { collection, getDocs } from "firebase/firestore";
-import AddBox from "./Components/AddBox";
-
-export class DocumentLoadedListener {
-  id = "todo";
-  data: FirebaseData;
-  callback: (error?: firebase.firestore.FirestoreError) => void;
-  constructor(callback: (error?: firebase.firestore.FirestoreError) => void, data: FirebaseData) {
-    this.callback = callback;
-    this.data = data;
-  }
-  removeListener() {
-    //this.data.removeListener(this);
-  }
-}
-
 export class FirebaseRealtimeLister {
   callback: () => void;
   constructor(callback: () => void) {
@@ -30,7 +13,6 @@ export class FirebaseRealtimeLister {
 export class FirebaseData {
   id: string = "";
   loaded: boolean = false;
-  loadedListeners: DocumentLoadedListener[] = [];
   parent?: FirebaseData;
   collectionName: string;
 
@@ -44,21 +26,13 @@ export class FirebaseData {
     this.loaded = true;
   }
 
-  async loadAll() {
-    const querySnapshot = await getDocs(collection(db, this.collectionName));
-
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data().title);
-    });
-  }
-
   load(): Promise<this> {
     return new Promise<this>(async (resolve, reject) => {
       const docRef = doc(db, this.collectionName, this.id);
       getDoc(docRef)
-        .then((doc) => {
+        .then(async (doc) => {
           if (doc.data()) {
-            this.setup(doc.data());
+            await this.setup(doc.data());
             resolve(this);
           } else {
             reject(undefined);

@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, DocumentReference, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentReference, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../App";
 import { FirebaseData } from "./FirebaseData";
 
@@ -6,25 +6,11 @@ interface NoParamConstructor<T extends FirebaseData> {
   new (id: string, collection: string, parent: FirebaseData | undefined): T;
 }
 
-export class CollectionLoadedListener<T extends FirebaseData> {
-  id = "id"; // TODO
-  loader: CollectionLoader<T>;
-  callback: (docs: T[]) => void;
-  constructor(callback: (docs: T[]) => void, loader: CollectionLoader<T>) {
-    this.callback = callback;
-    this.loader = loader;
-  }
-  removeListener() {
-    //this.loader.removeListener(this);
-  }
-}
-
 export default class CollectionLoader<T extends FirebaseData> {
   collection: string = "";
   parent?: FirebaseData;
   loaded = false;
   loading = false;
-  loadedListeners: CollectionLoadedListener<T>[] = [];
   documents: T[] = [];
   private docType: NoParamConstructor<T>;
 
@@ -34,8 +20,24 @@ export default class CollectionLoader<T extends FirebaseData> {
     this.docType = docType;
   }
 
+  loadDocuments(): Promise<this> {
+    return new Promise<this>(async (resolve, reject) => {
+      getDocs(collection(db, this.collection))
+        .then((docSnap) => {
+          docSnap.forEach(async (doc) => {
+            let dataDoc = this.addData(doc.id);
+            dataDoc.setup(doc.data());
+          });
+          resolve(this);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
   // Returns a document with the given id. If the document does not exist, it will be created.
-  addData(id: string, data?: { [key: string]: any }): T {
+  addData(id: string): T {
     const existing = this.documents.find((doc) => doc.id === id);
     if (existing) {
       return existing;
