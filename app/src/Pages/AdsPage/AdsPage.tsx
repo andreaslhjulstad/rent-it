@@ -55,7 +55,7 @@ export const AdsPage = () => {
   return (
     <div id={styles.homePage}>
       <Navbar />
-      <div id={styles.homePageGrid}>{adBoxes}</div>
+      <div data-testid="homePageGrid" id={styles.homePageGrid}>{adBoxes}</div>
     </div>
   );
 };
