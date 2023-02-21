@@ -1,0 +1,63 @@
+#navBar{
+    margin: none;
+    margin-bottom: 20px;
+}
+
+#navList{
+    background-color: var(--headerBlue);
+    list-style: none;
+    display: flex;
+    width: 100%;
+    margin: 0px;
+    padding: 0px !important;
+}
+
+#navList li{
+    padding-top: 20px;
+    font-size: 18px;
+
+}
+
+#navList> *:last-child {
+    margin-left: auto;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#logOut {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#navList> *:first-child {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -10px;
+    padding: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#navList> *:first-child a {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#navList li a {
+    text-decoration: none;
+    color: azure;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+#navBar li:hover{
+    background-color: var(--adBlue);
+}

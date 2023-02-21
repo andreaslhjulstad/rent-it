@@ -7,11 +7,13 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
 import defaultImage from "./unknown-default-profile.png";
+import Navbar from "../../Data/Components/navbar/Navbar";
 
 export const UserPage = () => {
 
     return (
         <div id={styles.userPage}>
+          <Navbar />
           <div className={styles.userContent}>
             <h1>Navn</h1>
             <form className={styles.userPageForm}>
