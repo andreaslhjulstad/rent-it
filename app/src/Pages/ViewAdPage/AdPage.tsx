@@ -5,10 +5,12 @@ import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
 import hammer from "./hammer.png";
+import { UserData } from "../../Data/Users/UserData";
 
 export const AdPage = () => {
   const params = useParams();
   const [ad, setAd] = useState<AdData | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
     // Velger standard eiendom om pId er i URL
@@ -17,6 +19,15 @@ export const AdPage = () => {
       if (!adData.loaded) {
         adData.load().then(() => {
           setAd(adData);
+          if (!adData.user?.loaded)
+            adData.user
+              ?.load()
+              .then(() => {
+                if (adData.user) setUser(adData.user);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
         });
       } else {
         setAd(adData);
@@ -50,7 +61,7 @@ export const AdPage = () => {
             </div>
             <div className={styles.CurrentPrice}>
               <div className={styles.text1}> Pris: </div>
-              <div className={styles.text2}> 20 kr </div>
+              <div className={styles.text2}> {ad?.price} </div>
             </div>
           </div>
           <button type="submit" className={buttonStyles.rentItButton}>
@@ -60,10 +71,10 @@ export const AdPage = () => {
             {" "}
             Kontaktinformasjon
             <div className={styles.text1}>
-              Gå til bruker: <Link to="/UserPage">Navn</Link>{" "}
+              Gå til bruker: <Link to="/UserPage"> {user?.name} </Link>{" "}
             </div>
-            <div className={styles.text1}> tlf: </div>
-            <div className={styles.text1}> e-mail: </div>
+            <div className={styles.text1}> tlf: {user?.phoneNumber} </div>
+            <div className={styles.text1}> e-mail: {user?.email} </div>
           </div>
         </form>
       </div>
