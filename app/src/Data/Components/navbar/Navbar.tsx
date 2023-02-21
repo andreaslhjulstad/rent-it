@@ -10,7 +10,7 @@ export const Navbar = () => {
             <li><Link to="/AdsPage">Se annonser</Link></li>
             <li><Link to="/UserPage">Profil</Link></li>
             <li><Link to="/createAd">Opprett annonse</Link></li>
-            <li><button id={styles.logOut} onClick={() => LocalData.signOutFirebaseUser()}>Log ut</button></li>
+            <li><button id={styles.logOut} onClick={() => LocalData.signOutFirebaseUser()}>Logg ut</button></li>
         </ul>
     </nav>
   )
