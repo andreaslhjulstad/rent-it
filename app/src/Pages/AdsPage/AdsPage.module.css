@@ -1,0 +1,18 @@
+#homePage #homePageGrid{
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+#homePage {
+    background-color: var(--backgroundBlue);
+    min-height: 100vh;
+}
+
+#homePageGrid {
+    margin: auto;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* Not responsive yet*/

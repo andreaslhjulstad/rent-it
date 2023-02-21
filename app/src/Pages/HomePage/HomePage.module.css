@@ -1,13 +1,65 @@
-#homePage {
-    margin-left: 10vw;
-    margin-right: 10vw;
+#HomePage {
+    background-color: var(--backgroundBlue);
+    min-height: 100vh;
+    padding-bottom: 20px;
 }
 
-#homePageGrid {
-    margin: auto;
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+#infoDivs {
+    margin-left: 12vw;
+    margin-right: 12vw;
 }
 
-/* Not responsive yet*/
+#infoDivs h1 {
+    margin: 0px;
+}
+
+#infoDivs #pageInfoDiv, #adInfoDiv, #loanInfoDiv {
+    background-color: var(--lightBlue);
+    width: 50vw;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#pageInfoDiv {
+    margin-right: auto;
+}
+
+#pageInfoDiv img {
+    width: 250px;
+    border-radius: 10px;
+    margin-top: -40px;
+}
+
+#pageInfoDiv div {
+    display: flex;
+}
+
+#adInfoDiv {
+    margin-left: auto;
+    text-align: right;
+}
+
+#adInfoDiv img {
+    width: 350px;
+    border-radius: 10px;
+    margin-top: -40px;
+}
+
+#adInfoDiv div {
+    display: flex;
+}
+
+#loanInfoDiv {
+    margin-right: auto;
+}
+
+#loanInfoDiv img {
+    width: 420px;
+    border-radius: 10px;
+    margin-top: -40px;
+}
+
+#loanInfoDiv div {
+    display: flex;
+}
