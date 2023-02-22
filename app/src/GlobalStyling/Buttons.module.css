@@ -7,6 +7,11 @@
     cursor: pointer;
 }
 
-.mainButton:hover {
+.mainButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.mainButton:enabled:hover {
     background-color: var(--orange);
 }
