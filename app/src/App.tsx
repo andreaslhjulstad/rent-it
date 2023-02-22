@@ -15,6 +15,7 @@ import CreateAdPage from "./Pages/CreateAdPage/CreateAdPage";
 import { getAuth } from "firebase/auth";
 import AdPage from "./Pages/ViewAdPage/AdPage";
 import UserPage from "./Pages/ViewUserPage/UserPage";
+import AdsPage from "./Pages/AdsPage/AdsPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -35,7 +36,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/createAd" element={<CreateAdPage />} />
-          <Route path="/ad/:adID" element={<AdPage />} />
+          <Route path="/AdPage" element={<AdPage />} />
+          <Route path="/AdsPage" element={<AdsPage />} />
           <Route path="/UserPage" element={<UserPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />

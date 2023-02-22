@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
+import Navbar from "../../Data/Components/navbar/Navbar";
 
 const CreateAdPage = () => {
   const firstRender = useRef(true); // Brukes for å hindre at useEffect-metoden for feilmelding kjører på første render
@@ -105,6 +106,7 @@ const CreateAdPage = () => {
 
   return (
     <div id={styles.createAdPage}>
+      <Navbar />
       <div className={styles.createAdContent}>
         <h1>Opprett en annonse</h1>
         <form className={styles.createAdForm} onSubmit={createAd}>

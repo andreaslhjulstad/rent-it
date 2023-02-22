@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./UserPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import defaultImage from "./unknown-default-profile.png";
-import { UserData } from "../../Data/Users/UserData";
-import { useSearchParams } from "react-router-dom";
+import Navbar from "../../Data/Components/navbar/Navbar";
 
 export const UserPage = () => {
   const [user, setUser] = useState<UserData | null>(null);
