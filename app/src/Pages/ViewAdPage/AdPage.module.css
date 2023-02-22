@@ -7,14 +7,14 @@
 
 .frameRoot {
     background: #f1faee;
-    width: 360px;
-    height: 650px;
-    overflow: hidden;
+    max-width: 337px;
+    padding-left: 30px;
+    padding-right: 30px;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-    padding-left: 31px;
     border-radius: 20px;
     margin: 4vh auto;
 }
@@ -47,16 +47,24 @@
     font-family: Poppins;
     font-weight: 700;
     gap: 80px;
-    position: fixed;
+   /*  position: fixed; */
     margin-bottom: 10px;
 }
 
-.toolImage {
+.toolImage{
+    max-width: 337px;
+    max-height: 270px;
     display: block;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
     top: 10px;
+}
+
+.toolImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .descriptionContainer {

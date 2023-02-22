@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LocalData } from "../../../Data/LocalData";
 
@@ -37,7 +37,7 @@ export const RegisterPage = () => {
       setSubmitDisabled(false);
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, phoneNumber, password)
       .then((userCredential) => {
         // Signed in
         LocalData.users
@@ -49,7 +49,7 @@ export const RegisterPage = () => {
           .then(() => {
             navigate("/");
           })
-          .catch((error) => {
+          .catch((error: { message: SetStateAction<string>; }) => {
             setDisplayErrorMessage(error.message);
             emptyErrorMessageOnDelay(5000);
           });

@@ -68,7 +68,7 @@ const CreateAdPage = () => {
     // Opprett annonse-dokument i firebase med automatisk generert id
     LocalData.ads
       .createNewDocumentWithoutId(ad)
-      .then((docRef) => {
+      .then((docRef: any) => {
         const adRef = docRef;
         const adId = adRef.id;
         const storage = getStorage();
@@ -98,7 +98,7 @@ const CreateAdPage = () => {
         }
         alert("Annonse opprettet");
       })
-      .catch((error) => {
+      .catch((error: { message: any; }) => {
         alert(error.message);
       });
   };

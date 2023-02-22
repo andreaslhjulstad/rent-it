@@ -18,7 +18,7 @@ describe("RegisterPage", () => {
     setup();
     const nameInput = screen.getByLabelText("Ditt navn");
     const emailInput = screen.getByLabelText("Din e-postadresse");
-    const phoneNumberInput = screen.getByLabelText("Ditt telefon-nummer");
+    const phoneNumberInput = screen.getByLabelText("Telefon-nummeret ditt");
     const passwordInput = screen.getByLabelText("Ditt passord");
     expect(nameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();

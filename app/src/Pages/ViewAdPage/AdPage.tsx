@@ -22,8 +22,8 @@ export const AdPage = () => {
           .then(() => {
             setAd(adData);
           })
-          .catch((error) => {
-            setAd(adData);
+          .catch((error: any) => {
+            console.log(error);
           });
 
         if (!adData.user?.loaded) {
@@ -32,7 +32,7 @@ export const AdPage = () => {
             .then(() => {
               if (adData.user) setUser(adData.user);
             })
-            .catch((error) => {
+            .catch((error: any) => {
               console.log(error);
             });
         } else {
@@ -58,7 +58,6 @@ export const AdPage = () => {
           <img
             className={styles.toolImage}
             src={ad?.loadedImages[0]}
-            alt={"Hammer"}
             // onError={({ currentTarget }) => {
             //     currentTarget.onerror = null; // prevents looping
             //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
@@ -70,11 +69,11 @@ export const AdPage = () => {
           </div>
           <div className={styles.infoContainer}>
             <div className={styles.userAndTitle}>
-              <div className={styles.text1}> Område: </div>
+              <div className={styles.text1}>Område:</div> 
               <div className={styles.text2}>{ad?.area}</div>
             </div>
             <div className={styles.CurrentPrice}>
-              <div className={styles.text1}> Pris: </div>
+              <div className={styles.text1}>Pris:</div>
               <div className={styles.text2}> {ad?.price} </div>
             </div>
           </div>
@@ -84,11 +83,9 @@ export const AdPage = () => {
           <div className={styles.text3}>
             {" "}
             Kontaktinformasjon
-            <div className={styles.text1}>
-              Gå til bruker: <Link to="/UserPage"> {user?.name} </Link>{" "}
-            </div>
-            <div className={styles.text1}> tlf: {user?.phoneNumber} </div>
-            <div className={styles.text1}> e-mail: {user?.email} </div>
+            <div className={styles.text1}>Gå til bruker:<Link to="/UserPage"> {user?.name} </Link>{" "}</div>
+            <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
+            <div className={styles.text1}>e-mail: {user?.email}</div>
           </div>
         </form>
       </div>
