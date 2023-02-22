@@ -34,7 +34,7 @@ export const LoanAgreementPage = () => {
   const [disabled, setDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const renterId = getAuth().currentUser?.uid;
+  const renterId = getAuth().currentUser ? getAuth().currentUser!.uid : "";
   const adId = params.get("id") || "";
   const adLink = `/ad/${adId}`;
 
@@ -101,10 +101,7 @@ export const LoanAgreementPage = () => {
   }, [adId]);
 
   useEffect(() => {
-    if (renterId === null) {
-      setErrorMessage("Du må være logget inn for å kunne inngå en låneavtale!");
-      setDisabled(true);
-    } else if (userId === renterId) {
+    if (userId === renterId) {
       setErrorMessage("Du kan ikke låne fra deg selv!");
       setDisabled(true);
     } else {
