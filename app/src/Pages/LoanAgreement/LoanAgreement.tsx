@@ -190,7 +190,7 @@ export const LoanAgreementPage = () => {
           </div>
           <div id={styles.dates}>
             <DatePicker
-              id={styles.startDate}
+              className={errorMessage ? styles.dateError : styles.date}
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               selectsStart
@@ -202,7 +202,7 @@ export const LoanAgreementPage = () => {
             />
             <br></br>
             <DatePicker
-              id={styles.endDate}
+              className={errorMessage ? styles.dateError : styles.date}
               selected={endDate}
               onChange={(date) => setEndDate(date)}
               selectsEnd

@@ -106,14 +106,17 @@ h2 {
   float: left;
 }
 
-#startDate {
+.date {
   width: 150px;
   height: 25px;
+  margin-top: 1px;
 }
 
-#endDate {
+.dateError {
   width: 150px;
   height: 25px;
+  border: 2px solid red;
+  margin-top: 1px;
 }
 
 .error {
