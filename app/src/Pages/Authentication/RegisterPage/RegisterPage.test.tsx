@@ -18,15 +18,19 @@ describe("RegisterPage", () => {
     setup();
     const nameInput = screen.getByLabelText("Ditt navn");
     const emailInput = screen.getByLabelText("Din e-postadresse");
+    const phoneNumberInput = screen.getByLabelText("Telefon-nummeret ditt");
     const passwordInput = screen.getByLabelText("Ditt passord");
     expect(nameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
+    expect(phoneNumberInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     fireEvent.change(nameInput, { target: { value: "Ola Nordmann" } });
     fireEvent.change(emailInput, { target: { value: "ola@mail.com" } });
+    fireEvent.change(phoneNumberInput, {target: { value: "49494949"} });
     fireEvent.change(passwordInput, { target: { value: "ola123" } });
     expect(nameInput).toHaveValue("Ola Nordmann");
     expect(emailInput).toHaveValue("ola@mail.com");
+    expect(phoneNumberInput).toHaveValue("49494949");
     expect(passwordInput).toHaveValue("ola123");
   });
   test("all input from user should be interpreted as string", () => {

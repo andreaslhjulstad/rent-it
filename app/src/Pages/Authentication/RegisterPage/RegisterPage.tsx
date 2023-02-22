@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LocalData } from "../../../Data/LocalData";
 
@@ -11,6 +11,7 @@ export const RegisterPage = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [displayErrorMessage, setDisplayErrorMessage] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -27,6 +28,10 @@ export const RegisterPage = () => {
       setDisplayErrorMessage("Du må fylle inn e-postadressen din");
       setSubmitDisabled(false);
       return;
+    } else if (phoneNumber === "") {
+      setDisplayErrorMessage("Du må fylle inn telefon-nummeret ditt");
+      setSubmitDisabled(false);
+      return;
     } else if (password === "") {
       setDisplayErrorMessage("Du må fylle inn passordet ditt");
       setSubmitDisabled(false);
@@ -38,12 +43,13 @@ export const RegisterPage = () => {
         LocalData.users
           .createNewDocument(userCredential.user.uid, {
             name: name,
+            phoneNumber: phoneNumber,
             email: email,
           })
           .then(() => {
             navigate("/");
           })
-          .catch((error) => {
+          .catch((error: { message: SetStateAction<string> }) => {
             setDisplayErrorMessage(error.message);
             emptyErrorMessageOnDelay(5000);
           });
@@ -74,6 +80,8 @@ export const RegisterPage = () => {
           <input type="text" id="name" placeholder="Fyll inn navnet ditt" onChange={(e) => setName(e.target.value)} />
           <label htmlFor="email">Din e-postadresse</label>
           <input type="text" id="email" placeholder="Fyll inn e-postadressen din" onChange={(e) => setEmail(e.target.value)} />
+          <label htmlFor="phoneNumber">Telefon-nummeret ditt</label>
+          <input type="text" id="phoneNumber" placeholder="Fyll inn telefon-nummeret ditt" onChange={(e) => setPhoneNumber(e.target.value)} />
           <label htmlFor="password">Ditt passord</label>
           <input type="password" id="password" placeholder="Fyll inn passordet ditt" onChange={(e) => setPassword(e.target.value)} />
           <p id={styles.errorMessage}>{displayErrorMessage}</p>
