@@ -130,7 +130,7 @@ export const LoanAgreementPage = () => {
       }
       return true;
     });
-  }, [startDate, endDate, occupiedIntervals]);
+  }, [startDate, endDate, occupiedIntervals, renterId]);
 
   const loanAgreement = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
