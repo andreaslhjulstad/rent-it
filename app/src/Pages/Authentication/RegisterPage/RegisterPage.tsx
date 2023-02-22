@@ -37,7 +37,7 @@ export const RegisterPage = () => {
       setSubmitDisabled(false);
       return;
     }
-    createUserWithEmailAndPassword(auth, email, phoneNumber, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         LocalData.users
@@ -49,7 +49,7 @@ export const RegisterPage = () => {
           .then(() => {
             navigate("/");
           })
-          .catch((error: { message: SetStateAction<string>; }) => {
+          .catch((error: { message: SetStateAction<string> }) => {
             setDisplayErrorMessage(error.message);
             emptyErrorMessageOnDelay(5000);
           });
