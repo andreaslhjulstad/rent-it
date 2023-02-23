@@ -4,20 +4,26 @@ import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import defaultImage from "./unknown-default-profile.png";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { UserData } from "../../Data/Users/UserData";
+import { useParams } from "react-router-dom";
 
 export const UserPage = () => {
   const [user, setUser] = useState<UserData | null>(null);
+  const params = useParams()
 
   useEffect(() => {
-    let id = "Ci12RGyrRdg2lvH1kqwUXQZ6q1q1";
-    let doc = new UserData(id);
+    let doc: any;
+    if (params.userID) {
+      let id = params.userID;
+      doc = new UserData(id);
+    }
+  
     doc
       .load()
       .then(() => {
         console.log(doc);
         setUser(doc);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(error);
       });
   }, []);

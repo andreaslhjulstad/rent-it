@@ -4,7 +4,6 @@ import styles from "./AdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
-import hammer from "./hammer.png";
 import { UserData } from "../../Data/Users/UserData";
 import Navbar from "../../Data/Components/navbar/Navbar";
 
@@ -13,6 +12,7 @@ export const AdPage = () => {
   const params = useParams();
   const [ad, setAd] = useState<AdData | null>(null);
   const [user, setUser] = useState<UserData | null>(null);
+  const userLink = "/user/" + user?.id;
 
   useEffect(() => {
     // Velger standard eiendom om pId er i URL
@@ -91,7 +91,7 @@ export const AdPage = () => {
           <div className={styles.text3}>
             {" "}
             Kontaktinformasjon
-            <div className={styles.text1}>Gå til bruker:<Link to="/UserPage"> {user?.name} </Link>{" "}</div>
+            <div className={styles.text1}>Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}</div>
             <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
             <div className={styles.text1}>e-mail: {user?.email}</div>
           </div>
