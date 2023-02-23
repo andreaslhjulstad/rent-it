@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../App";
 export class FirebaseRealtimeLister {
   callback: () => void;

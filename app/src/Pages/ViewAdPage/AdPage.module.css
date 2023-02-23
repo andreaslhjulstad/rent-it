@@ -94,3 +94,6 @@
     align-items: flex-end;
 }
 
+.deleteButton {
+    background-color: var(--red);
+}
