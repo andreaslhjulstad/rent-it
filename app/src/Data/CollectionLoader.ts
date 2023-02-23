@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, DocumentReference, getDocs, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, DocumentReference, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../App";
 import { FirebaseData } from "./FirebaseData";
 
@@ -81,6 +81,23 @@ export default class CollectionLoader<T extends FirebaseData> {
       addDoc(collection(db, this.collection), value)
         .then((docRef) => {
           resolve(docRef);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  deleteDocument(data: T): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+      const docRef = doc(db, this.collection, data.id);
+      deleteDoc(docRef)
+        .then(async (doc) => {
+          const index = this.documents.indexOf(data);
+          if (index > -1) {
+            this.documents.splice(index, 1);
+          }
+          resolve();
         })
         .catch((error) => {
           reject(error);

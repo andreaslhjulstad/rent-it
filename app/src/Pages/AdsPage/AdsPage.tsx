@@ -23,7 +23,7 @@ export const AdsPage = () => {
       <Navbar />
       <div data-testid="homePageGrid" id={styles.homePageGrid}>
         {ads.map((ad) => {
-          return <AddBox ad={ad} />;
+          return <AddBox key={ad.id} ad={ad} />;
         })}
       </div>
     </div>

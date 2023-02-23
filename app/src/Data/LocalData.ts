@@ -7,7 +7,7 @@ export class LocalData {
   static users = new CollectionLoader("users", undefined, UserData);
   static ads = new CollectionLoader("ads", undefined, AdData);
 
-  static currentUser: UserData;
+  static currentUser?: UserData;
 
   static signOutFirebaseUser() {
     getAuth().signOut();

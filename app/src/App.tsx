@@ -17,7 +17,7 @@ import AdPage from "./Pages/ViewAdPage/AdPage";
 import UserPage from "./Pages/ViewUserPage/UserPage";
 import AdsPage from "./Pages/AdsPage/AdsPage";
 import LoanAgreementPage from "./Pages/LoanAgreement/LoanAgreement";
-
+import { LocalData } from "./Data/LocalData";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -42,8 +42,8 @@ function App() {
           <Route path="/user/:userID" element={<UserPage />} />
           <Route path="/AdsPage" element={<AdsPage />} />
           <Route path="/UserPage" element={<UserPage />} />
-          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage /> } />
-          <Route path="/loanAgreement" element={<LoanAgreementPage /> } />
+          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
+          <Route path="/loanAgreement" element={<LoanAgreementPage />} />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -59,6 +59,8 @@ const RequireAuth = () => {
   getAuth().onAuthStateChanged((user) => {
     if (!user || !user.email) {
       setPage(<Navigate to="/signIn" state={{ from: location }} />);
+    } else {
+      LocalData.currentUser = LocalData.users.addData(user.uid);
     }
   });
   return page;
