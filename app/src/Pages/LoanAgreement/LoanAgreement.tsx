@@ -101,17 +101,22 @@ export const LoanAgreementPage = () => {
   }, [adId]);
 
   useEffect(() => {
+    if (startDate === null || endDate === null) {
+      return;
+    } 
     if (userId === renterId) {
       setErrorMessage("Du kan ikke låne fra deg selv!");
       setDisabled(true);
-    } else {
+    } 
+    else {
       setErrorMessage("");
       setDisabled(false);
     }
-
-    if (startDate === null || endDate === null) {
-      return;
+    if (startDate > endDate) {
+      setErrorMessage("Startdato kan ikke være etter sluttdato!");
+      setDisabled(true);
     }
+
 
     // Setter tidspunkt til 00:00:00:00
     startDate.setHours(0, 0, 0, 0);
