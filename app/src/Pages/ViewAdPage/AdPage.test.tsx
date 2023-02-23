@@ -37,7 +37,9 @@ describe("AdPage", () => {
     
     test("being able to submit the form to rent it", () => {
         setup();
-        const submitButton = screen.getByRole("button");
+        const submitButton = screen.getByRole("button", {
+          name: /Rent it/i,
+        });
         expect(submitButton).toBeInTheDocument();
       });
 });
