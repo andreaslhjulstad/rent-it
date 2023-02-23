@@ -1,15 +1,13 @@
-
-
 .mainButton {
-    background-color: #fed9b7;
+    background-color: var(--buttonOrange);
     border: none;
     padding: 20px 30px;
     cursor: pointer;
-        font-weight: 600;
+    border-radius: 10px;
 }
 
 .mainButton:disabled {
-    background-color: #d6d6a9; /* grayed out yellow */
+    opacity: 0.5;
     cursor: not-allowed;
 }
 

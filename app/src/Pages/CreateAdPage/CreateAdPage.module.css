@@ -1,12 +1,10 @@
 #createAdPage {
-  background-color: var(--yellow);
+  background-color: var(--backgroundBlue);
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
-}
-
-.required {
-  color: red;
+  margin: 0;
+  overflow: scroll;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .createAdContent {
@@ -14,28 +12,67 @@
   max-width: 100%;
   padding: 40px;
   margin: 4vh auto;
-  background-color: white;
+  background-color: var(--lightBlue);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 }
 
+.createAdContent > h1 {
+  text-align: center;
+  font-size: 40px;
+  margin: 0;
+  padding: 20px 0;
+  color: var(--headerBlue);
+}
+
 .createAdForm {
   display: flex;
   flex-direction: column;
+  margin: 10px 20px;
 }
 
 .createAdForm>* {
   margin-top: 10px;
 }
 
-.createAdForm button {
+.createAdForm > textarea {
+  height: 105px;
+  font-size: 14px;
+  resize: none;
+}
+
+.createAdForm > input {
+  font-size: 14px;
+}
+
+.createAdForm > label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--headerBlue);
+}
+
+.createAdForm > input {
+  font-size: 14px;
+}
+
+.createAdForm > label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--headerBlue);
+}
+
+.createAdForm > button {
+  width: 200px;
+  font-weight: 600;
+  font-size: 16px;
+  align-self: center;
   margin-top: 40px;
 }
 
-.createAdForm textarea {
-  resize: none;
-  height: 105px;
+.textFieldWithError {
+  border: 1px solid red;
+  border-radius: 2px;
 }
 
 .error {
