@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./AdPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
 import hammer from "./hammer.png";
 import { UserData } from "../../Data/Users/UserData";
+import Navbar from "../../Data/Components/navbar/Navbar";
 
 export const AdPage = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [ad, setAd] = useState<AdData | null>(null);
   const [user, setUser] = useState<UserData | null>(null);
@@ -49,10 +51,16 @@ export const AdPage = () => {
     }
   }, [params, ad?.id]);
 
-  const rentIt = () => {};
+  const rentIt = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (ad) {
+      window.location.href = `/loanAgreement/${ad.id}`;
+    }
+  };
 
   return (
     <div id={styles.adPage}>
+      <Navbar />
       <div className={styles.frameRoot}>
         <form className={styles.rentItButton} onSubmit={rentIt}>
           <img

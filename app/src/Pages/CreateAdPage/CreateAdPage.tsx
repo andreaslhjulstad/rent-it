@@ -96,9 +96,16 @@ const CreateAdPage = () => {
         if (imagePaths.length > 0) {
           updateDoc(adRef, {
             images: imagePaths,
+          }).then(() => {
+            alert("Annonse opprettet");
+            window.location.href = "/ad/" + adId
           });
         }
-        alert("Annonse opprettet");
+        else {
+          alert("Annonse opprettet");
+          window.location.href = "/ad/" + adId
+        }
+        
       })
       .catch((error: { message: any; }) => {
         alert(error.message);

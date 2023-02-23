@@ -1,0 +1,140 @@
+.required {
+  color: red;
+}
+
+.loanAgreementContent {
+  width: 600px;
+  max-width: 100%;
+  padding: 40px;
+  margin: 4vh auto;
+  background-color: #f1faee;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: #a8dadc;
+  margin: 0;
+  overflow: scroll;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loanAgreementContent > h1 {
+  text-align: center;
+  /* font-family: Arial, Helvetica, sans-serif;*/
+  font-size: 40px;
+  margin: 0;
+  padding: 20px 0;
+  color: #1d3557;
+}
+
+.loanAgreementForm {
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+
+.loanAgreementForm>* {
+  margin-top: 10px;
+}
+
+.loanAgreementForm button {
+  width: 200px;
+  font-weight: 600;
+  font-size: 16px;
+  align-self: center;
+  margin-top: 40px;
+}
+
+#adInfo {
+  text-align: left;
+  width: 400px;
+  height: 120px;
+  padding: 10px;
+  margin: 3vh auto;
+  background-color: #457b9d;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.bilde {
+  max-width: 150px;
+  max-height: 120px;
+  border-radius: 10px;
+  background-color: #b6d6ea;
+}
+
+.bilde img {
+  max-width: 150px;
+  max-height: 120px;
+  border-radius: 10px;
+}
+
+.info {
+  width: 250px;
+  height: 120px;
+  padding-left: 15px;
+}
+
+.loanAgreementContent > p {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.loanAgreementContent > h2 {
+  color: white;
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+#labels {
+  height: 50px;
+  width: 100px;
+  padding-left: 100px;
+  text-align: left;
+  float: left;
+}
+
+#dates {
+  height: 140px;
+  width: 200px;
+  float: left;
+}
+
+.date {
+  width: 150px;
+  height: 25px;
+  margin-top: 1px;
+}
+
+.dateError {
+  width: 150px;
+  height: 25px;
+  border: 2px solid red;
+  margin-top: 1px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.errorSection {
+  width: 300px;
+}
+
+.errorSection > p {
+  text-align: left;
+}
+
+.link {
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+}
