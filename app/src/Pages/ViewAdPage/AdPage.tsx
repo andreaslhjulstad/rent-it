@@ -58,6 +58,20 @@ export const AdPage = () => {
     }
   };
 
+  const deleteAd = () => {
+    if (ad) {
+      LocalData.ads
+        .deleteDocument(ad)
+        .then(() => {
+          alert("Annonsen din er slettet");
+          navigate("/AdsPage");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  };
+
   return (
     <div id={styles.adPage}>
       <Navbar />
@@ -77,7 +91,7 @@ export const AdPage = () => {
           </div>
           <div className={styles.infoContainer}>
             <div className={styles.userAndTitle}>
-              <div className={styles.text1}>Område:</div> 
+              <div className={styles.text1}>Område:</div>
               <div className={styles.text2}>{ad?.area}</div>
             </div>
             <div className={styles.CurrentPrice}>
@@ -91,10 +105,19 @@ export const AdPage = () => {
           <div className={styles.text3}>
             {" "}
             Kontaktinformasjon
-            <div className={styles.text1}>Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}</div>
+            <div className={styles.text1}>
+              Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}
+            </div>
             <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
             <div className={styles.text1}>e-mail: {user?.email}</div>
           </div>
+          {LocalData.currentUser?.id === user?.id && (
+            <div className={styles.adminSettings}>
+              <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton + " " + styles.deleteButton}>
+                Slett annonse
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>
