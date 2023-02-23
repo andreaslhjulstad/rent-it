@@ -8,19 +8,18 @@ import AdsPage from "./AdsPage";
 import firestorePkg, { DocumentData, DocumentReference, FirestoreDataConverter} from 'firebase/firestore';
 
     describe("RegisterPage", () => {
-        const setup = async () => {
-            render(
-                <MemoryRouter>
-                <AdsPage />
-                </MemoryRouter>
-            );
-        };
+    const setup = async () => {
+        render(
+            <MemoryRouter>
+            <AdsPage />
+            </MemoryRouter>
+        );
+    };
     test("page shows navbar", () => {
         setup();
 
         const navBar = screen.getByRole("navigation");
         expect(navBar).toBeInTheDocument();
-
     });
 
     test("page shows AdBox grid", () => {
