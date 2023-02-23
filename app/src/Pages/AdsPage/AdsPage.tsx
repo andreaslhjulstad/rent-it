@@ -21,7 +21,7 @@ export const AdsPage = () => {
   return (
     <div id={styles.homePage}>
       <Navbar />
-      <div id={styles.homePageGrid}>
+      <div data-testid="homePageGrid" id={styles.homePageGrid}>
         {ads.map((ad) => {
           return <AddBox ad={ad} />;
         })}
