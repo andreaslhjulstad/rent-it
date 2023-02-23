@@ -1,15 +1,13 @@
-
-
 .mainButton {
-    background-color: #fed9b7;
+    background-color: var(--buttonOrange);
     border: none;
     padding: 20px 30px;
     cursor: pointer;
-        font-weight: 600;
+    border-radius: 10px;
 }
 
 .mainButton:disabled {
-    background-color: #d6d6a9; /* grayed out yellow */
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
@@ -28,10 +26,9 @@
     border: none;
     padding: 50px 40px;
     cursor: pointer;
-    color: #1d3557;
+    color: black;
     display: flex;
-    font-family: Poppins;
-    font-weight: 500;
+    font-weight: 600;
     background-color: #fed9b7;
     width: 337px;
     flex-direction: row;

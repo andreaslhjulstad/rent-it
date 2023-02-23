@@ -6,15 +6,15 @@ test("elements are rendered", () => {
 
   // Henter elementene fra siden
   const titleInput = screen.getByRole("textbox", {
-    name: /Tittel på annonse:/i,
+    name: /Tittel på annonse/i,
   });
   const descriptionInput = screen.getByRole("textbox", {
-    name: /Beskrivelse av annonse:/i,
+    name: /Beskrivelse av annonse/i,
   });
   const areaInput = screen.getByRole("textbox", {
     name: /Hvilket område befinner du deg i?/i,
   });
-  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse:/i });
+  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse/i });
   const submitButton = screen.getByRole("button", { name: /Opprett annonse/i });
 
   // Sjekker at elementene er på siden
@@ -30,12 +30,12 @@ test("empty input values", async () => {
 
   const submitButton = screen.getByRole("button", { name: /Opprett annonse/i });
   const descriptionInput = screen.getByRole("textbox", {
-    name: /Beskrivelse av annonse:/i,
+    name: /Beskrivelse av annonse/i,
   });
   const titleInput = screen.getByRole("textbox", {
-    name: /Tittel på annonse:/i,
+    name: /Tittel på annonse/i,
   });
-  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse:/i });
+  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse/i });
   const areaInput = screen.getByRole("textbox", {
     name: /Hvilket område befinner du deg i?/i,
   });
@@ -64,15 +64,15 @@ test("price input values", async () => {
   render(<CreateAdPage />);
 
   const titleInput = screen.getByRole("textbox", {
-    name: /Tittel på annonse:/i,
+    name: /Tittel på annonse/i,
   });
   const descriptionInput = screen.getByRole("textbox", {
-    name: /Beskrivelse av annonse:/i,
+    name: /Beskrivelse av annonse/i,
   });
   const areaInput = screen.getByRole("textbox", {
     name: /Hvilket område befinner du deg i?/i,
   });
-  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse:/i });
+  const priceInput = screen.getByRole("textbox", { name: /Pris på annonse/i });
   const submitButton = screen.getByRole("button", { name: /Opprett annonse/i });
 
   // Fyll in "dummy"-verdier i de andre feltene

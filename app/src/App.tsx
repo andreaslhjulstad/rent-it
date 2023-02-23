@@ -16,6 +16,8 @@ import { getAuth } from "firebase/auth";
 import AdPage from "./Pages/ViewAdPage/AdPage";
 import UserPage from "./Pages/ViewUserPage/UserPage";
 import AdsPage from "./Pages/AdsPage/AdsPage";
+import LoanAgreementPage from "./Pages/LoanAgreement/LoanAgreement";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -40,6 +42,8 @@ function App() {
           <Route path="/user/:userID" element={<UserPage />} />
           <Route path="/AdsPage" element={<AdsPage />} />
           <Route path="/UserPage" element={<UserPage />} />
+          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage /> } />
+          <Route path="/loanAgreement" element={<LoanAgreementPage /> } />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
