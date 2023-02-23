@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import styles from "./LoanAgreement.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
@@ -19,7 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { db } from "../../App";
 
 export const LoanAgreementPage = () => {
-  const [params] = useSearchParams(useLocation().search);
+  const params = useParams();
 
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
@@ -35,80 +35,86 @@ export const LoanAgreementPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const renterId = getAuth().currentUser ? getAuth().currentUser!.uid : "";
-  const adId = params.get("id") || "";
-  const adLink = `/ad/${adId}`;
+
+  const adLink = `/ad/${params.adID}`;
 
   useEffect(() => {
-    // Hent data fra annonse
-    getDoc(doc(db, "ads", adId)).then(async (adDoc) => {
-      if (adDoc.exists()) {
-        const adData = adDoc.data();
-        setUserId(adData.userId);
-        setTitle(adData.title);
-        setPrice(adData.price);
+    if (params.adID) {
+      // Hent data fra annonse
+      getDoc(doc(db, "ads", params.adID)).then(async (adDoc) => {
+        if (adDoc.exists()) {
+          const adData = adDoc.data();
+          setUserId(adData.userId);
+          setTitle(adData.title);
+          setPrice(adData.price);
 
-        // Hent data fra bruker
-        getDoc(doc(db, "users", adData.userId)).then((userDoc) => {
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setName(userData.name);
+          // Hent data fra bruker
+          getDoc(doc(db, "users", adData.userId)).then((userDoc) => {
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              setName(userData.name);
+            }
+          });
+
+          // Hent bilde fra storage
+          const storage = getStorage();
+          let storageRef;
+          if (adData.images === undefined) {
+            storageRef = ref(storage, "images/ads/placeholder-image (1).png");
+          } else {
+            storageRef = ref(storage, adData.images[0]);
           }
-        });
+          getDownloadURL(storageRef).then((url) => {
+            setImageURL(url);
+          });
 
-        // Hent bilde fra storage
-        const storage = getStorage();
-        let storageRef;
-        if (adData.images === undefined) {
-          storageRef = ref(storage, "images/ads/placeholder-image (1).png");
-        } else {
-          storageRef = ref(storage, adData.images[0]);
+          // Hent data fra låneavtaler for å finne datoer som er opptatt
+          const loanAgreementsRef = collection(db, "loanAgreements");
+          const q = query(loanAgreementsRef, where("adId", "==", params.adID));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((element) => {
+            const loanAgreementData = element.data();
+
+            const startDate = new Date(
+              loanAgreementData.dateFrom.seconds * 1000
+            );
+            const endDate = new Date(loanAgreementData.dateTo.seconds * 1000);
+
+            const diffDaysStart = Math.ceil(
+              (startDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
+            );
+            const diffDaysEnd = Math.ceil(
+              (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
+            );
+
+            if (
+              diffDaysStart >= 0 ||
+              (diffDaysStart <= 0 && diffDaysEnd >= 0)
+            ) {
+              const intervalStart = addDays(new Date(), diffDaysStart);
+              const intervalEnd = addDays(new Date(), diffDaysEnd);
+              intervalStart.setHours(0, 0, 0, 0);
+              intervalEnd.setHours(0, 0, 0, 0);
+
+              setOccupiedIntervals((prev) => [
+                ...prev,
+                { start: intervalStart, end: intervalEnd },
+              ]);
+            }
+          });
         }
-        getDownloadURL(storageRef).then((url) => {
-          setImageURL(url);
-        });
-
-        // Hent data fra låneavtaler for å finne datoer som er opptatt
-        const loanAgreementsRef = collection(db, "loanAgreements");
-        const q = query(loanAgreementsRef, where("adId", "==", adId));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((element) => {
-          const loanAgreementData = element.data();
-
-          const startDate = new Date(loanAgreementData.dateFrom.seconds * 1000);
-          const endDate = new Date(loanAgreementData.dateTo.seconds * 1000);
-
-          const diffDaysStart = Math.ceil(
-            (startDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
-          );
-          const diffDaysEnd = Math.ceil(
-            (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
-          );
-
-          if (diffDaysStart >= 0 || (diffDaysStart <= 0 && diffDaysEnd >= 0)) {
-            const intervalStart = addDays(new Date(), diffDaysStart);
-            const intervalEnd = addDays(new Date(), diffDaysEnd);
-            intervalStart.setHours(0, 0, 0, 0);
-            intervalEnd.setHours(0, 0, 0, 0);
-
-            setOccupiedIntervals((prev) => [
-              ...prev,
-              { start: intervalStart, end: intervalEnd },
-            ]);
-          }
-        });
-      }
-    });
-  }, [adId]);
+      });
+    }
+  }, [params.adID]);
 
   useEffect(() => {
     if (startDate === null || endDate === null) {
       return;
-    } 
+    }
     if (userId === renterId) {
       setErrorMessage("Du kan ikke låne fra deg selv!");
       setDisabled(true);
-    } 
-    else {
+    } else {
       setErrorMessage("");
       setDisabled(false);
     }
@@ -116,7 +122,6 @@ export const LoanAgreementPage = () => {
       setErrorMessage("Startdato kan ikke være etter sluttdato!");
       setDisabled(true);
     }
-
 
     // Setter tidspunkt til 00:00:00:00
     startDate.setHours(0, 0, 0, 0);
@@ -146,7 +151,7 @@ export const LoanAgreementPage = () => {
     const loanAgreement = {
       dateFrom: startDate,
       dateTo: endDate,
-      adId: adId,
+      adId: params.adID,
       renterId: renterId,
       userId: userId,
     };
@@ -164,7 +169,9 @@ export const LoanAgreementPage = () => {
       <div className={styles.loanAgreementContent}>
         <h1>Inngå en Låneavtale</h1>
         <form className={styles.loanAgreementForm} onSubmit={loanAgreement}>
-          <a href={adLink} style={{ textDecoration: "none" }}> {/* Link til annonsen */}
+          <a href={adLink} style={{ textDecoration: "none" }}>
+            {" "}
+            {/* Link til annonsen */}
             <div id={styles.adInfo}>
               <div className={styles.bilde}>
                 <img src={imageURL} alt="Bilde av annonsen" />

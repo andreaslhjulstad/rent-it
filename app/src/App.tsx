@@ -34,6 +34,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/createAd" element={<CreateAdPage /> } />
+          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage /> } />
           <Route path="/loanAgreement" element={<LoanAgreementPage /> } />
         </Route>
         <Route path="/signIn" element={<SignInPage />} />
