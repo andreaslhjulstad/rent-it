@@ -34,6 +34,10 @@ export const LoanAgreementPage = () => {
   const [occupiedIntervals, setOccupiedIntervals] = useState<any[]>([]);
 
   const [disabled, setDisabled] = useState(false);
+  const [validDate, setValidDate] = useState(false);
+  const [validIDs, setValidIds] = useState(false);
+  const [dateErrorMessage, setDateErrorMessage] = useState("");
+  const [userErrorMessage, setUserErrorMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const renterId = getAuth().currentUser ? getAuth().currentUser!.uid : "";
@@ -112,23 +116,24 @@ export const LoanAgreementPage = () => {
   useEffect(() => {
     if (startDate === null || endDate === null) {
       return;
-    }
-    if (userId === renterId) {
-      setErrorMessage("Du kan ikke låne fra deg selv!");
-      setDisabled(true);
+    } 
+    if (userId && renterId) {
+      if (userId === renterId) {
+        setUserErrorMessage("Du kan ikke låne fra deg selv!");
+        setValidIds(false);
+      } else {
+        setUserErrorMessage("");
+        setValidIds(true);
+      }
     } else {
-      setErrorMessage("");
-      setDisabled(false);
-    }
-    if (startDate > endDate) {
-      setErrorMessage("Startdato kan ikke være etter sluttdato!");
-      setDisabled(true);
+      setUserErrorMessage("");
+      setValidIds(false);
     }
 
     // Setter tidspunkt til 00:00:00:00
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
-
+    let occupied: boolean = false;
     occupiedIntervals.every((dateInterval) => {
       if (
         (startDate <= dateInterval.start && endDate >= dateInterval.end) || // Låneperioden inneholder en opptatt periode
@@ -136,13 +141,38 @@ export const LoanAgreementPage = () => {
         (startDate <= dateInterval.start && endDate >= dateInterval.start) || // Låneperioden starter før en opptatt periode og slutter i løpet av en opptatt periode
         (startDate <= dateInterval.end && endDate >= dateInterval.end) // Låneperioden starter i løpet av en opptatt periode og slutter etter
       ) {
-        setErrorMessage("Hele eller deler av låneperioden er opptatt!");
-        setDisabled(true);
+        setDateErrorMessage("Hele eller deler av låneperioden er opptatt!");
+        setValidDate(false);
+        occupied = true;
         return false;
       }
       return true;
     });
+    if (!occupied) {
+      setDateErrorMessage("");
+      setValidDate(true);
+    }
+    if (startDate > endDate) {
+      setDateErrorMessage("Startdato kan ikke være etter sluttdato!");
+      setValidDate(false);
+    }
   }, [startDate, endDate, occupiedIntervals, renterId, userId]);
+
+  useEffect(() => {
+    if (validDate && validIDs) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [validDate, validIDs]);
+
+  useEffect(() => {
+    if (userErrorMessage) {
+      setErrorMessage(userErrorMessage);
+    } else {
+      setErrorMessage(dateErrorMessage);
+    }
+  }, [dateErrorMessage, userErrorMessage]);
 
   const loanAgreement = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
