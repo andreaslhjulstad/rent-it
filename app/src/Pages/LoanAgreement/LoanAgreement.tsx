@@ -220,18 +220,15 @@ export const LoanAgreementPage = () => {
           <br></br>
           <br></br>
           <div id={styles.labels}>
-            <label className={styles.label} htmlFor="startDate">
-              Dato fra: <span className={styles.required}>&nbsp;*</span>
-            </label>
+            <label className={styles.label} htmlFor="startDate">Dato fra:</label>
             <br></br>
             <br></br>
-            <label className={styles.label} htmlFor="endDate">
-              Dato til: <span className={styles.required}>&nbsp;*</span>
-            </label>
+            <label className={styles.label} htmlFor="endDate">Dato til:</label>
             <br></br>
           </div>
           <div id={styles.dates}>
             <DatePicker
+              id="startDate"
               className={errorMessage ? styles.dateError : styles.date}
               selected={startDate}
               onChange={(date) => setStartDate(date)}
@@ -244,6 +241,7 @@ export const LoanAgreementPage = () => {
             />
             <br></br>
             <DatePicker
+              id="endDate"
               className={errorMessage ? styles.dateError : styles.date}
               selected={endDate}
               onChange={(date) => setEndDate(date)}
