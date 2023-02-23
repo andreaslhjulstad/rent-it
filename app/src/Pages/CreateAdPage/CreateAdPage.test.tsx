@@ -98,7 +98,7 @@ test("price input values", async () => {
   );
   expect(priceGreaterThanZeroError).toBeInTheDocument();
 
-  // Test med ugyldig input (0)
+  // Test med ugyldig input (0) 
   fireEvent.change(priceInput, { target: { value: "0" } });
   expect(submitButton).toBeDisabled();
   expect(priceGreaterThanZeroError).toBeInTheDocument();
