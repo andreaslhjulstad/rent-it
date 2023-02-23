@@ -37,7 +37,7 @@ export const RegisterPage = () => {
       setSubmitDisabled(false);
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, phoneNumber, password)
       .then((userCredential) => {
         // Signed in
         LocalData.users
