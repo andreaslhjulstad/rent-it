@@ -13,7 +13,6 @@
 
 #addBox img {
     width: 95%;
-    max-height: 300px;
     margin-top: 5px;
     border: 2px solid var(--headerBlue);
     border-radius: 10px;

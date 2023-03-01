@@ -90,6 +90,16 @@ span{
 
 } */
 
+.userAdsList {
+    display: flex;
+    flex-direction: column;
+    margin: 4vh auto;
+}
+
+.userAdsList > * {
+    margin: 10px 50px;
+}
+
 
 
 /* .signInForm>* {
