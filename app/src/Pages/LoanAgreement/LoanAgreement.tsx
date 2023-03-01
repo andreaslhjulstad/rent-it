@@ -220,10 +220,10 @@ export const LoanAgreementPage = () => {
           <br></br>
           <br></br>
           <div id={styles.labels}>
-            <label className={styles.label} htmlFor="startDate">Dato fra:</label>
+            <label htmlFor="startDate">Dato fra:</label>
             <br></br>
             <br></br>
-            <label className={styles.label} htmlFor="endDate">Dato til:</label>
+            <label htmlFor="endDate">Dato til:</label>
             <br></br>
           </div>
           <div id={styles.dates}>
@@ -254,16 +254,16 @@ export const LoanAgreementPage = () => {
             />
             <br></br>
             <br></br>
-            <div className={styles.errorSection}>
+          </div>
+          <div className={styles.errorSection}>
               <p className={styles.error}>{errorMessage}</p>
-            </div>
           </div>
           <div></div>
+          <br></br>
           <button
             className={buttonStyles.mainButton}
             type="submit"
-            disabled={disabled}
-          >
+            disabled={disabled}>
             Bekreft
           </button>
         </form>

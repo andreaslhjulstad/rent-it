@@ -1,12 +1,19 @@
-#userPage {
+/* #userPage {
     background-color: #a8dadc;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-}
+} */
+
+body {
+    background-color: #a8dadc;
+    margin: 0;
+    /* overflow: scroll; */
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
 .userContent {
-    width: 500px;
+    width: 40%; /* 500px */
     max-width: 100%;
     padding: 40px;
     margin: 4vh auto;
@@ -16,31 +23,72 @@
     flex-direction: column;
 }
 
-.userPageForm {
+h1{
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+    padding: 20px 0;
+    color: #1d3557;
+}
+/* .userContent > p {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+    padding-bottom: 5px;
+  } */
+  
+/* .userPageForm {
     display: flex;
     flex-direction: row;
-}
+} */
 
-.userImage {
+/* .userImage {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
+} */
 
-.userPageInfo {
+.userInfo {
+    padding: 10px;
+    margin: 3vh auto;
+    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    margin: 4vh auto;
-    
-    
+    flex-direction: row;
 }
 
-.text {
+.image{
+    object-fit: contain;
+    max-height: 400px;
+    max-width: 300px;
+    margin: auto;
+}
+
+.image img{
+    object-fit: cover;
+    max-height: 400px;  
+    max-width: 300px;  
+    margin: auto;
+    border-radius: 10px;
+}
+
+.userPageInfo{
+    width: 100%; /* 250px */
+    /* height: 120px; */
+    padding-left: 15px;
+}
+
+span{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* .text {
     margin-bottom: 10px;
     color: #1d3557;
 
-}
+} */
 
 
 

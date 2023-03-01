@@ -87,6 +87,9 @@ export const AdPage = () => {
           />
           <div className={styles.descriptionContainer}>
             <div className={styles.text2}>{ad?.title}</div>
+            <div className={styles.text1}>
+              Utleier: <Link to={userLink}>{user?.name}</Link>{" "}
+            </div>
             <div className={styles.text1}>{ad?.description}</div>
           </div>
           <div className={styles.infoContainer}>
@@ -102,15 +105,6 @@ export const AdPage = () => {
           <button type="submit" className={buttonStyles.rentItButton}>
             Rent it
           </button>
-          <div className={styles.text3}>
-            {" "}
-            Kontaktinformasjon
-            <div className={styles.text1}>
-              Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}
-            </div>
-            <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
-            <div className={styles.text1}>e-mail: {user?.email}</div>
-          </div>
           {LocalData.currentUser?.id === user?.id && (
             <div className={styles.adminSettings}>
               <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton + " " + styles.deleteButton}>
