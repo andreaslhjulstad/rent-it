@@ -23,7 +23,7 @@ body {
     flex-direction: column;
 }
 
-h1{
+.userContent h1{
     text-align: center;
     font-size: 40px;
     margin: 0;
@@ -99,6 +99,11 @@ span{
 .userAdsList > * {
     margin: 10px 50px;
 }
+/* .text {
+    margin-bottom: 10px;
+    color: #1d3557;
+
+} */
 
 
 

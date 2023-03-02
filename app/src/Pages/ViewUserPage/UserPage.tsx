@@ -52,21 +52,13 @@ export const UserPage = () => {
         <h1>Brukerprofil</h1>
           <div className={styles.userInfo}>
             <div className={styles.image}>
-              <img src={defaultImage} alt={"Bruker"}
-                // onError={({ currentTarget }) => {
-              //     currentTarget.onerror = null; // prevents looping
-              //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
-              // }}
-              />
+              <img src={defaultImage} alt={"Bruker"}/>
             </div> 
             <div className={styles.userPageInfo}>
               <h2> {user?.name} </h2>
               <p>E-post: <a href={"mailto:" + user?.email}>{user?.email}</a>{" "}</p>
               <p>Telefon: <a href={"tel:" + user?.phoneNumber}>{user?.phoneNumber}</a>{" "}</p>
             {/* onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}} */}
-            {/*  <button type="submit" className={buttonStyles.mainButton}>
-                Send melding
-              </button> */}
             </div>
           </div>
           <div className={styles.userAdsSection}>
