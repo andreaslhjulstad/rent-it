@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./LoanAgreement.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import {
   addDoc,
   collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
 } from "firebase/firestore";
 import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { db } from "../../App";
 import Navbar from "../../Data/Components/navbar/Navbar";
+import { AdData } from "../../Data/Ads/AdData";
+import { UserData } from "../../Data/Users/UserData";
 
 export const LoanAgreementPage = () => {
   const params = useParams();
 
-  const [userId, setUserId] = useState("");
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState("");
+  const [ad, setAd] = useState<AdData | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
@@ -45,80 +38,76 @@ export const LoanAgreementPage = () => {
   const adLink = `/ad/${params.adID}`;
 
   useEffect(() => {
-    if (params.adID) {
+    if (params.adID && params.adID !== ad?.id) {
       // Hent data fra annonse
-      getDoc(doc(db, "ads", params.adID)).then(async (adDoc) => {
-        if (adDoc.exists()) {
-          const adData = adDoc.data();
-          setUserId(adData.userId);
-          setTitle(adData.title);
-          setPrice(adData.price);
-
-          // Hent data fra bruker
-          getDoc(doc(db, "users", adData.userId)).then((userDoc) => {
-            if (userDoc.exists()) {
-              const userData = userDoc.data();
-              setName(userData.name);
-            }
+      const adData = LocalData.ads.addData(params.adID);
+      const loadUserAndImages = () => {
+        adData
+          .loadImages()
+          .then(() => {
+            setAd(adData);
+          })
+          .catch((error) => {
+            console.log(error);
           });
 
-          // Hent bilde fra storage
-          const storage = getStorage();
-          let storageRef;
-          if (adData.images === undefined) {
-            storageRef = ref(storage, "images/ads/placeholder-image (1).png");
-          } else {
-            storageRef = ref(storage, adData.images[0]);
-          }
-          getDownloadURL(storageRef).then((url) => {
-            setImageURL(url);
-          });
+        if (!adData.user?.loaded) {
+          adData.user
+            ?.load()
+            .then(() => {
+              if (adData.user) setUser(adData.user);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          setUser(adData.user);
+        }
+      };
+      if (!adData.loaded) {
+        adData.load().then(async () => {
+          loadUserAndImages();
+        });
+      } else {
+        loadUserAndImages();
+      }
+    }
 
-          // Hent data fra låneavtaler for å finne datoer som er opptatt
-          const loanAgreementsRef = collection(db, "loanAgreements");
-          const q = query(loanAgreementsRef, where("adId", "==", params.adID));
-          const querySnapshot = await getDocs(q);
-          querySnapshot.forEach((element) => {
-            const loanAgreementData = element.data();
+    LocalData.loanAgreements.loadDocuments().then((loanAgreementsCollection) => {
+      loanAgreementsCollection.documents.filter((loanAgreement) => loanAgreement.ad?.id === params.adID)
+      .forEach((loanAgreement) => {
+        const startDate = new Date(loanAgreement.dateFrom);
+        const endDate = new Date(loanAgreement.dateTo);
 
-            const startDate = new Date(
-              loanAgreementData.dateFrom.seconds * 1000
-            );
-            const endDate = new Date(loanAgreementData.dateTo.seconds * 1000);
+        const diffDaysStart = Math.ceil(
+          (startDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
+        );
+        const diffDaysEnd = Math.ceil(
+          (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
+        );
+        if (diffDaysStart >= 0 || 
+          (diffDaysStart <= 0 && diffDaysEnd >= 0)
+        ) {
+          const intervalStart = addDays(new Date(), diffDaysStart);
+          const intervalEnd = addDays(new Date(), diffDaysEnd);
+          intervalStart.setHours(0, 0, 0, 0);
+          intervalEnd.setHours(0, 0, 0, 0);
 
-            const diffDaysStart = Math.ceil(
-              (startDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
-            );
-            const diffDaysEnd = Math.ceil(
-              (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24)
-            );
-
-            if (
-              diffDaysStart >= 0 ||
-              (diffDaysStart <= 0 && diffDaysEnd >= 0)
-            ) {
-              const intervalStart = addDays(new Date(), diffDaysStart);
-              const intervalEnd = addDays(new Date(), diffDaysEnd);
-              intervalStart.setHours(0, 0, 0, 0);
-              intervalEnd.setHours(0, 0, 0, 0);
-
-              setOccupiedIntervals((prev) => [
-                ...prev,
-                { start: intervalStart, end: intervalEnd },
-              ]);
-            }
-          });
+          setOccupiedIntervals((prev) => [
+            ...prev,
+            { start: intervalStart, end: intervalEnd },
+          ]);
         }
       });
-    }
-  }, [params.adID]);
+    });
+  }, [ad?.id, params.adID]);
 
   useEffect(() => {
     if (startDate === null || endDate === null) {
       return;
     } 
-    if (userId && renterId) {
-      if (userId === renterId) {
+    if (user?.id && renterId) {
+      if (user?.id === renterId) {
         setUserErrorMessage("Du kan ikke låne fra deg selv!");
         setValidIds(false);
       } else {
@@ -156,7 +145,7 @@ export const LoanAgreementPage = () => {
       setDateErrorMessage("Startdato kan ikke være etter sluttdato!");
       setValidDate(false);
     }
-  }, [startDate, endDate, occupiedIntervals, renterId, userId]);
+  }, [startDate, endDate, occupiedIntervals, renterId, user?.id]);
 
   useEffect(() => {
     if (validDate && validIDs) {
@@ -177,15 +166,13 @@ export const LoanAgreementPage = () => {
   const loanAgreement = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validering
-
     // Opprett låneavtale-objekt
     const loanAgreement = {
       dateFrom: startDate,
       dateTo: endDate,
       adId: params.adID,
       renterId: renterId,
-      userId: userId,
+      userId: user?.id,
     };
 
     // Opprett låneavtale dokument i firebase med automatisk generert id  
@@ -204,16 +191,15 @@ export const LoanAgreementPage = () => {
         <h1>Inngå en Låneavtale</h1>
         <form className={styles.loanAgreementForm} onSubmit={loanAgreement}>
           <a className={styles.link} href={adLink} style={{ textDecoration: "none" }}>
-            {" "}
             {/* Link til annonsen */}
             <div id={styles.adInfo}>
               <div className={styles.bilde}>
-                <img src={imageURL} alt="Bilde av annonsen" />
+                <img src={ad?.loadedImages[0]} alt="Bilde av annonsen" />
               </div>
               <div className={styles.info}>
-                <h2>{title}</h2>
-                <p>Pris: {price} kr</p>
-                <p>Lån av: {name}</p>
+                <h2>{ad?.title}</h2>
+                <p>Pris: {ad?.price} kr</p>
+                <p>Lån av: {user?.name}</p>
               </div>
             </div>
           </a>
