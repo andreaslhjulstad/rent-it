@@ -15,6 +15,7 @@ export const UserPage = () => {
   const [userAds, setUserAds] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams()
+  const [profilePicture, setProfilePicture]= useState(defaultImage);
 
   useEffect(() => {
     let doc: any;
@@ -37,6 +38,9 @@ export const UserPage = () => {
             setAdsHeader(doc.name + "s annonser");
           }
         }
+        if(doc.image){
+          setProfilePicture(doc.image);
+        }
         const allAds = await LocalData.ads.loadDocuments();
         setUserAds(allAds.documents.filter((ad) => ad.user?.id === doc.id));
       })
@@ -52,7 +56,7 @@ export const UserPage = () => {
         <h1>Brukerprofil</h1>
           <div className={styles.userInfo}>
             <div className={styles.image}>
-              <img src={defaultImage} alt={"Bruker"}/>
+              <img src={profilePicture} alt={"Bruker"}/>
             </div> 
             <div className={styles.userPageInfo}>
               <h2> {user?.name} </h2>

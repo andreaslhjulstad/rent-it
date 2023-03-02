@@ -2,9 +2,11 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { SetStateAction, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LocalData } from "../../../Data/LocalData";
-
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import styles from "./RegisterPage.module.css";
 import buttonStyles from "../../../GlobalStyling/Buttons.module.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../App";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ export const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState<File>();
   const [displayErrorMessage, setDisplayErrorMessage] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
@@ -46,8 +49,21 @@ export const RegisterPage = () => {
             phoneNumber: phoneNumber,
             email: email,
           })
-          .then(() => {
-            navigate("/");
+          .then((userRef) => {
+            if(image) {
+              const path = `images/users/${userCredential.user.uid}/${image.name}`;
+              const storageRef = ref(getStorage(), path);
+              uploadBytes(storageRef, image)
+
+              const userRef = doc(db, "users", userCredential.user.uid);
+              updateDoc(userRef, { imagePath: path }).then(() => {
+                alert("Brukeren ble opprettet!")
+                navigate("/");
+              });
+            }else{
+              alert("Brukeren ble opprettet!")
+              navigate("/");
+            }
           })
           .catch((error: { message: SetStateAction<string> }) => {
             setDisplayErrorMessage(error.message);
@@ -78,6 +94,17 @@ export const RegisterPage = () => {
         <form className={styles.registerForm} onSubmit={registerUser}>
           <label htmlFor="name">Ditt navn</label>
           <input type="text" id="name" placeholder="Fyll inn navnet ditt" onChange={(e) => setName(e.target.value)} />
+          <label htmlFor="image">
+            Legg til et profilbilde
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/png, image/jpeg"
+            onChange={(e) => {
+              setImage(Array.from(e.target.files ?? [])[0]);
+            }}
+          />
           <label htmlFor="email">Din e-postadresse</label>
           <input type="text" id="email" placeholder="Fyll inn e-postadressen din" onChange={(e) => setEmail(e.target.value)} />
           <label htmlFor="phoneNumber">Telefon-nummeret ditt</label>
