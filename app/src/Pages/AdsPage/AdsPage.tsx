@@ -11,6 +11,8 @@ import styles from "./AdsPage.module.css";
 
 export const AdsPage = () => {
   const [ads, setAds] = useState<AdData[]>([]);
+  const [search, setSearch] = useState("");
+  const [filteredAds, setFilteredAds] = useState<AdData[]>([]);
 
   useEffect(() => {
     LocalData.ads.loadDocuments().then((adsCollection) => {
@@ -18,11 +20,20 @@ export const AdsPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    setFilteredAds(
+      ads.filter((ad) => ad.title.toLowerCase().includes(search.toLowerCase()))
+    )
+  }, [search, ads])
+
   return (
     <div id={styles.homePage}>
       <Navbar />
+      <div id={styles.filterDiv}>
+        <input type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
+      </div>
       <div data-testid="homePageGrid" id={styles.homePageGrid}>
-        {ads.map((ad) => {
+        {filteredAds.length === 0 ? <h1>Ingen annonser funnet</h1> : filteredAds.map((ad) => {
           return <AddBox key={ad.id} ad={ad} />;
         })}
       </div>
