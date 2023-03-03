@@ -5,6 +5,7 @@ import { UserData } from "../Users/UserData";
 export class AdData extends FirebaseData {
   title: string = "";
   description: string = "";
+  category: string[] = [];
   price: number = 0;
   area: string = "";
   user: UserData | undefined;
@@ -24,6 +25,14 @@ export class AdData extends FirebaseData {
       }
       if (typeof data.description === "string") {
         this.description = data.description;
+      }
+      if (Array.isArray(data.category)) {
+        this.category = [];
+        data.category.forEach(async (aCategory: any) => {
+          if (typeof aCategory === "string") {
+            this.category.push(aCategory);
+          }
+        });
       }
       if (typeof data.price === "number") {
         this.price = data.price;
