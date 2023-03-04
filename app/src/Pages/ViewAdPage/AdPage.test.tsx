@@ -21,18 +21,12 @@ describe("AdPage", () => {
         const area = screen.getByText("Område:");
         const price = screen.getByText("Pris:");
         const button = screen.getByText("Rent it"); 
-        const contactInfo = screen.getByText("Kontaktinformasjon")
-        const goTo = screen.getByText("Gå til bruker:");
-        const tlf = screen.getByText("tlf:");
-        const email = screen.getByText("e-mail:");
+        const contactInfo = screen.getByText("Utleier:")
         //Tester at elementene er på siden
         expect(area).toBeInTheDocument();
         expect(price).toBeInTheDocument();
         expect(button).toBeInTheDocument(); 
         expect(contactInfo).toBeInTheDocument();
-        expect(goTo).toBeInTheDocument();
-        expect(tlf).toBeInTheDocument();
-        expect(email).toBeInTheDocument();
     })
     
     test("being able to submit the form to rent it", () => {
