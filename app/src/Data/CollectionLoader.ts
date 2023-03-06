@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, DocumentReference, getDocs, setDoc } from "firebase/firestore";
+import { addDoc, collection, CollectionReference, deleteDoc, doc, DocumentReference, getDocs, query, Query, QueryConstraint, setDoc } from "firebase/firestore";
 import { db } from "../App";
 import { FirebaseData } from "./FirebaseData";
 
@@ -8,6 +8,7 @@ interface NoParamConstructor<T extends FirebaseData> {
 
 export default class CollectionLoader<T extends FirebaseData> {
   collection: string = "";
+  path: string = "";
   parent?: FirebaseData;
   loaded = false;
   loading = false;
@@ -17,12 +18,14 @@ export default class CollectionLoader<T extends FirebaseData> {
   constructor(collection: string, parent: FirebaseData | undefined, docType: NoParamConstructor<T>) {
     this.collection = collection;
     this.parent = parent;
+    this.path = (parent ? parent.collectionName + "/" + parent.id + "/" : "") + collection;
     this.docType = docType;
   }
 
-  loadDocuments(): Promise<this> {
+  loadDocuments(constraint?: QueryConstraint): Promise<this> {
     return new Promise<this>(async (resolve, reject) => {
-      getDocs(collection(db, this.collection))
+      let docs = collection(db, this.path);
+      getDocs(constraint ? query(docs, constraint) : docs)
         .then((docSnap) => {
           docSnap.forEach(async (doc) => {
             let dataDoc = this.addData(doc.id);
@@ -58,9 +61,7 @@ export default class CollectionLoader<T extends FirebaseData> {
    */
   createNewDocument(id: string, value: object) {
     return new Promise<undefined>((resolve, reject) => {
-      console.log(this.collection);
-      console.log(id);
-      setDoc(doc(db, this.collection, id), value)
+      setDoc(doc(db, this.path, id), value)
         .then(() => {
           resolve(undefined);
         })
@@ -78,7 +79,8 @@ export default class CollectionLoader<T extends FirebaseData> {
    */
   createNewDocumentWithoutId(value: object) {
     return new Promise<DocumentReference>((resolve, reject) => {
-      addDoc(collection(db, this.collection), value)
+      console.log(this.path);
+      addDoc(collection(db, this.path), value)
         .then((docRef) => {
           resolve(docRef);
         })
@@ -90,7 +92,7 @@ export default class CollectionLoader<T extends FirebaseData> {
 
   deleteDocument(data: T): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
-      const docRef = doc(db, this.collection, data.id);
+      const docRef = doc(db, this.path, data.id);
       deleteDoc(docRef)
         .then(async (doc) => {
           const index = this.documents.indexOf(data);

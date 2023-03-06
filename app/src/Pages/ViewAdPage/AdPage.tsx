@@ -6,6 +6,7 @@ import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
 import { UserData } from "../../Data/Users/UserData";
 import Navbar from "../../Data/Components/navbar/Navbar";
+import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
 
 export const AdPage = () => {
   const navigate = useNavigate();
@@ -75,50 +76,53 @@ export const AdPage = () => {
   return (
     <div id={styles.adPage}>
       <Navbar />
-      <div className={styles.frameRoot}>
-        <form className={styles.rentItButton} onSubmit={rentIt}>
-          <img
-            className={styles.toolImage}
-            src={ad?.loadedImages[0]}
-            // onError={({ currentTarget }) => {
-            //     currentTarget.onerror = null; // prevents looping
-            //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
-            // }}
-          />
-          <div className={styles.descriptionContainer}>
-            <div className={styles.text2}>{ad?.title}</div>
-            <div className={styles.text1}>{ad?.description}</div>
-          </div>
-          <div className={styles.infoContainer}>
-            <div className={styles.userAndTitle}>
-              <div className={styles.text1}>Område:</div>
-              <div className={styles.text2}>{ad?.area}</div>
+      <div id={styles.adContent}>
+        <div className={styles.frameRoot}>
+          <form className={styles.rentItButton} onSubmit={rentIt}>
+            <img
+              className={styles.toolImage}
+              src={ad?.loadedImages[0]}
+              // onError={({ currentTarget }) => {
+              //     currentTarget.onerror = null; // prevents looping
+              //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
+              // }}
+            />
+            <div className={styles.descriptionContainer}>
+              <div className={styles.text2}>{ad?.title}</div>
+              <div className={styles.text1}>{ad?.description}</div>
             </div>
-            <div className={styles.CurrentPrice}>
-              <div className={styles.text1}>Pris:</div>
-              <div className={styles.text2}> {ad?.price} </div>
+            <div className={styles.infoContainer}>
+              <div className={styles.userAndTitle}>
+                <div className={styles.text1}>Område:</div>
+                <div className={styles.text2}>{ad?.area}</div>
+              </div>
+              <div className={styles.CurrentPrice}>
+                <div className={styles.text1}>Pris:</div>
+                <div className={styles.text2}> {ad?.price} </div>
+              </div>
             </div>
-          </div>
-          <button type="submit" className={buttonStyles.rentItButton}>
-            Rent it
-          </button>
-          <div className={styles.text3}>
-            {" "}
-            Kontaktinformasjon
-            <div className={styles.text1}>
-              Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}
+            <button type="submit" className={buttonStyles.rentItButton}>
+              Rent it
+            </button>
+            <div className={styles.text3}>
+              {" "}
+              Kontaktinformasjon
+              <div className={styles.text1}>
+                Gå til bruker:<Link to={userLink}> {user?.name} </Link>{" "}
+              </div>
+              <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
+              <div className={styles.text1}>e-mail: {user?.email}</div>
             </div>
-            <div className={styles.text1}>tlf: {user?.phoneNumber}</div>
-            <div className={styles.text1}>e-mail: {user?.email}</div>
-          </div>
-          {LocalData.currentUser?.id === user?.id && (
-            <div className={styles.adminSettings}>
-              <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton + " " + styles.deleteButton}>
-                Slett annonse
-              </button>
-            </div>
-          )}
-        </form>
+            {LocalData.currentUser?.id === user?.id && (
+              <div className={styles.adminSettings}>
+                <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton + " " + styles.deleteButton}>
+                  Slett annonse
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
+        <RatingSection ad={ad ?? undefined} />
       </div>
     </div>
   );
