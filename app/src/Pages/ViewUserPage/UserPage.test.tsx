@@ -32,4 +32,21 @@ describe("UserPage", () => {
     expect(adsList).toBeInTheDocument();
   });
 
+  test("page shows user info", () => {
+    setup();
+
+
+    const userPicture = screen.getByTestId("userPicture");
+    expect(userPicture).toBeInTheDocument();
+
+    const userName = screen.getByTestId("userName");
+    expect(userName).toBeInTheDocument();
+
+    const userEmail = screen.getByTestId("userEmail");
+    expect(userEmail).toBeInTheDocument();
+
+    const userPhoneNum = screen.getByTestId("userPhoneNum");
+    expect(userPhoneNum).toBeInTheDocument();
+  });
+
 });

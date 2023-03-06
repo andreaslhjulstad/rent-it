@@ -56,17 +56,16 @@ export const UserPage = () => {
         <h1>Brukerprofil</h1>
         <div className={styles.userInfo}>
           <div className={styles.image}>
-            <img src={profilePicture} alt={"Bruker"} />
+            <img  data-testid="userPicture" src={profilePicture} alt={"Bruker"} />
           </div>
           <div className={styles.userPageInfo}>
-            <h2> {user?.name} </h2>
-            <p>
+            <h2 data-testid="userName"> {user?.name} </h2>
+            <p  data-testid="userEmail">
               E-post: <a href={"mailto:" + user?.email}>{user?.email}</a>{" "}
             </p>
-            <p>
+            <p  data-testid="userPhoneNum">
               Telefon: <a href={"tel:" + user?.phoneNumber}>{user?.phoneNumber}</a>{" "}
             </p>
-            {/* onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}} */}
           </div>
         </div>
         <div className={styles.userAdsSection}>
