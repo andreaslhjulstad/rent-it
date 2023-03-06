@@ -1,8 +1,9 @@
 #userPage {
-    background-color: #a8dadc;
+    background-color: var(--backgroundColor);
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    color: var(--textColor);
 }
 
 .userContent {
@@ -10,7 +11,7 @@
     max-width: 100%;
     padding: 40px;
     margin: 4vh auto;
-    background-color: #f1faee;
+    background-color: var(--infoColor);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -38,16 +39,6 @@
 
 .text {
     margin-bottom: 10px;
-    color: #1d3557;
+    color: var(--headerColor);
 
 }
-
-
-
-/* .signInForm>* {
-    margin-top: 10px;
-}
-
-.signInForm button {
-    margin-top: 40px;
-} */

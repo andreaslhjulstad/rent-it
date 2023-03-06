@@ -1,5 +1,5 @@
 .mainButton {
-    background-color: var(--buttonOrange);
+    background-color: var(--buttonColor);
     border: none;
     padding: 20px 30px;
     cursor: pointer;
@@ -12,7 +12,7 @@
 }
 
 .mainButton:hover:enabled {
-    background-color: var(--orange);
+    background-color: var(--buttonHoverColor);
 }
 
 .smallTextButton {
@@ -29,7 +29,7 @@
     color: black;
     display: flex;
     font-weight: 600;
-    background-color: #fed9b7;
+    background-color: var(--buttonColor);
     width: 337px;
     flex-direction: row;
     justify-content: center;
@@ -40,5 +40,5 @@
 }
 
 .rentItButton:hover {
-    background-color: #f07167;
+    background-color: var(--buttonHoverColor);
 }

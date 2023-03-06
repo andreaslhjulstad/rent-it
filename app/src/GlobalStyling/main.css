@@ -1,15 +1,23 @@
 :root {
-  --green: #1B998B;
-  --purple: #2D3047;
-  --yellow: #FFFD82;
-  --orange: #FF9B71;
-  --red: #E84855;
-  /*Nye farger*/
-  --backgroundBlue: #a8dadc;
-  --headerBlue: #1d3557;
+  --backgroundColor: #a8dadc;
+  --headerColor: #1d3557;
   --requiredRed: #ff0000;
-  --lightBlue: #f1faee;
-  --adBlue: #457b9d;
-  --buttonOrange: #fed9b7;
-  --buttonHoverOrange: #f07167;
+  --infoColor: #f1faee;
+  --adColor: #457b9d;
+  --buttonColor: #f07167;
+  --buttonHoverColor: #fed9b7;
+  --textColor: #000000;
+
+  /*
+  
+Her er darkmodefargene: 
+  --backgroundColor: #1f1e25;
+  --headerColor: #29282d;
+  --requiredRed: #cc0606;
+  --infoColor: #333239;
+  --adColor: #333239;
+  --buttonColor: #5e9395;
+  --buttonHoverColor: #b8cfcf;
+  */
+  
 }
