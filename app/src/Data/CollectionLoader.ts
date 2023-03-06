@@ -22,16 +22,34 @@ export default class CollectionLoader<T extends FirebaseData> {
     this.docType = docType;
   }
 
-  loadDocuments(constraint?: QueryConstraint): Promise<this> {
+  loadDocuments(): Promise<this> {
     return new Promise<this>(async (resolve, reject) => {
-      let docs = collection(db, this.path);
-      getDocs(constraint ? query(docs, constraint) : docs)
+      getDocs(collection(db, this.path))
         .then((docSnap) => {
           docSnap.forEach(async (doc) => {
             let dataDoc = this.addData(doc.id);
             dataDoc.setup(doc.data());
           });
           resolve(this);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  loadDocumentsWithFilter(constraint?: QueryConstraint[]): Promise<T[]> {
+    return new Promise<T[]>(async (resolve, reject) => {
+      let docs = collection(db, this.path);
+      getDocs(constraint ? query(docs, ...constraint) : docs)
+        .then((docSnap) => {
+          let docDatas: T[] = [];
+          docSnap.forEach(async (doc) => {
+            let dataDoc = this.addData(doc.id);
+            dataDoc.setup(doc.data());
+            docDatas.push(dataDoc);
+          });
+          resolve(docDatas);
         })
         .catch((error) => {
           reject(error);

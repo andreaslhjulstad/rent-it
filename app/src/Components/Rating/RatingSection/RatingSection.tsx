@@ -1,3 +1,4 @@
+import { QueryConstraint, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import { AdData } from "../../../Data/Ads/AdData";
 import { LocalData } from "../../../Data/LocalData";
@@ -12,6 +13,7 @@ interface RatingSectionProps {
   ad?: AdData;
 }
 export const RatingSection = (props: RatingSectionProps) => {
+  const [hasRentedFromAd, setHasRentedFromAd] = useState(false);
   const [loadedRatings, setLoadedRatings] = useState<RatingData[]>([]);
   useEffect(() => {
     const ratingCollection = props.user ? props.user.ratings : props.ad?.ratings;
@@ -24,8 +26,17 @@ export const RatingSection = (props: RatingSectionProps) => {
 
   const averageRating = loadedRatings.reduce((a, b) => a + b.ratingNumber, 0) / loadedRatings.length;
 
-  let canRate = (props.user?.id ?? props.ad?.user?.id) !== LocalData.currentUser?.id && loadedRatings.filter((rating) => rating.raterUser?.id === LocalData.currentUser?.id).length === 0;
+  let canRate = hasRentedFromAd && (props.user?.id ?? props.ad?.user?.id) !== LocalData.currentUser?.id && loadedRatings.filter((rating) => rating.raterUser?.id === LocalData.currentUser?.id).length === 0;
 
+  if (props.ad) {
+    LocalData.loanAgreements.loadDocumentsWithFilter([where("adId", "==", props.ad.id), where("renterId", "==", LocalData.currentUser?.id)]).then((loanAgreements) => {
+      if (loanAgreements.length === 0) {
+        setHasRentedFromAd(false);
+      } else {
+        setHasRentedFromAd(true);
+      }
+    });
+  }
   return (
     <div className={styles.ratingSection}>
       {canRate && <RatingForm sentRating={(ratings: RatingData[]) => setLoadedRatings([...ratings])} user={props.user} ad={props.ad} />}

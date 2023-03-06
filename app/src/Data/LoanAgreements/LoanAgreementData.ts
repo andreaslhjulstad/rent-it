@@ -10,7 +10,7 @@ export class LoanAgreementData extends FirebaseData {
   renter: UserData | undefined;
 
   constructor(id: string) {
-    super(id, "ads", undefined);
+    super(id, "loanAgreements", undefined);
   }
 
   setup(data: any) {
