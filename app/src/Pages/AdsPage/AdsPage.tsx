@@ -8,6 +8,8 @@ import AddBox from "../../Data/Components/AddBox";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { LocalData } from "../../Data/LocalData";
 import styles from "./AdsPage.module.css";
+import globalStyles from "../../GlobalStyling/Buttons.module.css";
+
 
 export const AdsPage = () => {
   const [ads, setAds] = useState<AdData[]>([]);
@@ -19,13 +21,23 @@ export const AdsPage = () => {
     let value = e.target.value;
     if (filters.includes(value)) {
       const newFilters = filters.filter((filter) => filter !== value);
-      setFilters(newFilters)
+      setFilters(newFilters);
     } else {
       const newFilters = [...filters];
       newFilters.push(value);
       setFilters(newFilters);
     }
   }
+
+  function sortPriceHigLow() {
+    const sorted = [...filteredAds].sort((a, b) => b.price - a.price);
+    setFilteredAds(sorted)
+  };
+
+  function sortPriceLowHig() {
+    const sorted = [...filteredAds].sort((a, b) => a.price - b.price);
+    setFilteredAds(sorted)
+  };
 
   useEffect(() => {
     LocalData.ads.loadDocuments().then((adsCollection) => {
@@ -48,8 +60,15 @@ export const AdsPage = () => {
     <div id={styles.homePage}>
       <Navbar />
       <div id={styles.filterDiv}>
-        <input id={styles.search} type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
-        
+        <div id={styles.flexDiv}>
+          <input id={styles.search} type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
+
+          <div id={styles.priceFilter}>
+            <button className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceHigLow}>{"$$$⇨$"}</button>
+            <button className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceLowHig}>{"$⇨$$$"}</button>
+          </div>
+        </div>
+        <hr />
         <div id={styles.filters}>
           <div>
             <label>
@@ -91,6 +110,12 @@ export const AdsPage = () => {
           <label>
             <input type="checkbox" value={"Hjemmeredskaper"} onChange={handleChange}/>
             <span>Hjemmeredskaper</span>
+          </label>
+          </div>
+          <div>
+          <label>
+            <input type="checkbox" value={"Kjøkken"} onChange={handleChange}/>
+            <span>Kjøkken</span>
           </label>
           </div>
         </div>

@@ -202,6 +202,10 @@ const CreateAdPage = () => {
               <input type="checkbox" value={"Hjemmeredskaper"} onChange={handleChange}/>
               <span className={styles.checkmark}></span>
             </label>
+            <label className={styles.container}>Kjøkken
+              <input type="checkbox" value={"Kjøkken"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
           </div>
           <button
             className={buttonStyles.mainButton}
