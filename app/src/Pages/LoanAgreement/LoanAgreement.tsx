@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { Params, useLocation, useParams, useSearchParams } from "react-router-dom";
 import styles from "./LoanAgreement.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
@@ -19,6 +19,7 @@ import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { db } from "../../App";
 import Navbar from "../../Data/Components/navbar/Navbar";
+
 
 export const LoanAgreementPage = () => {
   const params = useParams();
@@ -113,6 +114,30 @@ export const LoanAgreementPage = () => {
     }
   }, [params.adID]);
 
+  // type UpdateRentedStatus = [boolean, (newStatus: boolean) => void];
+
+  // const updateRentedStatus = (documentID: any, initialValue: boolean): UpdateRentedStatus => {
+  //   const [isRented, setIsRented] = useState(initialValue);
+
+  //   const updateStatus = (newStatus: boolean) => {
+  //     updateDoc(documentID, {isRented : newStatus})
+  //     .then(() => {
+  //     setIsRented(newStatus);
+  //     })
+  //     .catch((error: { message: any; }) => {
+  //     alert(error.message);
+  //     });
+  //   }
+    
+  //   return [isRented, updateStatus];
+    
+  // }
+
+  // const handleMarkAsRented = () => {
+  //   const [isRented, updateStatus]: UpdateRentedStatus = updateRentedStatus(params.asID, false);
+  //   updateStatus(!isRented);
+  // }
+
   useEffect(() => {
     if (startDate === null || endDate === null) {
       return;
@@ -151,11 +176,13 @@ export const LoanAgreementPage = () => {
     if (!occupied) {
       setDateErrorMessage("");
       setValidDate(true);
+      //handleMarkAsRented;
     }
     if (startDate > endDate) {
       setDateErrorMessage("Startdato kan ikke være etter sluttdato!");
       setValidDate(false);
     }
+
   }, [startDate, endDate, occupiedIntervals, renterId, userId]);
 
   useEffect(() => {

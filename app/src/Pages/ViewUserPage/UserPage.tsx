@@ -55,9 +55,9 @@ export const UserPage = () => {
       <div data-testid="userContent" className={styles.userContent}>
         <h1>Brukerprofil</h1>
         <div className={styles.userInfo}>
-          <div className={styles.image}>
-            <img  data-testid="userPicture" src={profilePicture} alt={"Bruker"} />
-          </div>
+            <div className={styles.image}>
+              <img data-testid="userPicture" src={profilePicture} alt={"Bruker"}/>
+            </div> 
           <div className={styles.userPageInfo}>
             <h2 data-testid="userName"> {user?.name} </h2>
             <p  data-testid="userEmail">
