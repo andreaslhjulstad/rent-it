@@ -46,7 +46,7 @@ hr {
 
 #priceDiv {
     position: relative;
-    top: 1px;
+    top: 0px;
     left: 2.5%;
     background-color: black;
     opacity: 80%;

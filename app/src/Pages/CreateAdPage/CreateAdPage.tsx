@@ -18,6 +18,7 @@ const CreateAdPage = () => {
   const [area, setArea] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [priceError, setPriceError] = useState("");
+  const [categories, setFilters] = useState<any[]>([]);
 
   /* 
   Metode som kjøres når tilstanden til et av de obligatoriske feltene
@@ -55,6 +56,18 @@ const CreateAdPage = () => {
     });
   }, [price]);
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value;
+    if (categories.includes(value)) {
+      const newFilters = categories.filter((filter) => filter !== value);
+      setFilters(newFilters)
+    } else {
+      const newFilters = [...categories];
+      newFilters.push(value);
+      setFilters(newFilters);
+    }
+  }
+
   const createAd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Forhindrer at siden lastes på nytt når metoden kalles
 
@@ -64,6 +77,7 @@ const CreateAdPage = () => {
       description: description,
       price: price,
       area: area,
+      category: categories,
       userId: getAuth().currentUser ? getAuth().currentUser!.uid : "", // Lagrer bruker-id hvis brukeren er logget inn, ellers tom streng (for testing)
     };
 
@@ -159,6 +173,40 @@ const CreateAdPage = () => {
             placeholder="Fyll inn område"
             onChange={(e) => setArea(e.target.value)}
           />
+          <div id={styles.gridDiv}>
+            <label className={styles.container}>Elektroverktøy
+              <input type="checkbox" value={"Elektroverktøy"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Håndverktøy
+              <input type="checkbox" value={"Håndverktøy"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Vinter
+              <input type="checkbox" value={"Vinter"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Hage
+              <input type="checkbox" value={"Hage"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Hobby
+              <input type="checkbox" value={"Hobby"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Maling
+              <input type="checkbox" value={"Maling"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Hjemmeredskaper
+              <input type="checkbox" value={"Hjemmeredskaper"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+            <label className={styles.container}>Kjøkken
+              <input type="checkbox" value={"Kjøkken"} onChange={handleChange}/>
+              <span className={styles.checkmark}></span>
+            </label>
+          </div>
           <button
             className={buttonStyles.mainButton}
             type="submit"
