@@ -20,7 +20,7 @@
     text-align: center;
     margin: auto;
     margin-bottom: 20px;
-    background-color: var(--lightBlue);
+    background-color: var(--infoColor);
     width: 60%;
     border-radius: 10px;
     padding: 5px;
@@ -83,7 +83,7 @@
 
 #filters div{
     margin: 4px;
-    background-color: var(--buttonOrange);
+    background-color: var(--buttonColor);
     border-radius: 10px;
     border: 1px solid #fff;
     overflow: hidden;
@@ -112,7 +112,7 @@
 }
   
 #filters div input:checked + span {
-    background-color: var(--orange);
+    background-color: var(--buttonHoverColor);
 }
 
 #flexDiv {
