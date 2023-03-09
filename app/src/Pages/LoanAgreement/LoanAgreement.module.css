@@ -1,5 +1,5 @@
 .required {
-  color: red;
+  color: requiredRed;
 }
 
 .loanAgreementContent {
@@ -7,26 +7,26 @@
   max-width: 100%;
   padding: 40px;
   margin: 4vh auto;
-  background-color: #f1faee;
+  background-color: var(--infoColor);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 }
 
 body {
-  background-color: #a8dadc;
+  background-color: var(--backgroundColor);
   margin: 0;
   overflow: scroll;
   font-family: Arial, Helvetica, sans-serif;
+  color: var(--textColor);
 }
 
 .loanAgreementContent > h1 {
   text-align: center;
-  /* font-family: Arial, Helvetica, sans-serif;*/
   font-size: 40px;
   margin: 0;
   padding: 20px 0;
-  color: #1d3557;
+  color: var(--headerColor);
 }
 
 .loanAgreementForm {
@@ -53,7 +53,7 @@ body {
   height: 120px;
   padding: 10px;
   margin: 3vh auto;
-  background-color: #457b9d;
+  background-color: var(--adColor);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -64,7 +64,7 @@ body {
   max-width: 150px;
   max-height: 120px;
   border-radius: 10px;
-  background-color: #b6d6ea;
+  background-color: var(--infoColor);
 }
 
 .bilde img {
@@ -115,12 +115,12 @@ body {
 .dateError {
   width: 150px;
   height: 25px;
-  border: 2px solid red;
+  border: 2px solid var(--requiredRed);
   margin-top: 1px;
 }
 
 .error {
-  color: red;
+  color: var(--requiredRed);
   font-size: 12px;
   margin: 0;
   padding: 0;

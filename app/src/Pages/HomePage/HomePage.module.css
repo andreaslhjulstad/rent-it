@@ -1,7 +1,8 @@
 #HomePage {
-    background-color: var(--backgroundBlue);
+    background-color: var(--backgroundColor);
     min-height: 100vh;
     padding-bottom: 20px;
+    color: var(--textColor);
 }
 
 #infoDivs {
@@ -14,7 +15,7 @@
 }
 
 #infoDivs #pageInfoDiv, #adInfoDiv, #loanInfoDiv {
-    background-color: var(--lightBlue);
+    background-color: var(--infoColor);
     width: 50vw;
     margin-top: 30px;
     border-radius: 10px;

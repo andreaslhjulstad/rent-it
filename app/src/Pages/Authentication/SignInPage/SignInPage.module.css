@@ -1,9 +1,10 @@
 #signInPage {
-  background-color: var(--backgroundBlue);
+  background-color: var(--backgroundColor);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
+  color: var(--textColor);
 }
 
 .signInContent {
@@ -11,7 +12,7 @@
   max-width: 100%;
   padding: 40px;
   margin: 4vh auto;
-  background-color: var(--lightBlue);
+  background-color: var(--infoColor);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -22,7 +23,7 @@
   font-size: 40px;
   margin: 0;
   padding: 20px 0;
-  color: var(--headerBlue);
+  color: var(--headerColor);
 }
 
 .signInForm {
@@ -36,7 +37,7 @@
 }
 
 #errorMessage {
-    color: var(--red);
+    color: var(--requiredRed);
     font-weight: 600;
     margin-top: 20px;
     height: 15px;
@@ -48,7 +49,7 @@
 
 .signInForm>label {
   font-size: 14px;
-  color: var(--headerBlue);
+  color: var(--headerColor);
   font-weight: 600;
 }
 
@@ -58,7 +59,7 @@
 
 .signInForm>a {
   font-size: 14px;
-  color: var(--headerBlue);
+  color: var(--headerColor);
   font-weight: 600;
   align-self: center;
 }

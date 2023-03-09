@@ -4,7 +4,7 @@
 }
 
 #navList{
-    background-color: var(--headerBlue);
+    background-color: var(--headerColor);
     list-style: none;
     display: flex;
     width: 100%;
@@ -52,7 +52,7 @@
 
 #navList li a {
     text-decoration: none;
-    color: azure;
+    color: white;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 20px;
@@ -60,5 +60,5 @@
 }
 
 #navBar li:hover{
-    background-color: var(--adBlue);
+    background-color: var(--adColor);
 }
