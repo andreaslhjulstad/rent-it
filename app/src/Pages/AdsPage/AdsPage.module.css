@@ -1,10 +1,11 @@
 #homePage #homePageGrid{
     margin-left: 10vw;
     margin-right: 10vw;
+    color: var(--textColor);
 }
 
 #homePage {
-    background-color: var(--backgroundBlue);
+    background-color: var(--backgroundColor);
     min-height: 100vh;
 }
 

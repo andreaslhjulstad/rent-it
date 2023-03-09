@@ -1,5 +1,5 @@
 #addBox {
-    background-color: var(--adBlue);
+    background-color: var(--adColor);
     width: 100%;
     min-height: 100%;
     text-align: center;
@@ -8,14 +8,14 @@
 }
 
 #addBox:hover {
-    box-shadow: 3px 3px 7px 0px var(--headerBlue);
+    box-shadow: 3px 3px 7px 0px var(--headerColor);
 }
 
 #addBox img {
     width: 95%;
     max-height: 300px;
     margin-top: 5px;
-    border: 2px solid var(--headerBlue);
+    border: 2px solid var(--headerColor);
     border-radius: 10px;
     margin-bottom: -30px;
 }
@@ -30,7 +30,7 @@
 }
 
 hr {
-    border: 1px solid var(--headerBlue);
+    border: 1px solid var(--headerColor);
     margin-left: 2.5%;
     margin-right: 2.5%;
 }
