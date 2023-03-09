@@ -35,7 +35,6 @@ describe("UserPage", () => {
   test("page shows user info", () => {
     setup();
 
-
     const userPicture = screen.getByTestId("userPicture");
     expect(userPicture).toBeInTheDocument();
 
