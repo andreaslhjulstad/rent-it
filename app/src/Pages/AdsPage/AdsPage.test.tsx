@@ -29,4 +29,20 @@ import firestorePkg, { DocumentData, DocumentReference, FirestoreDataConverter} 
         expect(grid).toBeInTheDocument();
 
     });
+
+    test("filters work as they should", () => {
+        setup();
+
+    });
+
+    test("search work", () => {
+        setup();
+
+    });
+
+    test("sorting buttons work", () => {
+        setup();
+
+    });
+
 })
