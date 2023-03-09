@@ -1,9 +1,12 @@
+import CollectionLoader from "../CollectionLoader";
 import { FirebaseData } from "../FirebaseData";
+import { RatingData } from "../Rating/RatingData";
 
 export class UserData extends FirebaseData {
   email: string = "";
   phoneNumber: string = "";
   name: string = "";
+  ratings = new CollectionLoader("ratings", this, RatingData);
 
   constructor(id: string) {
     super(id, "users", undefined);

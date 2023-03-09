@@ -1,5 +1,7 @@
 import { getDownloadURL, getStorage, ref } from "@firebase/storage";
+import CollectionLoader from "../CollectionLoader";
 import { FirebaseData } from "../FirebaseData";
+import { RatingData } from "../Rating/RatingData";
 import { UserData } from "../Users/UserData";
 
 export class AdData extends FirebaseData {
@@ -10,6 +12,7 @@ export class AdData extends FirebaseData {
   user: UserData | undefined;
   images: string[] = [];
   loadedImages: string[] = [];
+  ratings = new CollectionLoader("ratings", this, RatingData);
 
   constructor(id: string) {
     super(id, "ads", undefined);

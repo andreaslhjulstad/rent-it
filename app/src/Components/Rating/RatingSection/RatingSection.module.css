@@ -1,0 +1,11 @@
+.ratingSection {
+    display: flex;
+    flex-direction: column;
+    margin: 0 3vw;
+    width: 28vw;
+    min-width: 300px;
+}
+
+.ratingSection h2 {
+    margin-bottom: 0;
+}

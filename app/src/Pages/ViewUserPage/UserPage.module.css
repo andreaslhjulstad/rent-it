@@ -6,7 +6,22 @@
     color: var(--textColor);
 }
 
-.userContent {
+#userContent {
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    min-width: 600px;
+    margin: 4vh auto;
+}
+
+@media all and (max-width: 700px) {
+    #userContent {
+        flex-direction: column;
+        width: 100vw;
+    }
+}
+
+.profileContent {
     width: 500px;
     max-width: 100%;
     padding: 40px;
