@@ -1,5 +1,5 @@
 .ratingPost {
-    background-color: var(--lightBlue);
+    background-color: var(--infoColor);
     border-radius: 10px;
     padding: 20px 40px;
     margin-bottom: 3vh;
@@ -11,7 +11,7 @@
 }
 
 .ratingNumber {
-    background-color: var(--headerBlue);
+    background-color: var(--headerColor);
     color: white;
     font-weight: bold;
     width: 40px;
