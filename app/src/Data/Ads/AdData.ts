@@ -1,5 +1,8 @@
 import { getDownloadURL, getStorage, ref } from "@firebase/storage";
 import CollectionLoader from "../CollectionLoader";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../App";
+import LoanAgreement from "../../Pages/LoanAgreement/LoanAgreement";
 import { FirebaseData } from "../FirebaseData";
 import { RatingData } from "../Rating/RatingData";
 import { UserData } from "../Users/UserData";
@@ -14,6 +17,7 @@ export class AdData extends FirebaseData {
   images: string[] = [];
   loadedImages: string[] = [];
   ratings = new CollectionLoader("ratings", this, RatingData);
+  isRented: boolean = false;
 
   constructor(id: string) {
     super(id, "ads", undefined);
@@ -54,8 +58,32 @@ export class AdData extends FirebaseData {
           }
         });
       }
+      this.getRentedStatus().then(rented => this.isRented = rented); //setter utlån status
+      
+      
     }
   }
+
+  async getRentedStatus() : Promise<boolean>{
+    return new Promise<boolean>(async (resolve, reject) => {
+      // Hent data fra låneavtaler for å sette utlån status
+      const loanAgreementsRef = collection(db, "loanAgreements");
+      const q = query(loanAgreementsRef, where("adId", "==", this.id));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((element) => {
+        const loanAgreementData = element.data();
+
+        const startDate = new Date(loanAgreementData.dateFrom.seconds * 1000);
+        const endDate = new Date(loanAgreementData.dateTo.seconds * 1000);
+        if (startDate <= new Date && endDate >= new Date) {
+          resolve(true);
+        }
+    
+      });
+      resolve(false);
+
+    });       
+  }    
 
   loadImages(): Promise<this> {
     return new Promise<this>(async (resolve, reject) => {

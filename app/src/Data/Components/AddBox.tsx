@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 interface AddBoxProps {
   ad: AdData;
+  
 }
 
 export const AddBox = (props: AddBoxProps) => {
@@ -19,7 +20,7 @@ export const AddBox = (props: AddBoxProps) => {
   return (
     <div id={props.ad.id}>
       <Link style={{ textDecoration: "none" }} to={adLink}>
-        <div id={styles.addBox}>
+        <div id={props.ad.isRented ?  styles.rentedAddBox : styles.addBox}>
           <img src={image} alt="" />
           <div id={styles.priceDiv}>
             <p id={styles.price}>{props.ad.price} kr</p>

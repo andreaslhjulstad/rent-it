@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import styles from "./LoanAgreement.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { getAuth } from "firebase/auth";
@@ -13,8 +13,8 @@ import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { db } from "../../App";
 import Navbar from "../../Data/Components/navbar/Navbar";
-import { AdData } from "../../Data/Ads/AdData";
 import { UserData } from "../../Data/Users/UserData";
+import { AdData } from "../../Data/Ads/AdData";
 
 export const LoanAgreementPage = () => {
   const params = useParams();
@@ -93,14 +93,15 @@ export const LoanAgreementPage = () => {
           intervalStart.setHours(0, 0, 0, 0);
           intervalEnd.setHours(0, 0, 0, 0);
 
-          setOccupiedIntervals((prev) => [
-            ...prev,
-            { start: intervalStart, end: intervalEnd },
-          ]);
+              setOccupiedIntervals((prev) => [
+                ...prev,
+                { start: intervalStart, end: intervalEnd },
+              ]);
+            }
+          });
         }
-      });
-    });
-  }, [ad?.id, params.adID]);
+      );
+  }, [params.adID]);
 
   useEffect(() => {
     if (startDate === null || endDate === null) {
@@ -140,6 +141,7 @@ export const LoanAgreementPage = () => {
     if (!occupied) {
       setDateErrorMessage("");
       setValidDate(true);
+      //handleMarkAsRented;
     }
     if (startDate > endDate) {
       setDateErrorMessage("Startdato kan ikke være etter sluttdato!");
@@ -206,10 +208,10 @@ export const LoanAgreementPage = () => {
           <br></br>
           <br></br>
           <div id={styles.labels}>
-            <label className={styles.label} htmlFor="startDate">Dato fra:</label>
+            <label htmlFor="startDate">Dato fra:</label>
             <br></br>
             <br></br>
-            <label className={styles.label} htmlFor="endDate">Dato til:</label>
+            <label htmlFor="endDate">Dato til:</label>
             <br></br>
           </div>
           <div id={styles.dates}>
@@ -240,16 +242,16 @@ export const LoanAgreementPage = () => {
             />
             <br></br>
             <br></br>
-            <div className={styles.errorSection}>
+          </div>
+          <div className={styles.errorSection}>
               <p className={styles.error}>{errorMessage}</p>
-            </div>
           </div>
           <div></div>
+          <br></br>
           <button
             className={buttonStyles.mainButton}
             type="submit"
-            disabled={disabled}
-          >
+            disabled={disabled}>
             Bekreft
           </button>
         </form>

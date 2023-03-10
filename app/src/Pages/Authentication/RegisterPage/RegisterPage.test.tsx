@@ -17,10 +17,12 @@ describe("RegisterPage", () => {
   test("being able to type in the input fields", () => {
     setup();
     const nameInput = screen.getByLabelText("Ditt navn");
+    const imageInput = screen.getByLabelText("Legg til et profilbilde");
     const emailInput = screen.getByLabelText("Din e-postadresse");
     const phoneNumberInput = screen.getByLabelText("Telefon-nummeret ditt");
     const passwordInput = screen.getByLabelText("Ditt passord");
     expect(nameInput).toBeInTheDocument();
+    expect(imageInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(phoneNumberInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();

@@ -40,8 +40,8 @@ function App() {
           <Route path="/createAd" element={<CreateAdPage />} />
           <Route path="/ad/:adID" element={<AdPage />} />
           <Route path="/user/:userID" element={<UserPage />} />
+          <Route path="/user" element={<UserPage />} />
           <Route path="/AdsPage" element={<AdsPage />} />
-          <Route path="/UserPage" element={<UserPage />} />
           <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
           <Route path="/loanAgreement" element={<LoanAgreementPage />} />
         </Route>

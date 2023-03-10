@@ -26,9 +26,10 @@ export const RatingSection = (props: RatingSectionProps) => {
 
   const averageRating = loadedRatings.reduce((a, b) => a + b.ratingNumber, 0) / loadedRatings.length;
 
-  let canRate = hasRentedFromAd && (props.user?.id ?? props.ad?.user?.id) !== LocalData.currentUser?.id && loadedRatings.filter((rating) => rating.raterUser?.id === LocalData.currentUser?.id).length === 0;
-
+  let canRate;
   if (props.ad) {
+    canRate = hasRentedFromAd && (props.user?.id ?? props.ad?.user?.id) !== LocalData.currentUser?.id && loadedRatings.filter((rating) => rating.raterUser?.id === LocalData.currentUser?.id).length === 0;
+
     LocalData.loanAgreements.loadDocumentsWithFilter([where("adId", "==", props.ad.id), where("renterId", "==", LocalData.currentUser?.id)]).then((loanAgreements) => {
       if (loanAgreements.length === 0) {
         setHasRentedFromAd(false);
@@ -36,6 +37,8 @@ export const RatingSection = (props: RatingSectionProps) => {
         setHasRentedFromAd(true);
       }
     });
+  } else {
+    canRate = props.user?.id !== LocalData.currentUser?.id && loadedRatings.filter((rating) => rating.raterUser?.id === LocalData.currentUser?.id).length === 0;
   }
   return (
     <div className={styles.ratingSection}>

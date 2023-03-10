@@ -1,4 +1,6 @@
 import CollectionLoader from "../CollectionLoader";
+import { profile } from "console";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { FirebaseData } from "../FirebaseData";
 import { RatingData } from "../Rating/RatingData";
 
@@ -7,12 +9,13 @@ export class UserData extends FirebaseData {
   phoneNumber: string = "";
   name: string = "";
   ratings = new CollectionLoader("ratings", this, RatingData);
+  image: string = "";
 
   constructor(id: string) {
     super(id, "users", undefined);
   }
 
-  setup(data: any) {
+  async setup(data: any) {
     super.setup(data);
 
     if (data) {
@@ -24,6 +27,12 @@ export class UserData extends FirebaseData {
       }
       if (typeof data.name === "string") {
         this.name = data.name;
+      }
+      if (typeof data.imagePath === "string") {
+        const storageRef = ref(getStorage(), data.imagePath);
+        await getDownloadURL(storageRef).then((url) => {
+          this.image = url;
+        });
       }
     }
   }
