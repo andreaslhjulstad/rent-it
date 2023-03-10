@@ -124,7 +124,7 @@
 }
 
 .container input:checked ~ .checkmark {
-  background-color: var(--buttonHoverOrange);
+  background-color: var(--buttonHoverColor);
 }
 
 .checkmark:after {
