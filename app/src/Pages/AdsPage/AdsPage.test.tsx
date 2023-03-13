@@ -33,16 +33,30 @@ import firestorePkg, { DocumentData, DocumentReference, FirestoreDataConverter} 
     test("filters work as they should", () => {
         setup();
 
+        const kjøkken = screen.getByTestId("kjøkken");
+        expect(kjøkken).toBeInTheDocument();
+        const hjemme = screen.getByTestId("hjemmeredskaper");
+        expect(hjemme).toBeInTheDocument();
+
     });
 
     test("search work", () => {
         setup();
 
+        const search = screen.getByTestId("searchBar");
+        expect(search).toBeInTheDocument();
+
+        fireEvent.change(search, { target: { value: "Test" } });
     });
 
     test("sorting buttons work", () => {
         setup();
 
+        const higLow = screen.getByTestId("higLow");
+        const lowHig = screen.getByTestId("lowHig");
+
+        expect(higLow).toBeInTheDocument();
+        expect(lowHig).toBeInTheDocument();
     });
 
 })
