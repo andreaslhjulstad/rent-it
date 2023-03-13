@@ -61,11 +61,11 @@ export const AdsPage = () => {
       <Navbar />
       <div id={styles.filterDiv}>
         <div id={styles.flexDiv}>
-          <input id={styles.search} type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
+          <input data-testid="searchBar" id={styles.search} type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
 
           <div id={styles.priceFilter}>
-            <button className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceHigLow}>{"$$$⇨$"}</button>
-            <button className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceLowHig}>{"$⇨$$$"}</button>
+            <button data-testid="higLow" className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceHigLow}>{"$$$⇨$"}</button>
+            <button data-testid="lowHig" className={globalStyles.mainButton} id={styles.priceButton} onClick={sortPriceLowHig}>{"$⇨$$$"}</button>
           </div>
         </div>
         <hr />
@@ -108,13 +108,13 @@ export const AdsPage = () => {
           </div>
           <div>
           <label>
-            <input type="checkbox" value={"Hjemmeredskaper"} onChange={handleChange}/>
+            <input data-testid="hjemmeredskaper" type="checkbox" value={"Hjemmeredskaper"} onChange={handleChange}/>
             <span>Hjemmeredskaper</span>
           </label>
           </div>
           <div>
           <label>
-            <input type="checkbox" value={"Kjøkken"} onChange={handleChange}/>
+            <input data-testid="kjøkken" type="checkbox" value={"Kjøkken"} onChange={handleChange}/>
             <span>Kjøkken</span>
           </label>
           </div>
