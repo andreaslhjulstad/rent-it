@@ -42,6 +42,7 @@ export const UserPage = () => {
           }
           const allAds = await LocalData.ads.loadDocuments();
           setUserAds(allAds.documents.filter((ad) => ad.user?.id === doc.id));
+          console.log((allAds.documents.filter((ad) => ad.user?.id === doc.id)).map((ad) => ad.isRented));
         })
         .catch((error: any) => {
           console.log(error);

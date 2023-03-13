@@ -22,7 +22,7 @@
   font-size: 40px;
   margin: 0;
   padding: 20px 0;
-  color: var(--headerBlue);
+  color: var(--textBlue);
 }
 
 .signInForm {
@@ -48,7 +48,7 @@
 
 .signInForm>label {
   font-size: 14px;
-  color: var(--headerBlue);
+  color: var(--textBlue);
   font-weight: 600;
 }
 
@@ -58,7 +58,7 @@
 
 .signInForm>a {
   font-size: 14px;
-  color: var(--headerBlue);
+  color: var(--textBlue);
   font-weight: 600;
   align-self: center;
 }

@@ -23,7 +23,7 @@
   font-size: 40px;
   margin: 0;
   padding: 20px 0;
-  color: var(--headerBlue);
+  color: var(--textBlue);
 }
 
 .createAdForm {
@@ -59,7 +59,7 @@
 .createAdForm > label {
   font-size: 14px;
   font-weight: bold;
-  color: var(--headerBlue);
+  color: var(--textBlue);
 }
 
 .createAdForm > button {

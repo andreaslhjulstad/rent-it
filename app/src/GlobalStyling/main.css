@@ -5,11 +5,37 @@
   --orange: #FF9B71;
   --red: #E84855;
   /*Nye farger*/
-  --backgroundBlue: #a8dadc;
+  --backgroundBlue: #091313;
   --headerBlue: #1d3557;
   --requiredRed: #ff0000;
-  --lightBlue: #f1faee;
+  --lightBlue: #0d100d;
   --adBlue: #457b9d;
   --buttonOrange: #fed9b7;
   --buttonHoverOrange: #f07167;
+}
+
+
+.dark {
+  --backgroundBlue: #060523;
+  --headerBlue: #1d3557;
+  --requiredRed: #ff0000;
+  --lightBlue: #1d3557;
+  --adBlue: #457b9d;
+  --buttonOrange: #fed9b7;
+  --buttonHoverOrange: #f07167;
+  --textBlue: #f1faee;
+
+}
+
+.light {
+--backgroundBlue: #a8dadc;
+--headerBlue: #1d3557;
+--requiredRed: #ff0000;
+--lightBlue: #f1faee;
+--adBlue: #457b9d;
+--buttonOrange: #fed9b7;
+--buttonHoverOrange: #f07167;
+--textBlue: #1d3557;
+
+
 }

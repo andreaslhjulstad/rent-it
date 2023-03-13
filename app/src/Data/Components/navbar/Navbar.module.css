@@ -16,6 +16,11 @@
     padding-top: 20px;
     font-size: 18px;
 
+
+}
+
+#navList div{
+    display: flex;
 }
 
 #navList> *:last-child {
@@ -24,12 +29,27 @@
     padding-bottom: 0px;
 }
 
+#darkMode {
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    border: none;
+    margin-left: auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-top: -20px;
+
+
+}
+
+
 #logOut {
     background-color: transparent;
     border: none;
     font-size: 18px;
     color: white;
     padding-top: 20px;
+    margin-top: -20px;
     padding-bottom: 25px;
     padding-left: 20px;
     padding-right: 20px;
@@ -62,3 +82,4 @@
 #navBar li:hover{
     background-color: var(--adBlue);
 }
+

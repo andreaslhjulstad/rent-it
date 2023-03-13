@@ -22,7 +22,7 @@
   font-size: 40px;
   margin: 0;
   padding: 20px 0;
-  color: var(--headerBlue);
+  color: var(--textBlue);
 }
 
 .registerForm {
@@ -44,7 +44,7 @@
 
 .registerForm>label {
   font-size: 14px;
-  color: var(--headerBlue);
+  color: var(--textBlue);
   font-weight: 600;
 }
 

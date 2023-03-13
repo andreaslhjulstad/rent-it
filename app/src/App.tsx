@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import "./App.css";
+//import ".GlobalStyling/main.css"
+//import buttonStyles from "../Buttons.module.css";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import SignInPage from "./Pages/Authentication/SignInPage/SignInPage";
 import RegisterPage from "./Pages/Authentication/RegisterPage/RegisterPage";
@@ -18,6 +20,7 @@ import UserPage from "./Pages/ViewUserPage/UserPage";
 import AdsPage from "./Pages/AdsPage/AdsPage";
 import LoanAgreementPage from "./Pages/LoanAgreement/LoanAgreement";
 import { LocalData } from "./Data/LocalData";
+import { useEffect } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -32,23 +35,25 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 function App() {
+
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<RequireAuth />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/createAd" element={<CreateAdPage />} />
-          <Route path="/ad/:adID" element={<AdPage />} />
-          <Route path="/user/:userID" element={<UserPage />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/AdsPage" element={<AdsPage />} />
-          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
-          <Route path="/loanAgreement" element={<LoanAgreementPage />} />
-        </Route>
-        <Route path="/signIn" element={<SignInPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/createAd" element={<CreateAdPage />} />
+            <Route path="/ad/:adID" element={<AdPage />} />
+            <Route path="/user/:userID" element={<UserPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/AdsPage" element={<AdsPage />} />
+            <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
+            <Route path="/loanAgreement" element={<LoanAgreementPage />} />
+          </Route>
+          <Route path="/signIn" element={<SignInPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 export default App;
