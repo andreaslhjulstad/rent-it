@@ -80,11 +80,6 @@ export const AdPage = () => {
     UpdateFavorites.addFavoriteToList(ad?.id, test);
       
   }
-  const removeFromFavorites = () => { 
-    let test = LocalData.currentUser?.id as string
-    UpdateFavorites.removeFavoriteFromList(ad?.id, test);
-      
-  }
 
   return (
     <div id={styles.adPage}>
@@ -92,7 +87,6 @@ export const AdPage = () => {
       <div id={styles.adContent}>
         <div className={styles.frameRoot}>
           <button id={styles.favoriteButton} onClick={addToFavorites}>Favorite</button>
-          <button id={styles.favoriteButton} onClick={removeFromFavorites}>Fjern favoritt</button>
           <form className={styles.rentItButton} onSubmit={rentIt}>
             <img
               className={styles.toolImage}

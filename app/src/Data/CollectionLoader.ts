@@ -141,15 +141,16 @@ export default class CollectionLoader<T extends FirebaseData> {
 
   async addNewFavorite(newFavorite: any, userId: String) {
     let id = userId as string;
-    await updateDoc(doc(db, "users", id), {
-      favorites: arrayUnion(newFavorite),
-    });
-  }
-
-  async removeFavorite(newFavorite: any, userId: String) {
-    let id = userId as string;
-    await updateDoc(doc(db, "users", id), {
-      favorites: arrayRemove(newFavorite),
-    });
+    const user = await (await getDoc(doc(db, "users", id))).data();
+    const fav = user?.favorites;
+    if (fav.includes(newFavorite as string)){
+      await updateDoc(doc(db, "users", id), {
+        favorites: arrayRemove(newFavorite),
+      });
+    } else {
+      await updateDoc(doc(db, "users", id), {
+        favorites: arrayUnion(newFavorite),
+      });
+    }
   }
 }

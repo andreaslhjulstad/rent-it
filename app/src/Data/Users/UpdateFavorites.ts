@@ -11,7 +11,4 @@ export class UpdateFavorites extends FirebaseData {
     static async addFavoriteToList(newFavorite: any, userId: string) {
         LocalData.users.addNewFavorite(newFavorite, userId);
     }
-    static async removeFavoriteFromList(newFavorite: any, userId: string) {
-        LocalData.users.removeFavorite(newFavorite, userId);
-    }
 }
