@@ -48,6 +48,7 @@ export const RegisterPage = () => {
             name: name,
             phoneNumber: phoneNumber,
             email: email,
+            favorites: [],
           })
           .then((userRef) => {
             if(image) {

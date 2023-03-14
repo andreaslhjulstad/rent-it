@@ -1,6 +1,7 @@
-import { addDoc, collection, CollectionReference, deleteDoc, doc, DocumentReference, getDocs, query, Query, QueryConstraint, setDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, CollectionReference, deleteDoc, doc, DocumentReference, getDoc, getDocs, query, Query, QueryConstraint, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../App";
 import { FirebaseData } from "./FirebaseData";
+import { LocalData } from "./LocalData";
 
 interface NoParamConstructor<T extends FirebaseData> {
   new (id: string, collection: string, parent: FirebaseData | undefined): T;
@@ -37,6 +38,19 @@ export default class CollectionLoader<T extends FirebaseData> {
         });
     });
   }
+
+  /* async loadById(id: string) {
+    return new Promise<this>(async (resolve, reject) => {
+      const docRef = doc(db, "ads", id);
+      const docSnap = await getDoc(docRef);
+      let dataDoc = this.addData(docSnap.id)
+      dataDoc.setup(docSnap.data());
+      if (docSnap.id !== id) {
+        reject(dataDoc)
+      }
+      resolve(this);
+    });
+  } */
 
   loadDocumentsWithFilter(constraint?: QueryConstraint[]): Promise<T[]> {
     return new Promise<T[]>(async (resolve, reject) => {
@@ -122,6 +136,20 @@ export default class CollectionLoader<T extends FirebaseData> {
         .catch((error) => {
           reject(error);
         });
+    });
+  }
+
+  async addNewFavorite(newFavorite: any, userId: String) {
+    let id = userId as string;
+    await updateDoc(doc(db, "users", id), {
+      favorites: arrayUnion(newFavorite),
+    });
+  }
+
+  async removeFavorite(newFavorite: any, userId: String) {
+    let id = userId as string;
+    await updateDoc(doc(db, "users", id), {
+      favorites: arrayRemove(newFavorite),
     });
   }
 }

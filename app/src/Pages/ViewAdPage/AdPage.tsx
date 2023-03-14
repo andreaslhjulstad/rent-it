@@ -7,6 +7,8 @@ import { AdData } from "../../Data/Ads/AdData";
 import { UserData } from "../../Data/Users/UserData";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
+import { Firestore } from "@firebase/firestore";
+import { UpdateFavorites } from "../../Data/Users/UpdateFavorites";
 
 export const AdPage = () => {
   const navigate = useNavigate();
@@ -73,11 +75,24 @@ export const AdPage = () => {
     }
   };
 
+  const addToFavorites = () => { 
+    let test = LocalData.currentUser?.id as string
+    UpdateFavorites.addFavoriteToList(ad?.id, test);
+      
+  }
+  const removeFromFavorites = () => { 
+    let test = LocalData.currentUser?.id as string
+    UpdateFavorites.removeFavoriteFromList(ad?.id, test);
+      
+  }
+
   return (
     <div id={styles.adPage}>
       <Navbar />
       <div id={styles.adContent}>
         <div className={styles.frameRoot}>
+          <button id={styles.favoriteButton} onClick={addToFavorites}>Favorite</button>
+          <button id={styles.favoriteButton} onClick={removeFromFavorites}>Fjern favoritt</button>
           <form className={styles.rentItButton} onSubmit={rentIt}>
             <img
               className={styles.toolImage}
