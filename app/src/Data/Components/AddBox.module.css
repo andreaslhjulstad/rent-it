@@ -45,8 +45,11 @@ hr {
 }
 
 #rented {
-    padding-top: 5px;
-    color: black;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: white;
+    font-weight: 700;
 }
 
 #priceDiv {
