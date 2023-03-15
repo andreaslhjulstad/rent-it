@@ -21,6 +21,7 @@ export const AddBox = (props: AddBoxProps) => {
     <div id={props.ad.id}>
       <Link style={{ textDecoration: "none" }} to={adLink}>
         <div id={props.ad.isRented ?  styles.rentedAddBox : styles.addBox}>
+          {props.ad.isRented ? <p id={styles.rented}> For øyeblikket utiligjengelig, men du kan inngå en fremtidig låneavtale</p> : <p></p>}
           <img src={image} alt="" />
           <div id={styles.priceDiv}>
             <p id={styles.price}>{props.ad.price} kr</p>

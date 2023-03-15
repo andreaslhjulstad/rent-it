@@ -44,6 +44,11 @@ hr {
     font-size: small;
 }
 
+#rented {
+    padding-top: 5px;
+    color: black;
+}
+
 #priceDiv {
     position: relative;
     top: 0px;
