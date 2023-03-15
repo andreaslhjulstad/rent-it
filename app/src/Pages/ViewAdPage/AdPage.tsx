@@ -75,10 +75,14 @@ export const AdPage = () => {
     }
   };
 
-  const addToFavorites = () => { 
+  const addToFavorites = async () => { 
     let test = LocalData.currentUser?.id as string
-    UpdateFavorites.addFavoriteToList(ad?.id, test);
-      
+    if (await UpdateFavorites.addFavoriteToList(ad?.id, test)) {
+      alert("Lagt til i favoritter. Klikk på knappen igjenn for å fjerne fra favoritter")
+    } else {
+      alert("Fjernet fra favoritter")
+    }
+    
   }
 
   return (
@@ -86,16 +90,19 @@ export const AdPage = () => {
       <Navbar />
       <div id={styles.adContent}>
         <div className={styles.frameRoot}>
-          <button id={styles.favoriteButton} onClick={addToFavorites}>Favorite</button>
           <form className={styles.rentItButton} onSubmit={rentIt}>
-            <img
-              className={styles.toolImage}
-              src={ad?.loadedImages[0]}
-              // onError={({ currentTarget }) => {
-              //     currentTarget.onerror = null; // prevents looping
-              //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
-              // }}
-            />
+          <div>
+          <button id={styles.favoriteButton} type="button" onClick={addToFavorites}><span>★</span></button>
+          <img
+          className={styles.toolImage}
+          src={ad?.loadedImages[0]}
+          // onError={({ currentTarget }) => {
+          //     currentTarget.onerror = null; // prevents looping
+          //     currentTarget.src="app/src/Pages/ViewUserPage/unknown-default-profile.avif";
+          // }}
+        />
+          </div>
+            
             <div className={styles.descriptionContainer}>
               <div className={styles.text2}>{ad?.title}</div>
               <div className={styles.text1}>

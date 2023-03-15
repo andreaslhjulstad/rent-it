@@ -9,6 +9,6 @@ import CollectionLoader from "../CollectionLoader";
 
 export class UpdateFavorites extends FirebaseData {
     static async addFavoriteToList(newFavorite: any, userId: string) {
-        LocalData.users.addNewFavorite(newFavorite, userId);
+        return LocalData.users.addNewFavorite(newFavorite, userId);
     }
 }

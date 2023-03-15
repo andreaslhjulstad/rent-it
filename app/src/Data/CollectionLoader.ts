@@ -147,10 +147,12 @@ export default class CollectionLoader<T extends FirebaseData> {
       await updateDoc(doc(db, "users", id), {
         favorites: arrayRemove(newFavorite),
       });
+      return false;
     } else {
       await updateDoc(doc(db, "users", id), {
         favorites: arrayUnion(newFavorite),
       });
+      return true;
     }
   }
 }

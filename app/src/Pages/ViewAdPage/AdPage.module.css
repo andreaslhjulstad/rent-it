@@ -15,6 +15,26 @@
     margin: 4vh auto;
 }
 
+#favoriteButton {
+    background-color: transparent;
+    position: relative;
+    left: 20px;
+    top: 18px;
+    padding: none;
+    border: none;
+    width: 35px;
+    height: 35px;
+    font-size: 40px;
+    color: var(--buttonColor);
+    margin-top: 0px;
+}
+
+#favoriteButton span {
+    position: relative;
+    top: -15px;
+    left: -7px;
+}
+
 .frameRoot {
     background: var(--infoColor);
     max-width: 337px;
@@ -62,7 +82,7 @@
     max-width: 337px;
     max-height: 270px;
     display: block;
-    margin-top: 30px;
+    margin-top: -15px;
     margin-left: auto;
     margin-right: auto;
     top: 10px;
