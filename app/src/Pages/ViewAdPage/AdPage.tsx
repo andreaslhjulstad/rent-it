@@ -9,6 +9,7 @@ import Navbar from "../../Data/Components/navbar/Navbar";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
 import { Firestore } from "@firebase/firestore";
 import { UpdateFavorites } from "../../Data/Users/UpdateFavorites";
+import { getAuth } from "firebase/auth";
 
 export const AdPage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export const AdPage = () => {
   const [ad, setAd] = useState<AdData | null>(null);
   const [user, setUser] = useState<UserData | null>(null);
   const userLink = "/user/" + user?.id;
+  const [buttonContent, setButtonContent] = useState("☆")
 
   useEffect(() => {
     // Velger standard eiendom om pId er i URL
@@ -52,6 +54,13 @@ export const AdPage = () => {
         loadUserAndImages();
       }
     }
+    let test = getAuth().currentUser?.uid as String
+    async function fetchData() {
+      if (await UpdateFavorites.checkForFavorite(ad?.id, test)) {
+      setButtonContent("★");
+      }
+    }
+    fetchData();
   }, [params, ad?.id]);
 
   const rentIt = (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,12 +84,24 @@ export const AdPage = () => {
     }
   };
 
+  /* useEffect(() => {
+    let test = getAuth().currentUser?.uid as String
+    async function fetchData() {
+      if (await UpdateFavorites.checkForFavorite(ad?.id, test)) {
+      setButtonContent("★")
+      console.log("yeees")
+      }
+    }
+    fetchData();
+    fetchData();
+  },[]); */
+
   const addToFavorites = async () => { 
     let test = LocalData.currentUser?.id as string
     if (await UpdateFavorites.addFavoriteToList(ad?.id, test)) {
-      alert("Lagt til i favoritter. Klikk på knappen igjenn for å fjerne fra favoritter")
+      setButtonContent("★")
     } else {
-      alert("Fjernet fra favoritter")
+      setButtonContent("☆")
     }
     
   }
@@ -92,7 +113,7 @@ export const AdPage = () => {
         <div className={styles.frameRoot}>
           <form className={styles.rentItButton} onSubmit={rentIt}>
           <div>
-          <button id={styles.favoriteButton} type="button" onClick={addToFavorites}><span>★</span></button>
+          <button id={styles.favoriteButton} type="button" onClick={addToFavorites}><span>{buttonContent}</span></button>
           <img
           className={styles.toolImage}
           src={ad?.loadedImages[0]}

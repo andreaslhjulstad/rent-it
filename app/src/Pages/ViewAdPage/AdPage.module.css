@@ -18,21 +18,22 @@
 #favoriteButton {
     background-color: transparent;
     position: relative;
-    left: 20px;
-    top: 18px;
-    padding: none;
+    left: 16px;
+    top: 30px;
     border: none;
-    width: 35px;
-    height: 35px;
-    font-size: 40px;
+    padding: none;
+    text-shadow: 2px 2px 0 #bbbbbb;
+    width: 45px;
+    height: 45px;
+    font-size: 55px;
     color: var(--buttonColor);
     margin-top: 0px;
 }
 
 #favoriteButton span {
     position: relative;
-    top: -15px;
-    left: -7px;
+    top: -20px;
+    left: -8px;
 }
 
 .frameRoot {

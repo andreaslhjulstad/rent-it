@@ -139,6 +139,19 @@ export default class CollectionLoader<T extends FirebaseData> {
     });
   }
 
+  async getFavs(adId: any, userId: String) {
+    let id = userId as string;
+    const user = await (await getDoc(doc(db, "users", id))).data();
+    const fav = user?.favorites;
+    console.log(adId);
+    if(fav.includes(adId as string)) {
+      return true
+    } 
+    else {
+      return false
+    }
+  }
+
   async addNewFavorite(newFavorite: any, userId: String) {
     let id = userId as string;
     const user = await (await getDoc(doc(db, "users", id))).data();

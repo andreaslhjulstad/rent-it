@@ -11,4 +11,8 @@ export class UpdateFavorites extends FirebaseData {
     static async addFavoriteToList(newFavorite: any, userId: string) {
         return LocalData.users.addNewFavorite(newFavorite, userId);
     }
+
+    static async checkForFavorite(adId: any, userId: String) {
+        return LocalData.users.getFavs(adId, userId);
+    }
 }
