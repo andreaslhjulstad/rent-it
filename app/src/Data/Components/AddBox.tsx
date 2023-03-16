@@ -11,16 +11,20 @@ interface AddBoxProps {
 export const AddBox = (props: AddBoxProps) => {
   const adLink = "/ad/" + props.ad.id;
   const [image, setImage] = useState("");
+  const [isRented, setIsRented] = useState(props.ad.isRented);
+  
+
 
   useEffect(() => {
     props.ad.loadImages().then((ad) => {
       setImage(ad.loadedImages[0]);
     });
+    props.ad.getRentedStatus().then(rented => setIsRented(rented))
   }, [props.ad]);
   return (
     <div id={props.ad.id}>
       <Link style={{ textDecoration: "none" }} to={adLink}>
-        <div id={props.ad.isRented ?  styles.rentedAddBox : styles.addBox}>
+        <div id={isRented ?  styles.rentedAddBox : styles.addBox}>
           <img src={image} alt="" />
           <div id={styles.priceDiv}>
             <p id={styles.price}>{props.ad.price} kr</p>

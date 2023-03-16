@@ -16,6 +16,7 @@
 
 #infoDivs #pageInfoDiv, #adInfoDiv, #loanInfoDiv {
     background-color: var(--infoColor);
+    color: var(--textColor);
     width: 50vw;
     margin-top: 30px;
     border-radius: 10px;

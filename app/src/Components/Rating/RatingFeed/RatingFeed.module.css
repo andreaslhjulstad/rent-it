@@ -11,8 +11,8 @@
 }
 
 .ratingNumber {
-    background-color: var(--headerColor);
-    color: white;
+    background-color: white;
+    color: black;
     font-weight: bold;
     width: 40px;
     height: 40px;
