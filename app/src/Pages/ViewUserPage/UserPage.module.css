@@ -148,3 +148,11 @@ body {
     align-items: flex-start;
 }
 
+.buttons > button {
+    width: 50%;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
