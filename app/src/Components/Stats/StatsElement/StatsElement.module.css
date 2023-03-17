@@ -1,0 +1,89 @@
+#statsElement {
+  background-color: var(--adColor);
+  border-radius: 10px;
+  padding: 30px 40px;
+  color: white; /* TODO: endre til var(--textColor) før merge! */
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageSection {
+  background-color: var(--infoColor);
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.imageSection > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.statsSection {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  align-self: center;
+  margin-top: 27px;
+  max-height: 200px;
+}
+
+.statsList {
+  background-color: var(--infoColor);
+  border-radius: 10px;
+  padding: 1px 20px;
+  width: 400px;
+  height: 200px;
+}
+
+.statsList > li {
+  color: var(--headerColor);
+  display: flex;
+}
+
+.statsList > li > h3 {
+  font-size: 16px;
+  margin-left: auto;
+  margin-top: 19px;
+}
+
+.statsList > li > h4 {
+  font-size: 14px;
+}
+
+.statsList > hr {
+  width: 100%;
+  color: var(--headerColor);
+  margin-left: 0;
+}
+
+.link {
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+}
+
+.rentedStats {
+  display: flex;
+  gap: 40px;
+}
+
+.rentedStat {
+  display: flex;
+}
+
+.rentedStat > h3 {
+  font-size: 16px;
+  margin-top: 19px;
+  margin-left: 30px;
+}
+
+.rentedStat > h4 {
+  font-size: 14px;
+}
