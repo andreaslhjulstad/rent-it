@@ -18,6 +18,10 @@ export const UserPage = () => {
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
 
+  const isCurrentUser = () => {
+    return params.userID === getAuth().currentUser?.uid
+  }
+
   useEffect(() => {
     let doc: any;
     if (params.userID) {
@@ -29,7 +33,7 @@ export const UserPage = () => {
         .then(async () => {
           setUser(doc);
 
-          if (params.userID === getAuth().currentUser?.uid) {
+          if (isCurrentUser()) {
             setAdsHeader("Mine annonser");
           } else {
             if (doc.name.endsWith("s") || doc.name.endsWith("S")) {
@@ -53,7 +57,6 @@ export const UserPage = () => {
     doc
       .load()
       .then(() => {
-        console.log(doc);
         setUser(doc);
       })
       .catch((error: any) => {
