@@ -16,6 +16,7 @@ export const UserPage = () => {
 
   const [user, setUser] = useState<UserData | null>(null);
   const [userAds, setUserAds] = useState<AdData[]>([]);
+  const [favorites, setFavorites] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
@@ -59,10 +60,13 @@ export const UserPage = () => {
           console.log(error);
         });
 
-      doc
+        doc
         .load()
-        .then(() => {
+        .then(async () => {
+          console.log(doc);
           setUser(doc);
+          const fav = await LocalData.ads.loadDocuments()
+          setFavorites(fav.documents.filter((ad) => doc.favorites.includes(ad.id)));
         })
         .catch((error: any) => {
           console.log(error);
@@ -110,6 +114,13 @@ export const UserPage = () => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
             </div>
+              <h3>Favoritt anonser</h3>
+            <div data-testid="favoriteAds" className={styles.userAdsList}>
+              {favorites.map((ad) => {
+                return <AddBox key={ad.id} ad={ad} />;
+              })}
+            </div>
+
           </div>
         </div>
         <RatingSection user={user!} />
