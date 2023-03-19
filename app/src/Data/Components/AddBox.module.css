@@ -9,13 +9,13 @@
 }
 
 #addBox:hover {
-    box-shadow: 3px 3px 7px 0px var(--headerColor);
+    box-shadow: 3px 3px 7px 0px darkslategrey;
 }
 
 #addBox img {
     width: 95%;
     margin-top: 5px;
-    border: 2px solid var(--headerColor);
+    border: 2px solid var(--navbarColor);
     border-radius: 10px;
     margin-bottom: -30px;
 }
@@ -29,8 +29,8 @@
     text-align: left;
 }
 
-hr {
-    border: 1px solid var(--headerColor);
+#addBox hr {
+    border: 1px solid var(--navbarColor);
     margin-left: 2.5%;
     margin-right: 2.5%;
 }
@@ -73,10 +73,16 @@ hr {
     
 }
 
+#rentedAddBox hr {
+    border: 1px solid var(--navbarColor);
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
 #rentedAddBox img {
     width: 95%;
     margin-top: 5px;
-    border: 2px solid var(--headerColor);
+    border: 2px solid var(--navbarColor);
     border-radius: 10px;
     margin-bottom: -30px;
 }

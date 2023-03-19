@@ -127,3 +127,7 @@
 .deleteButton {
     background-color: var(--requiredRed);
 }
+
+.deleteButton:hover {
+    background-color: rgb(247, 105, 105);
+}

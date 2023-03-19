@@ -33,7 +33,7 @@ body {
     font-size: 40px;
     margin: 0;
     padding: 20px 0;
-    color: #1d3557;
+    color: var(--headerColor);
 }
 /* .userContent > p {
     color: white;
@@ -148,3 +148,11 @@ body {
     align-items: flex-start;
 }
 
+.buttons > button {
+    width: 50%;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}

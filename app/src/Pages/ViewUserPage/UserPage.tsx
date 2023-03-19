@@ -4,7 +4,7 @@ import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import defaultImage from "./unknown-default-profile.png";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { UserData } from "../../Data/Users/UserData";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
 import { getAuth } from "firebase/auth";
 import AddBox from "../../Data/Components/AddBox";
@@ -12,12 +12,18 @@ import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
 
 export const UserPage = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<UserData | null>(null);
   const [userAds, setUserAds] = useState<AdData[]>([]);
   const [favorites, setFavorites] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
+
+  const isCurrentUser = () => {
+    return params.userID === getAuth().currentUser?.uid
+  }
 
   useEffect(() => {
     let doc: any;
@@ -30,7 +36,7 @@ export const UserPage = () => {
         .then(async () => {
           setUser(doc);
 
-          if (params.userID === getAuth().currentUser?.uid) {
+          if (isCurrentUser()) {
             setAdsHeader("Mine annonser");
           } else {
             if (doc.name.endsWith("s") || doc.name.endsWith("S")) {
@@ -44,6 +50,11 @@ export const UserPage = () => {
           }
           const allAds = await LocalData.ads.loadDocuments();
           setUserAds(allAds.documents.filter((ad) => ad.user?.id === doc.id));
+          console.log(
+            allAds.documents
+              .filter((ad) => ad.user?.id === doc.id)
+              .map((ad) => ad.isRented)
+          );
         })
         .catch((error: any) => {
           console.log(error);
@@ -61,7 +72,7 @@ export const UserPage = () => {
           console.log(error);
         });
     }
-  }, []);
+  }, [params.userID]);
 
   return (
     <div>
@@ -70,9 +81,9 @@ export const UserPage = () => {
         <div data-testid="userContent" className={styles.userContent}>
           <h1>Brukerprofil</h1>
           <div className={styles.userInfo}>
-              <div className={styles.image}>
+            <div className={styles.image}>
                 <img data-testid="userPicture" src={profilePicture} alt={"Bruker"}/>
-              </div> 
+            </div>
             <div className={styles.userPageInfo}>
               <h2 data-testid="userName"> {user?.name} </h2>
               <p  data-testid="userEmail">
@@ -83,9 +94,22 @@ export const UserPage = () => {
               </p>
             </div>
           </div>
+          <div className={styles.buttons}>
+            {isCurrentUser() ? (
+              <button
+                className={buttonStyles.otherButton}
+                onClick={() => navigate(`/user/${params.userID}/stats`)}
+              >
+                Se statistikk for annonser
+              </button>
+            ) : (
+              ""
+            )}
+            {/* TODO: legg inn knapp til historikk-side her */}
+          </div>
           <div className={styles.userAdsSection}>
             <h3>{adsHeader}</h3>
-              <div data-testid="userAdsList" className={styles.userAdsList}>
+            <div data-testid="userAdsList" className={styles.userAdsList}>
               {userAds.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
