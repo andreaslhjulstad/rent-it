@@ -8,6 +8,7 @@ export class LoanAgreementData extends FirebaseData {
   ad: AdData | undefined;
   user: UserData | undefined;
   renter: UserData | undefined;
+  price: number | undefined; // TODO Each loan agreement must save the price pr. day at the time of loan.
 
   constructor(id: string) {
     super(id, "loanAgreements", undefined);
@@ -31,6 +32,9 @@ export class LoanAgreementData extends FirebaseData {
       }
       if (typeof data.renterId === "string") {
         this.renter = new UserData(data.renterId);
+      }
+      if (typeof data.price === "number") {
+        this.price = data.price;
       }
     }
   }
