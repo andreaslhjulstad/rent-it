@@ -13,6 +13,7 @@ export const StatsElement = (props: StatsFormProps) => {
   const [currentRentedCount, setCurrentRentedCount] = useState(0);
   const [futureRentedCount, setFutureRentedCount] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
+  const [numberFavourited, setNumberFavourited] = useState(0);
   const [image, setImage] = useState("");
   const [adLink, setAdLink] = useState("");
 
@@ -61,6 +62,20 @@ export const StatsElement = (props: StatsFormProps) => {
       });
       const futureRentedCount = allRentedCount  - currentRentedCount;
 
+
+      // Finner adID i favorites-field under user i Firebase og teller antall som har den i sine favoritter
+      const users = await LocalData.users.loadDocuments();
+      let numberFavourited = 0;
+      users.documents.forEach((user) => {
+        if (user.favorites) {
+          user.favorites.forEach((favorite) => {
+            if (favorite === props.ad?.id) {
+              numberFavourited++;
+            }
+          });
+        }
+      });
+      setNumberFavourited(numberFavourited);
       setTotalEarnings(totalEarnings);
       setCurrentRentedCount(currentRentedCount);
       setFutureRentedCount(futureRentedCount);
@@ -100,7 +115,7 @@ export const StatsElement = (props: StatsFormProps) => {
           <hr></hr>
           <li>
               <h4>Lagt til som favoritt</h4>
-            {/* TODO: Legg inn funksjonalitet for å se antall favoritter her */}
+              <h3>{numberFavourited}</h3>
           </li>
         </ul>
       </div>
@@ -108,6 +123,3 @@ export const StatsElement = (props: StatsFormProps) => {
   );
 
 }
-
-
-

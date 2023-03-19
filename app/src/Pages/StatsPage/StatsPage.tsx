@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { StatsElement } from "../../Components/Stats/StatsElement/StatsElement";
-
 import { AdData } from "../../Data/Ads/AdData";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { LocalData } from "../../Data/LocalData";
