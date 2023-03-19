@@ -48,19 +48,19 @@ export const UserPage = () => {
         .catch((error: any) => {
           console.log(error);
         });
-    }
 
-    doc
-      .load()
-      .then(async () => {
-        console.log(doc);
-        setUser(doc);
-        const fav = await LocalData.ads.loadDocuments()
-        setFavorites(fav.documents.filter((ad) => doc.favorites.includes(ad.id)));
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+        doc
+        .load()
+        .then(async () => {
+          console.log(doc);
+          setUser(doc);
+          const fav = await LocalData.ads.loadDocuments()
+          setFavorites(fav.documents.filter((ad) => doc.favorites.includes(ad.id)));
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (
