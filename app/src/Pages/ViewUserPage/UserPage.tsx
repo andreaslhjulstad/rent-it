@@ -12,12 +12,19 @@ import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
 
 export const UserPage = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<UserData | null>(null);
   const [userAds, setUserAds] = useState<AdData[]>([]);
+  const [favorites, setFavorites] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
   const navigate = useNavigate();
+
+  const isCurrentUser = () => {
+    return params.userID === getAuth().currentUser?.uid
+  }
 
   useEffect(() => {
     if (params.userID) {
@@ -29,7 +36,7 @@ export const UserPage = () => {
         .then(async () => {
           setUser(doc);
 
-          if (params.userID === getAuth().currentUser?.uid) {
+          if (isCurrentUser()) {
             setAdsHeader("Mine annonser");
           } else {
             if (doc.name.endsWith("s") || doc.name.endsWith("S")) {
@@ -43,21 +50,29 @@ export const UserPage = () => {
           }
           const allAds = await LocalData.ads.loadDocuments();
           setUserAds(allAds.documents.filter((ad) => ad.user?.id === doc.id));
+          console.log(
+            allAds.documents
+              .filter((ad) => ad.user?.id === doc.id)
+              .map((ad) => ad.isRented)
+          );
         })
         .catch((error: any) => {
           console.log(error);
         });
-      doc
+
+        doc
         .load()
-        .then(() => {
+        .then(async () => {
           console.log(doc);
           setUser(doc);
+          const fav = await LocalData.ads.loadDocuments()
+          setFavorites(fav.documents.filter((ad) => doc.favorites.includes(ad.id)));
         })
         .catch((error: any) => {
           console.log(error);
         });
     }
-  }, []);
+  }, [params.userID]);
 
   return (
     <div>
@@ -67,7 +82,7 @@ export const UserPage = () => {
           <h1>Brukerprofil</h1>
           <div className={styles.userInfo}>
             <div className={styles.image}>
-              <img data-testid="userPicture" src={profilePicture} alt={"Bruker"} />
+                <img data-testid="userPicture" src={profilePicture} alt={"Bruker"}/>
             </div>
             <div className={styles.userPageInfo}>
               <h2 data-testid="userName"> {user?.name} </h2>
@@ -79,6 +94,19 @@ export const UserPage = () => {
               </p>
             </div>
           </div>
+          <div className={styles.buttons}>
+            {isCurrentUser() ? (
+              <button
+                className={buttonStyles.otherButton}
+                onClick={() => navigate(`/user/${params.userID}/stats`)}
+              >
+                Se statistikk for annonser
+              </button>
+            ) : (
+              ""
+            )}
+            {/* TODO: legg inn knapp til historikk-side her */}
+          </div>
           <div className={styles.userAdsSection}>
             <h3>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
@@ -86,6 +114,13 @@ export const UserPage = () => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
             </div>
+              <h3>Favoritt anonser</h3>
+            <div data-testid="favoriteAds" className={styles.userAdsList}>
+              {favorites.map((ad) => {
+                return <AddBox key={ad.id} ad={ad} />;
+              })}
+            </div>
+
           </div>
           {user?.id === LocalData.currentUser?.id && (
             <button onClick={() => navigate("/loanHistory")} className={buttonStyles.mainButton}>

@@ -43,3 +43,23 @@
 .rentItButton:hover {
     background-color: var(--buttonHoverColor);
 }
+
+.otherButton {
+    border: none;
+    padding: 50px 40px;
+    cursor: pointer;
+    color: black;
+    display: flex;
+    font-weight: 600;
+    background-color: var(--buttonColor);
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.otherButton:hover {
+    background-color: var(--buttonHoverColor);
+}

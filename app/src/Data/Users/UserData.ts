@@ -10,6 +10,7 @@ export class UserData extends FirebaseData {
   name: string = "";
   ratings = new CollectionLoader("ratings", this, RatingData);
   image: string = "";
+  favorites: string[] = [];
 
   constructor(id: string) {
     super(id, "users", undefined);
@@ -32,6 +33,14 @@ export class UserData extends FirebaseData {
         const storageRef = ref(getStorage(), data.imagePath);
         await getDownloadURL(storageRef).then((url) => {
           this.image = url;
+        });
+      }
+      if (Array.isArray(data.favorites)) {
+        this.favorites = [];
+        data.favorites.forEach(async (favorite: any) => {
+          if (typeof favorite === "string") {
+            this.favorites.push(favorite);
+          }
         });
       }
     }
