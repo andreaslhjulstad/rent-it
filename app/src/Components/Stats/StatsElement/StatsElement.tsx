@@ -1,3 +1,4 @@
+import { where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { AdData } from "../../../Data/Ads/AdData";
 import { LocalData } from "../../../Data/LocalData";
@@ -38,31 +39,30 @@ export const StatsElement = (props: StatsFormProps) => {
      */
     async function calculateStats() {
       let allRentedCount = 0;
-      const pricePerDay = props.ad!.price; // Enhver annonse må ha en pris, derfor kan man bruke '!' her
-      // Laster inn alle låneavtaler denne annonsen inngår i
-      const loanAgreements = (await LocalData.loanAgreements.loadDocuments()).documents.filter(
-        (loanAgreement) => loanAgreement.ad?.id === props.ad?.id
-      );
-      allRentedCount = loanAgreements.length;
-
       let totalEarnings = 0;
       let currentRentedCount = 0;
-      // For hver låneavtale, regn ut inntjening og legg til i totalen
-      loanAgreements.forEach((loanAgreement) => {
-        let days = 0;
-        // Regner ut antall dager i låneavtalen som skal telles med
-        if (loanAgreement.dateFrom > new Date()) { // Hele låneavtalen er i fremtiden, ikke legg til inntjening
-          return;
-        } else if (loanAgreement.dateFrom <= new Date() && loanAgreement.dateTo > new Date()) { // Deler av låneavtalen er i fortiden, legg til inntjening opp til i dag
-          days = Math.ceil((new Date().getTime() - loanAgreement.dateFrom.getTime()) / MSINDAY)
-        } else { // Hele låneavtalen er i fortiden, legg til inntjening for hele perioden
-          days = Math.ceil((loanAgreement.dateTo.getTime() - loanAgreement.dateFrom.getTime()) / MSINDAY)
-        }
-        totalEarnings += pricePerDay * days;
-        currentRentedCount++;
-      });
-      const futureRentedCount = allRentedCount  - currentRentedCount;
+      const pricePerDay = props.ad!.price; // Enhver annonse må ha en pris, derfor kan man bruke '!' her
+      // Laster inn alle låneavtaler denne annonsen inngår i
 
+      LocalData.loanAgreements.loadDocumentsWithFilter([where("adId", "==", props.ad?.id)]).then(loanAgreements => {
+        allRentedCount = loanAgreements.length;
+        // For hver låneavtale, regn ut inntjening og legg til i totalen
+        loanAgreements.forEach((loanAgreement) => {
+          let days = 0;
+          // Regner ut antall dager i låneavtalen som skal telles med
+          if (loanAgreement.dateFrom > new Date()) { // Hele låneavtalen er i fremtiden, ikke legg til inntjening
+            return;
+          } else if (loanAgreement.dateFrom <= new Date() && loanAgreement.dateTo > new Date()) { // Deler av låneavtalen er i fortiden, legg til inntjening opp til i dag
+            days = Math.ceil((new Date().getTime() - loanAgreement.dateFrom.getTime()) / MSINDAY)
+          } else { // Hele låneavtalen er i fortiden, legg til inntjening for hele perioden
+            days = Math.ceil((loanAgreement.dateTo.getTime() - loanAgreement.dateFrom.getTime()) / MSINDAY)
+          }
+          totalEarnings += pricePerDay * days;
+          currentRentedCount++;
+        });
+      })
+      const futureRentedCount = allRentedCount  - currentRentedCount;
+      
       // Finner adID i favorites-field under user i Firebase og teller antall som har den i sine favoritter
       const users = await LocalData.users.loadDocuments();
       let numberFavourited = 0;
