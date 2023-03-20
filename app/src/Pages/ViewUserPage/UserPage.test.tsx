@@ -48,4 +48,11 @@ describe("UserPage", () => {
     expect(userPhoneNum).toBeInTheDocument();
   });
 
+  test("page shows favorite ads", () => {
+    setup();
+
+    const favorites = screen.getByTestId("favoriteAds");
+    expect(favorites).toBeInTheDocument();
+  });
+
 });
