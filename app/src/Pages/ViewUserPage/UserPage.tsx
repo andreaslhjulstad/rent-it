@@ -115,7 +115,7 @@ export const UserPage = () => {
               })}
             </div>
               <h3>Favoritt anonser</h3>
-            <div data-testid="favoriteAds" className={styles.userAdsList}>
+            <div  data-testid="favoriteAds" className={styles.userAdsList}>
               {favorites.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}

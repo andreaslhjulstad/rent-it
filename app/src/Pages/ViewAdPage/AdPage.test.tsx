@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import AdPage from "./AdPage";
 import { MemoryRouter } from "react-router-dom";
 
@@ -35,5 +35,23 @@ describe("AdPage", () => {
           name: /Rent it/i,
         });
         expect(submitButton).toBeInTheDocument();
+      });
+
+    test("check if favorite button is working", () => {
+        setup();
+        const favoriteButton = screen.getByRole("button", {
+          name: /☆/i,
+        });
+        expect(favoriteButton).toBeInTheDocument();
+
+        fireEvent.click(favoriteButton);
+
+        const newFavoriteButton = screen.getByRole("button", {
+          name: /★/i,
+        });
+
+        expect(newFavoriteButton).toBeInTheDocument();
+        expect(favoriteButton).not.toBeInTheDocument();
+
       });
 });
