@@ -1,8 +1,7 @@
 .ratingSection {
     display: flex;
     flex-direction: column;
-    margin: 0 3vw;
-    width: 28vw;
+    margin-left: 4vw;
     min-width: 300px;
 }
 

@@ -10,3 +10,12 @@
     line-height: 20px;
     margin: 4px 0;
 }
+
+.loanAgreement a {
+    color: var(--buttonHoverColor);
+}
+
+.totalSum {
+    font-weight: 600;
+    font-style: italic;
+}
