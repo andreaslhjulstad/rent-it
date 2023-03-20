@@ -29,8 +29,9 @@ export const StatsElement = (props: StatsFormProps) => {
   useEffect(() => {
 
     /**
-     * Calcualtes the current amount of times the ad has been a part of a loan agreement
-     * and the total earnings the ad has brought in as of today.
+     * Calculates the current amount of times the ad has been a part of a loan agreement,
+     * the total earnings the ad has brought in as of today and the amount of times the ad
+     * has been favorited by users.
      * 
      * @params none
      * @returns void
@@ -38,7 +39,7 @@ export const StatsElement = (props: StatsFormProps) => {
     async function calculateStats() {
       let allRentedCount = 0;
       const pricePerDay = props.ad!.price; // Enhver annonse må ha en pris, derfor kan man bruke '!' her
-      // Laster inn alle låneavtalen denne annonsen inngår i
+      // Laster inn alle låneavtaler denne annonsen inngår i
       const loanAgreements = (await LocalData.loanAgreements.loadDocuments()).documents.filter(
         (loanAgreement) => loanAgreement.ad?.id === props.ad?.id
       );
@@ -62,7 +63,6 @@ export const StatsElement = (props: StatsFormProps) => {
       });
       const futureRentedCount = allRentedCount  - currentRentedCount;
 
-
       // Finner adID i favorites-field under user i Firebase og teller antall som har den i sine favoritter
       const users = await LocalData.users.loadDocuments();
       let numberFavourited = 0;
@@ -75,6 +75,7 @@ export const StatsElement = (props: StatsFormProps) => {
           });
         }
       });
+
       setNumberFavourited(numberFavourited);
       setTotalEarnings(totalEarnings);
       setCurrentRentedCount(currentRentedCount);
