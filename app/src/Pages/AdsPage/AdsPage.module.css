@@ -143,5 +143,9 @@
     padding: 12px;
 }
 
+#priceButton:focus{
+    background-color: var(--buttonHoverColor);
+}
+
 
 /* Not responsive yet*/
