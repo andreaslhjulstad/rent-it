@@ -8,7 +8,6 @@ import { UserData } from "../../Data/Users/UserData";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
 import { Firestore } from "@firebase/firestore";
-import { UpdateFavorites } from "../../Data/Users/UpdateFavorites";
 import { getAuth } from "firebase/auth";
 
 export const AdPage = () => {
@@ -56,7 +55,7 @@ export const AdPage = () => {
     }
     let test = getAuth().currentUser?.uid as String
     async function fetchData() {
-      if (await UpdateFavorites.checkForFavorite(ad?.id, test)) {
+      if (await LocalData.users.getFavs(ad?.id, test)) {
       setButtonContent("★");
       }
     }
@@ -98,7 +97,7 @@ export const AdPage = () => {
 
   const addToFavorites = async () => { 
     let test = LocalData.currentUser?.id as string
-    if (await UpdateFavorites.addFavoriteToList(ad?.id, test)) {
+    if (await LocalData.users.addNewFavorite(ad?.id, test)) {
       setButtonContent("★")
     } else {
       setButtonContent("☆")
