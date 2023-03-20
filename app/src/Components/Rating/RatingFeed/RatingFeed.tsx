@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { RatingData } from "../../../Data/Rating/RatingData";
 import { UserData } from "../../../Data/Users/UserData";
+import { DateUtilities } from "../../../Utilities/DateUtilities/DateUtilities";
 import styles from "./RatingFeed.module.css";
 
 interface RatingFeedProps {
@@ -39,7 +40,7 @@ const RatingPost = (props: RatingPostProps) => {
       <div className={styles.postTopContent}>
         <div className={styles.ratingNumber}>{props.rating.ratingNumber}</div>
         <h3>{"Vurdert av: " + ratingUser?.name ?? ""}</h3>
-        <p>{props.rating.date?.toLocaleDateString("no-nb", { day: "2-digit", month: "2-digit", year: "2-digit" }) ?? ""}</p>
+        <p>{DateUtilities.formatDate(props.rating.date)}</p>
       </div>
       <p className={styles.comment}>{props.rating.comment}</p>
     </div>

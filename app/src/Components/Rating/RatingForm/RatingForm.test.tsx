@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { MemoryRouter } from "react-router-dom";
 import UserPage from "../../../Pages/ViewUserPage/UserPage";
 
-describe("RegisterPage", () => {
+describe("RatingForm", () => {
   const setup = async () => {
     render(
       <MemoryRouter>
@@ -23,7 +23,7 @@ describe("RegisterPage", () => {
   });
   test("being able to submit the form to register", () => {
     setup();
-    const submitButton = screen.getByRole("button");
+    const submitButton = screen.getByTestId("send-rating-button");
     expect(submitButton).toBeInTheDocument();
   });
 });

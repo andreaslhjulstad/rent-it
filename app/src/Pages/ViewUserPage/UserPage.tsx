@@ -20,16 +20,16 @@ export const UserPage = () => {
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
+  const navigate = useNavigate();
 
   const isCurrentUser = () => {
     return params.userID === getAuth().currentUser?.uid
   }
 
   useEffect(() => {
-    let doc: any;
     if (params.userID) {
       let id = params.userID;
-      doc = new UserData(id);
+      let doc = new UserData(id);
 
       doc
         .load()
@@ -86,10 +86,10 @@ export const UserPage = () => {
             </div>
             <div className={styles.userPageInfo}>
               <h2 data-testid="userName"> {user?.name} </h2>
-              <p  data-testid="userEmail">
+              <p data-testid="userEmail">
                 E-post: <a href={"mailto:" + user?.email}>{user?.email}</a>{" "}
               </p>
-              <p  data-testid="userPhoneNum">
+              <p data-testid="userPhoneNum">
                 Telefon: <a href={"tel:" + user?.phoneNumber}>{user?.phoneNumber}</a>{" "}
               </p>
             </div>
@@ -122,6 +122,11 @@ export const UserPage = () => {
             </div>
 
           </div>
+          {user?.id === LocalData.currentUser?.id && (
+            <button onClick={() => navigate("/loanHistory")} className={buttonStyles.mainButton}>
+              {"Se historikk over dine leieavtaler >"}
+            </button>
+          )}
         </div>
         <RatingSection user={user!} />
       </div>
