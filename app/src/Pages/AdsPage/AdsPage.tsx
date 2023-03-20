@@ -48,10 +48,11 @@ export const AdsPage = () => {
   useEffect(() => {
     setFilteredAds(
       ads.filter((ad) => ad.title.toLowerCase().includes(search.toLowerCase()))
-    )
+    )  
     if(filters.length > 0) {
+      const searchedAds = ads.filter((ad) => ad.title.toLowerCase().includes(search.toLowerCase()))
       setFilteredAds(
-        ads.filter((ad) => ad.category.some(v => filters.includes(v)))
+        searchedAds.filter((ad) => ad.category.some(v => filters.includes(v)))
       )
     }
   }, [search, filters, ads])

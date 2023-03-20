@@ -20,7 +20,6 @@ export const UserPage = () => {
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
-  const navigate = useNavigate();
 
   const isCurrentUser = () => {
     return params.userID === getAuth().currentUser?.uid
