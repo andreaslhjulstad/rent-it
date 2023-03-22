@@ -59,8 +59,6 @@ export class AdData extends FirebaseData {
         });
       }
       this.getRentedStatus().then(rented => this.isRented = rented); //setter utlån status
-      
-      
     }
   }
 
@@ -75,7 +73,7 @@ export class AdData extends FirebaseData {
 
         const startDate = new Date(loanAgreementData.dateFrom.seconds * 1000);
         const endDate = new Date(loanAgreementData.dateTo.seconds * 1000);
-        if (startDate <= new Date && endDate >= new Date) {
+        if (startDate <= new Date() && endDate >= new Date()) {
           resolve(true);
         }
     

@@ -52,7 +52,7 @@ export const RatingForm = (props: RatingFormProps) => {
         <label>5</label>
       </div>
       <textarea placeholder="Skriv en kommentar" onChange={(e) => setRatingComment(e.target.value)}></textarea>
-      <button className={buttonStyles.mainButton} type="button" onClick={sendRating}>
+      <button data-testid="send-rating-button" className={buttonStyles.mainButton} type="button" onClick={sendRating}>
         Send inn vurdering
       </button>
     </form>
