@@ -1,3 +1,4 @@
+import { where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { StatsElement } from "../../Components/Stats/StatsElement/StatsElement";
@@ -18,13 +19,12 @@ export const StatsPage = () => {
       // Laster inn brukerdata
       userDoc.load().then(() => {
         // Laster inn brukerens tilhørende annonser
-        LocalData.ads.loadDocuments().then((adsCollection) => {
-          setUserAds(
-            adsCollection.documents.filter(
-              (ad) => ad.user?.id === params.userID
-            )
-          );
-        });
+
+        LocalData.ads
+          .loadDocumentsWithFilter([where("userId", "==", params.userID)])
+          .then((adsCollection) => {
+            setUserAds(adsCollection);
+          });
       });
     }
   }, [params.userID]);
