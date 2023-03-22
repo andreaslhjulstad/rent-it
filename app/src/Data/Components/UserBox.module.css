@@ -1,0 +1,49 @@
+#userBox {
+    background-color: var(--infoColor);
+    min-height: 100%;
+    text-align: center;
+    border-radius: 10px;
+    margin: auto;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    margin-top: 10px;
+   
+
+}
+
+#userBox:hover {
+    box-shadow: 3px 3px 7px 0px darkslategrey;
+}
+
+
+#deleteButton {
+    border: none;
+    display: flex;
+    font-weight: 600;
+    background-color: var(--buttonColor);
+    width: 375px;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-self: center;
+    
+}
+
+#deleteButton:hover {
+    background-color: var(--buttonHoverColor);
+}
+
+#userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#link {
+    color: var(--textColor);
+}
+

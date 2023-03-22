@@ -22,6 +22,7 @@ import LoanAgreementPage from "./Pages/LoanAgreement/LoanAgreement";
 import { LocalData } from "./Data/LocalData";
 import { useEffect } from "react";
 import StatsPage from "./Pages/StatsPage/StatsPage";
+import UsersPage from "./Pages/UsersPage/UsersPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -51,6 +52,7 @@ function App() {
             <Route path="/AdsPage" element={<AdsPage />} />
             <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
             <Route path="/loanAgreement" element={<LoanAgreementPage />} />
+            <Route path="/UsersPage" element={<UsersPage />} />
           </Route>
           <Route path="/signIn" element={<SignInPage />} />
           <Route path="/register" element={<RegisterPage />} />

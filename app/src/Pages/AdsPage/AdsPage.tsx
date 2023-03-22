@@ -125,7 +125,9 @@ export const AdsPage = () => {
         {filteredAds.map((ad) => {
           return <AddBox key={ad.id} ad={ad} />;
         })}
+        
       </div>
+      
     </div>
   );
 };
