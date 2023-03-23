@@ -28,9 +28,9 @@ const LoanAgreementHistory = (props: LoanAgreementHistoryProps) => {
         <h3>{ad?.title ?? ""}</h3>
       </Link>
       <p>{"Du leide fra: " + (user?.name ?? "uvisst")}</p>
-      <p>{"Periode: " + DateUtilities.formatDate(props.agreement.dateFrom) + " - " + DateUtilities.formatDate(props.agreement.dateTo) + " (" + DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + " dager)"}</p>
+      <p>{"Periode: " + DateUtilities.formatDate(props.agreement.dateFrom) + " - " + DateUtilities.formatDate(props.agreement.dateTo) + " (" + (DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) + (((DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) > 1) ? " dager)" : " dag)")}</p>
       <p>{"Pris per dag: " + (ad?.price !== undefined ? ad.price + ",-" : "uvisst")}</p>
-      <p className={styles.totalSum}>{"Totalsum: " + (ad?.price !== undefined ? ad.price * DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + ",-" : "uvisst")}</p>
+      <p className={styles.totalSum}>{"Totalsum: " + (ad?.price !== undefined ? ad.price * (DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) + ",-" : "uvisst")}</p>
     </div>
   );
 };
