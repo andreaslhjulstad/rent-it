@@ -22,7 +22,7 @@ export const UsersPage = () => {
     return (
         <div id={styles.usersPage}>
         <Navbar />
-            <div id={styles.usersInfoList}>
+            <div data-testid="userBoxList" id={styles.usersInfoList}>
                 {users.map((user) => {
                     if (user.id !== adminID) {
                         return <UserBox key={user.id} user={user} />;
