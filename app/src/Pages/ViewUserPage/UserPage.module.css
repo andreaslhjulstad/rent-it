@@ -168,3 +168,8 @@ body {
     display: flex;
     gap: 20px;
 }
+
+.userAdsHeader {
+    font-size: 28px;
+    font-weight: 700;
+}
