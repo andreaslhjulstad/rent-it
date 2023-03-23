@@ -86,6 +86,7 @@ export const StatsElement = (props: StatsFormProps) => {
                 <h4>Låneavtaler til nå</h4>
                 <h3>{currentRentedCount}</h3>
               </div>
+              <div id={styles.vl}></div>
               <div className={styles.rentedStat}>
                 <h4>Fremtidige låneavtaler</h4>
                 <h3>{futureRentedCount}</h3>
