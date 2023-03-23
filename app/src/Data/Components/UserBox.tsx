@@ -3,7 +3,7 @@ import styles from "./UserBox.module.css";
 import { UserData } from "../Users/UserData";
 import { useEffect, useState } from "react";
 import { LocalData } from "../LocalData";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, where } from "firebase/firestore";
 import { db } from "../../App";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import { AdData } from "../Ads/AdData";
@@ -17,6 +17,7 @@ interface UserBoxProps {
 export const UserBox = (props: UserBoxProps) => {
     const userLink = "/user/" + props.user.id;
     const [ads, setAds] = useState<AdData[]>([]);
+    const [users, setUsers] = useState<UserData[]>([]);
     const navigate = useNavigate();
 
     //henter ads
@@ -26,16 +27,43 @@ export const UserBox = (props: UserBoxProps) => {
         });
       }, []);
 
-    //sletter først alle ads tilhørende bruker, deretter slettes bruker
+
+    //henter users
+    useEffect(() => {
+    LocalData.users.loadDocuments().then((usersCollection) => {
+        setUsers(usersCollection.documents);
+    });
+    }, []);
+
+    //sletter først alle ratings, deretter alle ads og til slutt slettes bruker
     const deleteUser = async () => {
         const name: string = props.user.name;
         const userAds = ads.filter(ad => ad.user?.id === props.user.id);
+        //Lager liste med promis med ratingene som skal slettes
+        const ratingPromises: Promise<void>[] = [];
+        
+        users.forEach(user => 
+            user.ratings
+            ?.loadDocumentsWithFilter([where("raterUserId", "==", props.user.id)]).then(ratings => {
+        ratings.forEach(rating => {
+            ratingPromises.push(deleteDoc(doc(db, "users", user.id, "ratings", rating.id)));
+        })
+        }))
 
-        const deletePromises = userAds.map(ad => {
+        ads.forEach(ad => ad.ratings?.loadDocumentsWithFilter([where("raterUserId", "==", props.user.id)]).then(ratings => {
+            ratings.forEach(rating => {
+                ratingPromises.push(deleteDoc(doc(db, "ads", ad.id, "ratings", rating.id)));
+            })
+            }))
+
+        const deleteAdPromises = userAds.map(ad => {
             return deleteDoc(doc(db, "ads", ad.id))
         });
 
-        await Promise.all(deletePromises)
+
+        //Bruker promise all så man venter på at alle promisene skal kjøre
+        //bruker concat for å slette alle annonser etter ratingsene er slettet
+        await Promise.all(ratingPromises.concat(deleteAdPromises))
         .then(() => {
             return deleteDoc(doc(db, "users", props.user.id))
         })
