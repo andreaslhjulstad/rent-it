@@ -39,7 +39,7 @@ const RatingPost = (props: RatingPostProps) => {
     <div className={styles.ratingPost}>
       <div className={styles.postTopContent}>
         <div className={styles.ratingNumber}>{props.rating.ratingNumber}</div>
-        <h3>{"Vurdert av: " + ratingUser?.name ?? ""}</h3>
+        <h3>{"Vurdert av: " + (ratingUser?.name ?? "Slettet bruker")}</h3>
         <p>{DateUtilities.formatDate(props.rating.date)}</p>
       </div>
       <p className={styles.comment}>{props.rating.comment}</p>
