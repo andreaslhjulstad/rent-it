@@ -24,7 +24,7 @@ export const RatingSection = (props: RatingSectionProps) => {
     }
   });
 
-  const averageRating = loadedRatings.reduce((a, b) => a + b.ratingNumber, 0) / loadedRatings.length;
+  const averageRating = Math.round((loadedRatings.reduce((a, b) => a + b.ratingNumber, 0) * 10) / loadedRatings.length) / 10;
 
   let canRate;
   if (props.ad) {

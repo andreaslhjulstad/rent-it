@@ -113,11 +113,13 @@ export const UserPage = () => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
             </div>
-            <h3>Favoritt-annonser</h3>
+            {isCurrentUser() ? <h3>Favoritt-annonser</h3> : ""}
             <div data-testid="favoriteAds" className={styles.userAdsList}>
-              {favorites.map((ad) => {
-                return <AddBox key={ad.id} ad={ad} />;
-              })}
+              {isCurrentUser() ? 
+                (favorites.map((ad) => {
+                  return <AddBox key={ad.id} ad={ad} />;
+                })) : ""
+              }
             </div>
           </div>
         </div>

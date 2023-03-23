@@ -114,7 +114,7 @@ export const AdPage = () => {
       </div>
       <div id={styles.adContent}>
         <div className={styles.frameRoot}>
-          <form className={styles.rentItButton} onSubmit={rentIt}>
+          <form className={styles.adForm} onSubmit={rentIt}>
           <div>
           <button id={styles.favoriteButton} type="button" onClick={addToFavorites}><span>{buttonContent}</span></button>
           <img
@@ -141,7 +141,7 @@ export const AdPage = () => {
               </div>
               <div className={styles.CurrentPrice}>
                 <div className={styles.text1}>Pris:</div>
-                <div className={styles.text2}> {ad?.price} </div>
+                <div className={styles.text2}>{ad?.price} kr / dag</div>
               </div>
             </div>
             <button type="submit" className={buttonStyles.rentItButton}>
