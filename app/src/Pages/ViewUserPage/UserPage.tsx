@@ -104,7 +104,7 @@ export const UserPage = () => {
             )}
           </div>
           <div className={styles.userAdsSection}>
-            <h3>{adsHeader}</h3>
+            <h3 className={styles.userAdsHeader}>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
               {userAds.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
