@@ -37,7 +37,7 @@ export const StatsPage = () => {
       <Navbar />
       </div>
       <div data-testid="statsPageContent" className={styles.statsPageContent}>
-        <h1>Statistikk for mine annonser</h1>
+        <h1>Statistikk for dine annonser</h1>
         <div data-testid="adsStatisticsList">
           {userAds.map((ad) => {
             return <StatsElement key={ad.id} ad={ad} />;

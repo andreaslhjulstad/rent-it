@@ -19,6 +19,7 @@ export const UserPage = () => {
   const [userAds, setUserAds] = useState<AdData[]>([]);
   const [favorites, setFavorites] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
+  const [descriptionPronoun, setDescriptionPronoun] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
 
@@ -37,13 +38,15 @@ export const UserPage = () => {
           setUser(doc);
 
           if (isCurrentUser()) {
-            setAdsHeader("Mine annonser");
+            setAdsHeader("Dine annonser");
+            setDescriptionPronoun("Du")
           } else {
             if (doc.name.endsWith("s") || doc.name.endsWith("S")) {
               setAdsHeader(doc.name + " sine annonser");
             } else {
               setAdsHeader(doc.name + "s annonser");
             }
+            setDescriptionPronoun(doc.name);
           }
           if (doc.image) {
             setProfilePicture(doc.image);
@@ -95,7 +98,7 @@ export const UserPage = () => {
           <div className={styles.buttons}>
             {isCurrentUser() ? (
               <button className={buttonStyles.otherButton} onClick={() => navigate(`/user/${params.userID}/stats`)}>
-                Se statistikk for annonser
+                Se statistikk for dine annonser
               </button>
             ) : (
               ""
@@ -107,18 +110,18 @@ export const UserPage = () => {
             )}
           </div>
           <div className={styles.userAdsSection}>
-            <h3>{adsHeader}</h3>
+            <h3 className={styles.userAdsHeader}>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
-              {userAds.map((ad) => {
+              {(userAds.length > 0) ? userAds.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
-              })}
+              }) : `${descriptionPronoun} har ikke lagt ut noen annonser enda.`}
             </div>
             {isCurrentUser() ? <h3>Favoritt-annonser</h3> : ""}
             <div data-testid="favoriteAds" className={styles.userAdsList}>
-              {isCurrentUser() ? 
+              {isCurrentUser() ? ((favorites.length > 0) ?
                 (favorites.map((ad) => {
                   return <AddBox key={ad.id} ad={ad} />;
-                })) : ""
+                })) : `${descriptionPronoun} har ikke markert noen annonser som favoritt enda.`) : ""
               }
             </div>
           </div>
