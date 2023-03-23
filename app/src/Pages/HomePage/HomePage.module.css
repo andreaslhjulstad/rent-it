@@ -65,3 +65,64 @@
 #loanInfoDiv div {
     display: flex;
 }
+
+@media screen and (max-width: 1200px) {
+    #infoDivs #pageInfoDiv, #adInfoDiv, #loanInfoDiv {
+        margin: auto;
+        margin-bottom: 15px;
+        width: 70vw;
+    }
+    
+    #infodivs {
+        margin-left: 4vw;
+        margin-right: 4vw;
+    }
+
+    #infodivs img {
+        height: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #infoDivs #pageInfoDiv, #adInfoDiv, #loanInfoDiv {
+        margin: auto;
+        margin-bottom: 15px;
+        width: 90vw;
+    }
+    
+    #infodivs {
+        margin-left: 0vw;
+        margin-right: 0vw;
+    }
+
+    #infodivs img {
+        height: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #pageInfoDiv div {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    #loanInfoDiv div {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    #adInfoDiv div {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    #adInfoDiv img {
+        margin-top: 0px;
+    }
+    #loanInfoDiv img {
+        margin-top: 0px;
+    }
+    #pageInfoDiv img {
+        margin-top: 0px;
+    }
+}

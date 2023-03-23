@@ -15,6 +15,7 @@ import { db } from "../../App";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { UserData } from "../../Data/Users/UserData";
 import { AdData } from "../../Data/Ads/AdData";
+import Footer from "../../Components/Footer/Footer";
 
 export const LoanAgreementPage = () => {
   const params = useParams();
@@ -188,7 +189,9 @@ export const LoanAgreementPage = () => {
 
   return (
     <div>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div className={styles.loanAgreementContent}>
         <h1>Inngå en Låneavtale</h1>
         <form className={styles.loanAgreementForm} onSubmit={loanAgreement}>
@@ -256,6 +259,7 @@ export const LoanAgreementPage = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import Navbar from "../../Data/Components/navbar/Navbar";
 import { LocalData } from "../../Data/LocalData";
 import styles from "./AdsPage.module.css";
 import globalStyles from "../../GlobalStyling/Buttons.module.css";
+import Footer from "../../Components/Footer/Footer";
 
 
 export const AdsPage = () => {
@@ -58,7 +59,9 @@ export const AdsPage = () => {
 
   return (
     <div id={styles.homePage}>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div id={styles.filterDiv}>
         <div id={styles.flexDiv}>
           <input data-testid="searchBar" id={styles.search} type="text" placeholder="search..." onChange={(e) => setSearch(e.target.value)} />
@@ -126,6 +129,7 @@ export const AdsPage = () => {
           return <AddBox key={ad.id} ad={ad} />;
         })}
       </div>
+      <Footer />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { LocalData } from "../../Data/LocalData";
 import { updateDoc } from "firebase/firestore";
 import Navbar from "../../Data/Components/navbar/Navbar";
+import Footer from "../../Components/Footer/Footer";
 
 const CreateAdPage = () => {
   const firstRender = useRef(true); // Brukes for å hindre at useEffect-metoden for feilmelding kjører på første render
@@ -128,7 +129,9 @@ const CreateAdPage = () => {
 
   return (
     <div id={styles.createAdPage}>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div className={styles.createAdContent}>
         <h1>Opprett en annonse</h1>
         <form className={styles.createAdForm} onSubmit={createAd}>
@@ -216,6 +219,7 @@ const CreateAdPage = () => {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { getAuth } from "firebase/auth";
 import AddBox from "../../Data/Components/AddBox";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
+import Footer from "../../Components/Footer/Footer";
 
 export const UserPage = () => {
   const navigate = useNavigate();
@@ -71,7 +72,9 @@ export const UserPage = () => {
 
   return (
     <div>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div className={styles.userPageContent}>
         <div data-testid="userContent" className={styles.userContent}>
           <h1>Brukerprofil</h1>
@@ -120,6 +123,7 @@ export const UserPage = () => {
         </div>
         <RatingSection user={user!} />
       </div>
+      <Footer />
     </div>
   );
 };
