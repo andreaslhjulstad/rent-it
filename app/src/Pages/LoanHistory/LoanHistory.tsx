@@ -1,6 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import Footer from "../../Components/Footer/Footer";
 import LoanAgreementHistory from "../../Components/LoanAgreements/LoanAgreementHistory/LoanAgreementHistory";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { LoanAgreementData } from "../../Data/LoanAgreements/LoanAgreementData";
@@ -26,7 +27,9 @@ const LoanHistory = () => {
   }, []);
   return (
     <div>
-      <Navbar />
+    <div style={{paddingBottom: "80px"}}>
+    <Navbar />
+    </div>
       <div id={styles.mainContainer}>
         <h1>Din lånehistorikk</h1>
         {loanAgreements.map((agreement) => {

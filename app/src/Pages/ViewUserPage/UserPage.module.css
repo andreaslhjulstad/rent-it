@@ -15,13 +15,25 @@ body {
 .userPageContent {
     display: flex;
     flex-direction: row;
+    width: 80vw;
+    margin: 4vh auto;
+}
+
+@media all and (max-width: 800px) {
+    .userPageContent {
+        flex-direction: column;
+    }
+
+    .userContent {
+        margin-bottom: 6vh;
+        width: 100%;
+    }
 }
 
 .userContent {
-    width: 40%; /* 500px */
-    max-width: 100%;
-    padding: 40px;
-    margin: 4vh auto;
+    min-width: 400px;
+    flex-grow: 2;
+    padding: 2vw;
     background-color: var(--infoColor);
     border-radius: 10px;
     display: flex;
@@ -155,4 +167,9 @@ body {
 .buttons {
     display: flex;
     gap: 20px;
+}
+
+.userAdsHeader {
+    font-size: 28px;
+    font-weight: 700;
 }

@@ -1,6 +1,9 @@
 #navBar{
     margin: none;
-    margin-bottom: 20px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 3;
 }
 
 #navList{
@@ -15,8 +18,6 @@
 #navList li{
     padding-top: 20px;
     font-size: 18px;
-
-
 }
 
 #navList div{
@@ -38,8 +39,6 @@
     padding-bottom: 20px;
     padding-top: 20px;
     margin-top: -20px;
-
-
 }
 
 
@@ -81,4 +80,45 @@
 
 #navBar li:hover{
     background-color: var(--adColor);
+}
+
+@media screen and (max-width: 800px) {
+    #navList> *:first-child {
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: -10px;
+        padding: 20px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    #darkMode {
+        background-color: transparent;
+        color: white;
+        font-size: 14px;
+        border: none;
+        margin-left: auto;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        margin-top: -20px;
+    }
+
+    #navList li{
+        padding-top: 20px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    #logOut {
+        background-color: transparent;
+        border: none;
+        font-size: 14px;
+        color: white;
+        padding-top: 20px;
+        margin-top: -20px;
+        padding-bottom: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        cursor: pointer;
+    }
 }

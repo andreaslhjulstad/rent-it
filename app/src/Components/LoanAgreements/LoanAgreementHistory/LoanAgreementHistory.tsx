@@ -12,26 +12,25 @@ interface LoanAgreementHistoryProps {
 
 const LoanAgreementHistory = (props: LoanAgreementHistoryProps) => {
   const [ad, setAd] = useState<AdData | undefined>(props.agreement.ad);
-  const [renter, setRenter] = useState<UserData | undefined>(props.agreement.renter);
+  const [user, setUser] = useState<UserData | undefined>(props.agreement.user);
 
   useEffect(() => {
     if (!props.agreement.ad?.loaded) {
       props.agreement.ad?.load().then((ad) => setAd(ad));
     }
-    if (!props.agreement.renter?.loaded) {
-      props.agreement.renter?.load().then((renter) => setRenter(renter));
+    if (!props.agreement.user?.loaded) {
+      props.agreement.user?.load().then((renter) => setUser(renter));
     }
   }, [props.agreement]);
-
   return (
     <div className={styles.loanAgreement}>
       <Link to={ad ? "/ad/" + ad.id : "/AdsPage"}>
         <h3>{ad?.title ?? ""}</h3>
       </Link>
-      <p>{"Du leide fra: " + (renter?.name ?? "uvisst")}</p>
-      <p>{"Periode: " + DateUtilities.formatDate(props.agreement.dateFrom) + " - " + DateUtilities.formatDate(props.agreement.dateTo) + " (" + DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + " dager)"}</p>
-      <p>{"Pris per dag: " + (props.agreement.price ?? "uvisst")}</p>
-      <p>{"Totalsum: " + (props.agreement.price ? props.agreement.price * DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) : "uvisst")}</p>
+      <p>{"Du leide fra: " + (user?.name ?? "uvisst")}</p>
+      <p>{"Periode: " + DateUtilities.formatDate(props.agreement.dateFrom) + " - " + DateUtilities.formatDate(props.agreement.dateTo) + " (" + (DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) + (((DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) > 1) ? " dager)" : " dag)")}</p>
+      <p>{"Pris per dag: " + (ad?.price !== undefined ? ad.price + ",-" : "uvisst")}</p>
+      <p className={styles.totalSum}>{"Totalsum: " + (ad?.price !== undefined ? ad.price * (DateUtilities.daysBetween(props.agreement.dateFrom, props.agreement.dateTo) + 1) + ",-" : "uvisst")}</p>
     </div>
   );
 };

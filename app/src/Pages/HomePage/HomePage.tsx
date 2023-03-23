@@ -1,6 +1,7 @@
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import styles from "./HomePage.module.css";
 
@@ -26,7 +27,9 @@ export const HomePage = () => {
 
   return (
     <div id={styles.HomePage}>
-        <Navbar />
+      <div style={{paddingBottom: "80px"}}>
+      <Navbar />
+      </div>
         <div id={styles.infoDivs}>
           <div id={styles.pageInfoDiv}>
             <h1>Hva er RentIt</h1>
@@ -62,6 +65,7 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
+        <Footer />
     </div>
   )
 };

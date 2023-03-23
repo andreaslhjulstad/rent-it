@@ -1,6 +1,7 @@
 import { where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
 import { StatsElement } from "../../Components/Stats/StatsElement/StatsElement";
 import { AdData } from "../../Data/Ads/AdData";
 import Navbar from "../../Data/Components/navbar/Navbar";
@@ -31,9 +32,11 @@ export const StatsPage = () => {
 
   return (
     <div>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div data-testid="statsPageContent" className={styles.statsPageContent}>
-        <h1>Statistikk for mine annonser</h1>
+        <h1>Statistikk for dine annonser</h1>
         <div data-testid="adsStatisticsList">
           {userAds.map((ad) => {
             return <StatsElement key={ad.id} ad={ad} />;

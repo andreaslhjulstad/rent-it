@@ -9,6 +9,7 @@ import Navbar from "../../Data/Components/navbar/Navbar";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
 import { Firestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
+import Footer from "../../Components/Footer/Footer";
 
 export const AdPage = () => {
   const navigate = useNavigate();
@@ -97,10 +98,12 @@ export const AdPage = () => {
 
   return (
     <div id={styles.adPage}>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div id={styles.adContent}>
         <div className={styles.frameRoot}>
-          <form className={styles.rentItButton} onSubmit={rentIt}>
+          <form className={styles.adForm} onSubmit={rentIt}>
           <div>
           <button id={styles.favoriteButton} type="button" onClick={addToFavorites}><span>{buttonContent}</span></button>
           <img
@@ -127,7 +130,7 @@ export const AdPage = () => {
               </div>
               <div className={styles.CurrentPrice}>
                 <div className={styles.text1}>Pris:</div>
-                <div className={styles.text2}> {ad?.price} </div>
+                <div className={styles.text2}>{ad?.price} kr / dag</div>
               </div>
             </div>
             <button type="submit" className={buttonStyles.rentItButton}>
@@ -144,6 +147,7 @@ export const AdPage = () => {
         </div>
         <RatingSection ad={ad ?? undefined} />
         </div>
+        <Footer />
     </div>
   );
 };

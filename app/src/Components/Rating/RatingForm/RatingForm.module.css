@@ -4,3 +4,11 @@
     border-radius: 10px;
     padding: 30px 40px;
 }
+
+#ratingForm textarea {
+    height: 8vh;
+    margin: 2vh 0;
+    width: calc(100% - 4vw);
+    border-radius: 10px;
+    padding: 2vh 2vw;
+}

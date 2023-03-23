@@ -35,12 +35,17 @@
   max-height: 200px;
 }
 
+.statsSection hr{
+  margin: 5px;
+}
+
 .statsList {
   background-color: var(--infoColor);
   border-radius: 10px;
   padding: 1px 20px;
-  width: 400px;
+  width: 300px;
   height: 200px;
+  margin-left: 10px;
 }
 
 .statsList > li {
@@ -71,11 +76,18 @@
 
 .rentedStats {
   display: flex;
-  gap: 40px;
+  gap: 30px;
+  font-size: 14px;
 }
 
 .rentedStat {
   display: flex;
+}
+
+#vl {
+  margin-top: 14px;
+  border-left: 1.5px inset white;
+  height: 50px;
 }
 
 .rentedStat > h3 {

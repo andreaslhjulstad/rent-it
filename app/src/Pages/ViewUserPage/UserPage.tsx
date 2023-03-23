@@ -10,6 +10,7 @@ import { getAuth, linkWithRedirect } from "firebase/auth";
 import AddBox from "../../Data/Components/AddBox";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
+import Footer from "../../Components/Footer/Footer";
 
 export const UserPage = () => {
   const navigate = useNavigate();
@@ -18,13 +19,14 @@ export const UserPage = () => {
   const [userAds, setUserAds] = useState<AdData[]>([]);
   const [favorites, setFavorites] = useState<AdData[]>([]);
   const [adsHeader, setAdsHeader] = useState("");
+  const [descriptionPronoun, setDescriptionPronoun] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
   let adminID: string = "jh02wt57FvX8sbb6oxV0eK2Htbq1";
 
   const isCurrentUser = () => {
-    return params.userID === getAuth().currentUser?.uid
-  }
+    return params.userID === getAuth().currentUser?.uid;
+  };
 
   const isAdmin = () => {
     return params.userID === adminID
@@ -41,35 +43,33 @@ export const UserPage = () => {
           setUser(doc);
 
           if (isCurrentUser()) {
-            setAdsHeader("Mine annonser");
+            setAdsHeader("Dine annonser");
+            setDescriptionPronoun("Du")
           } else {
             if (doc.name.endsWith("s") || doc.name.endsWith("S")) {
               setAdsHeader(doc.name + " sine annonser");
             } else {
               setAdsHeader(doc.name + "s annonser");
             }
+            setDescriptionPronoun(doc.name);
           }
           if (doc.image) {
             setProfilePicture(doc.image);
           }
           const allAds = await LocalData.ads.loadDocuments();
           setUserAds(allAds.documents.filter((ad) => ad.user?.id === doc.id));
-          console.log(
-            allAds.documents
-              .filter((ad) => ad.user?.id === doc.id)
-              .map((ad) => ad.isRented)
-          );
+          console.log(allAds.documents.filter((ad) => ad.user?.id === doc.id).map((ad) => ad.isRented));
         })
         .catch((error: any) => {
           console.log(error);
         });
 
-        doc
+      doc
         .load()
         .then(async () => {
           console.log(doc);
           setUser(doc);
-          const fav = await LocalData.ads.loadDocuments()
+          const fav = await LocalData.ads.loadDocuments();
           setFavorites(fav.documents.filter((ad) => doc.favorites.includes(ad.id)));
         })
         .catch((error: any) => {
@@ -82,13 +82,15 @@ export const UserPage = () => {
 
   return (
     <div>
+      <div style={{paddingBottom: "80px"}}>
       <Navbar />
+      </div>
       <div className={styles.userPageContent}>
         <div data-testid="userContent" className={styles.userContent}>
           <h1>Brukerprofil</h1>
           <div className={styles.userInfo}>
             <div className={styles.image}>
-                <img data-testid="userPicture" src={profilePicture} alt={"Bruker"}/>
+              <img data-testid="userPicture" src={profilePicture} alt={"Bruker"} />
             </div>
             <div className={styles.userPageInfo}>
               <h2 data-testid="userName"> {user?.name} </h2>
@@ -102,16 +104,17 @@ export const UserPage = () => {
           </div>
           <div className={styles.buttons}>
             {isCurrentUser() ? (
-              <button
-                className={buttonStyles.otherButton}
-                onClick={() => navigate(`/user/${params.userID}/stats`)}
-              >
-                Se statistikk for annonser
+              <button className={buttonStyles.otherButton} onClick={() => navigate(`/user/${params.userID}/stats`)}>
+                Se statistikk for dine annonser
               </button>
             ) : (
               ""
             )}
-            {/* TODO: legg inn knapp til historikk-side her */}
+            {user?.id === LocalData.currentUser?.id && (
+              <button onClick={() => navigate("/loanHistory")} className={buttonStyles.otherButton}>
+                {"Se historikk over dine leieavtaler"}
+              </button>
+            )}
           </div>
           <div className={styles.UserInfoIfAdmin}>
             {isAdmin() && (
@@ -123,27 +126,25 @@ export const UserPage = () => {
             )}
           </div>
           <div className={styles.userAdsSection}>
-            <h3>{adsHeader}</h3>
+            <h3 className={styles.userAdsHeader}>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
-              {userAds.map((ad) => {
+              {(userAds.length > 0) ? userAds.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
-              })}
+              }) : `${descriptionPronoun} har ikke lagt ut noen annonser enda.`}
             </div>
-              <h3>Favoritt anonser</h3>
-            <div  data-testid="favoriteAds" className={styles.userAdsList}>
-              {favorites.map((ad) => {
-                return <AddBox key={ad.id} ad={ad} />;
-              })}
+            {isCurrentUser() ? <h3>Favoritt-annonser</h3> : ""}
+            <div data-testid="favoriteAds" className={styles.userAdsList}>
+              {isCurrentUser() ? ((favorites.length > 0) ?
+                (favorites.map((ad) => {
+                  return <AddBox key={ad.id} ad={ad} />;
+                })) : `${descriptionPronoun} har ikke markert noen annonser som favoritt enda.`) : ""
+              }
             </div>
           </div>
-          {user?.id === LocalData.currentUser?.id && (
-            <button onClick={() => navigate("/loanHistory")} className={buttonStyles.mainButton}>
-              {"Se historikk over dine leieavtaler >"}
-            </button>
-          )}
         </div>
         <RatingSection user={user!} />
       </div>
+      <Footer />
     </div>
   );
 };
