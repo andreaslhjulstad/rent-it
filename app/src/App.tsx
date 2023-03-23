@@ -23,6 +23,7 @@ import { LocalData } from "./Data/LocalData";
 import { useEffect } from "react";
 import LoanHistory from "./Pages/LoanHistory/LoanHistory";
 import StatsPage from "./Pages/StatsPage/StatsPage";
+import UsersPage from "./Pages/UsersPage/UsersPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdvWFVFTikj7-DewtKjoms8TJfByKEmPE",
@@ -38,24 +39,25 @@ export const db = getFirestore(app);
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<RequireAuth />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/createAd" element={<CreateAdPage />} />
-          <Route path="/ad/:adID" element={<AdPage />} />
-          <Route path="/user/:userID" element={<UserPage />} />
-          <Route path="/user/:userID/stats" element={<StatsPage />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/AdsPage" element={<AdsPage />} />
-          <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
-          <Route path="/loanAgreement" element={<LoanAgreementPage />} />
-          <Route path="/loanHistory" element={<LoanHistory />} />
-        </Route>
-        <Route path="/signIn" element={<SignInPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/createAd" element={<CreateAdPage />} />
+            <Route path="/ad/:adID" element={<AdPage />} />
+            <Route path="/user/:userID" element={<UserPage />} />
+            <Route path="/user/:userID/stats" element={<StatsPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/AdsPage" element={<AdsPage />} />
+            <Route path="/loanAgreement/:adID" element={<LoanAgreementPage />} />
+            <Route path="/loanAgreement" element={<LoanAgreementPage />} />
+            <Route path="/loanHistory" element={<LoanHistory />} />
+            <Route path="/UsersPage" element={<UsersPage />} />
+          </Route>
+          <Route path="/signIn" element={<SignInPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 export default App;

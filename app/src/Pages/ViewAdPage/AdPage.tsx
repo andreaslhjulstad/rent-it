@@ -17,6 +17,7 @@ export const AdPage = () => {
   const [user, setUser] = useState<UserData | null>(null);
   const userLink = "/user/" + user?.id;
   const [buttonContent, setButtonContent] = useState("☆")
+  let adminID: string = "jh02wt57FvX8sbb6oxV0eK2Htbq1";
 
   useEffect(() => {
     // Velger standard eiendom om pId er i URL
@@ -83,17 +84,6 @@ export const AdPage = () => {
     }
   };
 
-  /* useEffect(() => {
-    let test = getAuth().currentUser?.uid as String
-    async function fetchData() {
-      if (await UpdateFavorites.checkForFavorite(ad?.id, test)) {
-      setButtonContent("★")
-      console.log("yeees")
-      }
-    }
-    fetchData();
-    fetchData();
-  },[]); */
 
   const addToFavorites = async () => { 
     let test = LocalData.currentUser?.id as string
@@ -143,9 +133,9 @@ export const AdPage = () => {
             <button type="submit" className={buttonStyles.rentItButton}>
               Rent it
             </button>
-            {LocalData.currentUser?.id === user?.id && (
+            {(LocalData.currentUser?.id === user?.id || LocalData.currentUser?.id === adminID) && (
               <div className={styles.adminSettings}>
-                <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton + " " + styles.deleteButton}>
+                <button type="button" onClick={deleteAd} className={buttonStyles.rentItButton} id={styles.deleteButton}>
                   Slett annonse
                 </button>
               </div>

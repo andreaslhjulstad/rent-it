@@ -1,0 +1,11 @@
+#usersPage {
+    background-color: var(--backgroundColor);
+    min-height: 100vh;
+}
+
+#usersInfoPage {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    color: var(--textColor);
+    background-color: var(--backgroundColor);
+}

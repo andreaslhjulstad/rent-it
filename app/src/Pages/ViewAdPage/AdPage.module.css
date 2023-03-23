@@ -124,10 +124,10 @@
     align-items: flex-end;
 }
 
-.deleteButton {
+#deleteButton {
     background-color: var(--requiredRed);
 }
 
-.deleteButton:hover {
+#deleteButton:hover {
     background-color: rgb(247, 105, 105);
 }

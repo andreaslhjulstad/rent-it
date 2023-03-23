@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserPage.module.css";
 import buttonStyles from "../../GlobalStyling/Buttons.module.css";
 import defaultImage from "./unknown-default-profile.png";
 import Navbar from "../../Data/Components/navbar/Navbar";
 import { UserData } from "../../Data/Users/UserData";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RatingSection from "../../Components/Rating/RatingSection/RatingSection";
-import { getAuth } from "firebase/auth";
+import { getAuth, linkWithRedirect } from "firebase/auth";
 import AddBox from "../../Data/Components/AddBox";
 import { LocalData } from "../../Data/LocalData";
 import { AdData } from "../../Data/Ads/AdData";
@@ -20,9 +20,14 @@ export const UserPage = () => {
   const [adsHeader, setAdsHeader] = useState("");
   const params = useParams();
   const [profilePicture, setProfilePicture] = useState(defaultImage);
+  let adminID: string = "jh02wt57FvX8sbb6oxV0eK2Htbq1";
 
   const isCurrentUser = () => {
     return params.userID === getAuth().currentUser?.uid
+  }
+
+  const isAdmin = () => {
+    return params.userID === adminID
   }
 
   useEffect(() => {
@@ -73,6 +78,8 @@ export const UserPage = () => {
     }
   }, [params.userID]);
 
+
+
   return (
     <div>
       <Navbar />
@@ -106,6 +113,15 @@ export const UserPage = () => {
             )}
             {/* TODO: legg inn knapp til historikk-side her */}
           </div>
+          <div className={styles.UserInfoIfAdmin}>
+            {isAdmin() && (
+              <Link to="/usersPage" style={{ textDecoration: "none" }}>
+              <button type="submit" className={buttonStyles.usersButton}>
+                Oversikt over RentIt brukere
+              </button>
+              </Link>
+            )}
+          </div>
           <div className={styles.userAdsSection}>
             <h3>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
@@ -119,7 +135,6 @@ export const UserPage = () => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
             </div>
-
           </div>
           {user?.id === LocalData.currentUser?.id && (
             <button onClick={() => navigate("/loanHistory")} className={buttonStyles.mainButton}>
