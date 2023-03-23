@@ -24,8 +24,8 @@ export const AddBox = (props: AddBoxProps) => {
   return (
     <div id={props.ad.id}>
       <Link style={{ textDecoration: "none" }} to={adLink}>
-        <div id={isRented ?  styles.rentedAddBox : styles.addBox}>
-          <img src={image} alt="" />
+        <div id={styles.addBox}>
+          <img id={props.ad.isRented ?  styles.rentedImage : styles.image} src={image} alt="" />
           <div id={styles.priceDiv}>
             <p id={styles.price}>{props.ad.price} kr</p>
           </div>
@@ -34,6 +34,8 @@ export const AddBox = (props: AddBoxProps) => {
             <p id={styles.area}>{props.ad.area}</p>
             <h2>{props.ad.title}</h2>
           </div>
+          {props.ad.isRented ? <p id={styles.rented}> Utiligjengelig nå, men mulig å inngå leieavtale</p> : <p></p>}
+          
         </div>
       </Link>
     </div>
