@@ -104,17 +104,19 @@ export const UserPage = () => {
             )}
           </div>
           <div className={styles.userAdsSection}>
-            <h3 className={styles.userAdsHeader}>{adsHeader}</h3>
+            <h3>{adsHeader}</h3>
             <div data-testid="userAdsList" className={styles.userAdsList}>
               {userAds.map((ad) => {
                 return <AddBox key={ad.id} ad={ad} />;
               })}
             </div>
-            <h3>Favoritt-annonser</h3>
+            {isCurrentUser() ? <h3>Favoritt-annonser</h3> : ""}
             <div data-testid="favoriteAds" className={styles.userAdsList}>
-              {favorites.map((ad) => {
-                return <AddBox key={ad.id} ad={ad} />;
-              })}
+              {isCurrentUser() ? 
+                (favorites.map((ad) => {
+                  return <AddBox key={ad.id} ad={ad} />;
+                })) : ""
+              }
             </div>
           </div>
         </div>
