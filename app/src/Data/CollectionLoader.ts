@@ -111,7 +111,6 @@ export default class CollectionLoader<T extends FirebaseData> {
    */
   createNewDocumentWithoutId(value: object) {
     return new Promise<DocumentReference>((resolve, reject) => {
-      console.log(this.path);
       addDoc(collection(db, this.path), value)
         .then((docRef) => {
           resolve(docRef);
@@ -143,7 +142,6 @@ export default class CollectionLoader<T extends FirebaseData> {
     let id = userId as string;
     const user = await (await getDoc(doc(db, "users", id))).data();
     const fav = user?.favorites;
-    console.log(adId);
     if(fav.includes(adId as string)) {
       return true
     } 

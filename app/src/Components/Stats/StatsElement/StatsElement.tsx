@@ -60,8 +60,9 @@ export const StatsElement = (props: StatsFormProps) => {
           totalEarnings += pricePerDay * days;
           currentRentedCount++;
         });
+        const futureRentedCount = allRentedCount  - currentRentedCount;
+        setFutureRentedCount(futureRentedCount);
       })
-      const futureRentedCount = allRentedCount  - currentRentedCount;
       
       // Finner adID i favorites-field under user i Firebase og teller antall som har den i sine favoritter
       const users = await LocalData.users.loadDocuments();
@@ -79,7 +80,6 @@ export const StatsElement = (props: StatsFormProps) => {
       setNumberFavourited(numberFavourited);
       setTotalEarnings(totalEarnings);
       setCurrentRentedCount(currentRentedCount);
-      setFutureRentedCount(futureRentedCount);
     };
     calculateStats();
   }, [props.ad, props.ad?.id, props.ad?.price]);
