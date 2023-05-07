@@ -7,6 +7,6 @@ ved at verktøy gjenbrukes i stedet for at en er nødt til å gjøre stadige nyi
 Plattformen er designet for å være lettvint og enkel å sette seg inn i.  
 Den har funksjonalitet for bruker- og annonse-oppretting, en oversiktlig side for annonse-tilbud med muligheter for søk og filtrering,  
 funksjonalitet for å legge igjen vurderinger for brukere man har leid fra og annonser man har leid.  
-I tilleg tilbyr den mulighet for å lagre annonser i en favorittliste og se historikk over annonser man har leid og statistikk for egne annonser.
+I tillegg tilbyr den mulighet for å lagre annonser i en favorittliste og se historikk over annonser man har leid og statistikk for egne annonser.
 
 Plattformen benytter seg av sikker, rask og skalerbar datalagring i Google Cloud med Firebase.
